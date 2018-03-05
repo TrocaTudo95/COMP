@@ -37,3 +37,8 @@
 | <#DIGIT: ["0"-"9"]>
 | <STRING: "\"" (["a"-"z","A"-"Z","0"-"9",":"," ","="])+ "\"">
 }
+
+void Module() : {}
+{
+  <MODULE> <ID> <LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
+}
