@@ -42,3 +42,8 @@ void Module() : {}
 {
   <MODULE> <ID> <LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
 }
+
+void Declaration() : {}
+{
+  (ArrayElement | ScalarElement) (<ASSIGN>(("[" ArraySize"]") | (<ADDSUB_OP>)?<INTEGER>))? <PVIRG>
+}
