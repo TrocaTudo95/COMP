@@ -1,3 +1,14 @@
+PARSER_BEGIN(Parse_grammar)
+// código Java que invoca o parser
+public class Parse_grammar {
+ public static void main(String args[]) throws ParseException {
+ Parse_grammar parser = new Parse_grammar(System.in);
+ parser.Module();
+ }
+}
+PARSER_END(Parse_grammar)
+
+
 <DEFAULT> SKIP : {
 " "
 | "\t"
