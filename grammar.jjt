@@ -1,12 +1,18 @@
-PARSER_BEGIN(Parse_grammar)
+options
+{
+  LOOKAHEAD=2;
+}
+
+PARSER_BEGIN(grammar)
 // código Java que invoca o parser
-public class Parse_grammar {
+public class grammar {
  public static void main(String args[]) throws ParseException {
- Parse_grammar parser = new Parse_grammar(System.in);
- parser.Module();
+ grammar parser = new grammar(System.in);
+ SimpleNode root = parser.Module();
+ root.dump("");
  }
 }
-PARSER_END(Parse_grammar)
+PARSER_END(grammar)
 
 
 <DEFAULT> SKIP : {
@@ -49,25 +55,29 @@ PARSER_END(Parse_grammar)
 | <STRING: "\"" (["a"-"z","A"-"Z","0"-"9",":"," ","="])+ "\"">
 }
 
-void Module() : {}
+SimpleNode Module() : {}
 {
   <MODULE> <ID> <LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
+  {
+    return jjtThis;
+  }
 }
 
 void Declaration() : {}
 {
-  (ArrayElement() | ScalarElement()) (<ASSIGN>(("[" ArraySize() "]") | (<ADDSUB_OP>)?<INTEGER>))? <PVIRG>
+  <ID>(ArrayElementwoID() | ScalarElementwoID()) (<ASSIGN>(("[" ArraySize() "]") | (<ADDSUB_OP>)?<INTEGER>))? <PVIRG>
 }
 
 void Function() : {}
 {
-( ( <FUNCTION> ( ArrayElement() | ScalarElement() ) <ASSIGN> <ID>
-<LPAR> ( Varlist() )? <RPAR> ) | ( <FUNCTION> <ID> <LPAR> ( Varlist())? <RPAR> ) ) <LCHAVETA> Stmtlst() <RCHAVETA>
+  <FUNCTION> <ID>
+( ( (ArrayElementwoID() | ScalarElementwoID()) <ASSIGN> <ID> <LPAR> ( Varlist() )? <RPAR> )
+ | ( <LPAR> ( Varlist())? <RPAR> ) ) <LCHAVETA> Stmtlst() <RCHAVETA>
 }
 
-void VarList() : {}
+void Varlist() : {}
 {
-( ArrayElement() | ScalarElement() ) ( <VIRG> ( ArrayElement() | ScalarElement()) )*
+<ID>(ArrayElementwoID() | ScalarElementwoID()) ( <VIRG> <ID>(ArrayElementwoID() | ScalarElementwoID()) )*
 }
 
 void ArrayElement() : {}
@@ -75,9 +85,19 @@ void ArrayElement() : {}
 <ID> "[" "]"
 }
 
+void ArrayElementwoID() : {}
+  {
+    "[" "]"
+  }
+
 void ScalarElement() : {}
 {
 <ID>
+}
+
+void ScalarElementwoID() #void : {}
+{
+{System.out.println("ScalarElement");}
 }
 
 void Stmtlst() : {}
@@ -87,7 +107,12 @@ void Stmtlst() : {}
 
 void Stmt() : {}
 {
+  try(){
 While() | If() | Assign() | Call() <PVIRG>
+}
+catch(ParseException e){
+  error_skipto(PVIRG);
+}
 }
 
 void Assign() : {}
@@ -97,7 +122,8 @@ Lhs() <ASSIGN> Rhs() <PVIRG>
 
 void Lhs() : {}
 {
-ArrayAccess() | ScalarAccess()
+  <ID>
+(ArrayAccesswoID() | ScalarAccesswoID())
 }
 
 void Rhs() : {}
@@ -153,6 +179,16 @@ void ArrayAccess() : {}
 void ScalarAccess() : {}
 {
 <ID> ( "." <SIZE> )?
+}
+
+void ArrayAccesswoID() : {}
+{
+ "[" Index() "]"
+}
+
+void ScalarAccesswoID() : {}
+{
+ ( "." <SIZE> )?
 }
 
 void Index() : {}
