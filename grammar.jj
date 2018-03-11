@@ -288,7 +288,12 @@ void Stmt() : {/*@bgen(jjtree) Stmt */
 {/*@bgen(jjtree) Stmt */
 try {
 /*@egen*/
-While() | If() | Assign() | Call() <PVIRG>/*@bgen(jjtree)*/
+try{
+While() | If() | Assign() | Call() <PVIRG>
+}
+catch(ParseException e){
+  error_skipto(PVIRG);
+}/*@bgen(jjtree)*/
 } catch (Throwable jjte000) {
   if (jjtc000) {
     jjtree.clearNodeScope(jjtn000);

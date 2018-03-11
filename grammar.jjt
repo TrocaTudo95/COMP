@@ -107,7 +107,7 @@ void Stmtlst() : {}
 
 void Stmt() : {}
 {
-  try(){
+try{
 While() | If() | Assign() | Call() <PVIRG>
 }
 catch(ParseException e){
