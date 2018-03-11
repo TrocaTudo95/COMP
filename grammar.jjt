@@ -163,7 +163,15 @@ void Exprtest() : {}
 
 void While() : {}
 {
-<WHILE> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>
+    try{
+    <WHILE> Exprtest() <LCHAVETA>
+    }
+    catch(ParseException ex){
+      System.out.println("Catch While");
+      error_skipto(LCHAVETA);
+    }
+    Stmtlst() <RCHAVETA>
+
 }
 
 void If() : {}
