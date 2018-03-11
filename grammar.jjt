@@ -55,6 +55,15 @@ PARSER_END(grammar)
 | <STRING: "\"" (["a"-"z","A"-"Z","0"-"9",":"," ","="])+ "\"">
 }
 
+void error_skipto(int kind) {
+  ParseException e = generateParseException();  // generate the exception object.
+  System.out.println(e.toString());  // print the error message
+  Token t;
+  do {
+    t = getNextToken();
+  } while (t.kind != kind);
+}
+
 SimpleNode Module() : {}
 {
   <MODULE> <ID> <LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
@@ -97,7 +106,7 @@ void ScalarElement() : {}
 
 void ScalarElementwoID() #void : {}
 {
-{System.out.println("ScalarElement");}
+System.out.println("ScalarElement");
 }
 
 void Stmtlst() : {}
@@ -143,7 +152,13 @@ void Term() : {}
 
 void Exprtest() : {}
 {
-<LPAR> Lhs() <RELA_OP> Rhs() <RPAR>
+      try{
+          <LPAR> Lhs() <RELA_OP> Rhs() <RPAR>
+          }
+          catch(ParseException ex){
+            System.out.println("Catch Exprtest");
+            error_skipto(RPAR);
+          }
 }
 
 void While() : {}
