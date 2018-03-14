@@ -1,10 +1,11 @@
 options
 {
-  LOOKAHEAD=1;
+  LOOKAHEAD=2;
 }
 
 PARSER_BEGIN(grammar)
 // código Java que invoca o parser
+import java.io.*;
 public class grammar {
  public static void main(String args[]) throws ParseException {
  grammar parser = new grammar(System.in);
@@ -55,11 +56,9 @@ PARSER_END(grammar)
 | <STRING: "\"" (["a"-"z","A"-"Z","0"-"9",":"," ","="])+ "\"">
 }
 
-
-
-SimpleNode Module() : {/*Token t;*/}
+SimpleNode Module() : {}
 {
-  <MODULE> /*t=*/<ID>/*{jjtThis.setName(t.image);}*/<LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
+  <MODULE> <ID> <LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
   {
     return jjtThis;
   }
@@ -67,60 +66,28 @@ SimpleNode Module() : {/*Token t;*/}
 
 void Declaration() : {}
 {
-  try{
-  Element() (<ASSIGN>(("[" ArraySize() "]") | (<ADDSUB_OP>)?<INTEGER>))? <PVIRG>
-}
-catch(ParseException ex){
-  System.out.println("Catch Declaration");
-  error_skipto(PVIRG);
-}
+  (ArrayElement() | ScalarElement()) (<ASSIGN>(("[" ArraySize() "]") | (<ADDSUB_OP>)?<INTEGER>))? <PVIRG>
 }
 
-// void Function() : {}
-// {
-// ( ( <FUNCTION> Element() <ASSIGN> <ID> <LPAR> ( Varlist() )? <RPAR> ) | ( <FUNCTION> <ID> <LPAR> ( Varlist())? <RPAR> ) ) <LCHAVETA> Stmtlst() <RCHAVETA>
-// }
-
-
-void Function() :{}
+void Function() : {}
 {
-  try{
-  < FUNCTION >
-  < ID >
-  (
-    ("[" "]")? //Element
-    < ASSIGN >
-    < ID >)?
-
-  < LPAR >
-  (Varlist())?
-  < RPAR >
-  < LCHAVETA >
-}
-catch(ParseException ex){
-  System.out.println("Catch Function");
-  error_skipto(LCHAVETA);
-}
-Stmtlst() < RCHAVETA >
+( ( <FUNCTION> ( ArrayElement() | ScalarElement() ) <ASSIGN> <ID>
+<LPAR> ( Varlist() )? <RPAR> ) | ( <FUNCTION> <ID> <LPAR> ( Varlist())? <RPAR> ) ) <LCHAVETA> Stmtlst() <RCHAVETA>
 }
 
 void Varlist() : {}
 {
-Element()( <VIRG> Element() )*
+( ArrayElement() | ScalarElement() ) ( <VIRG> ( ArrayElement() | ScalarElement()) )*
 }
 
-void Element() :{/*Token t;*/} {
-	/*t=*/<ID> (ArrayElement(/*t.image*/) | ScalarElement(/*t.image*/))
+void ArrayElement() : {}
+{
+<ID> "[" "]"
 }
 
-void ArrayElement(/*String id*/):{}{
-	/*{jjtThis.setValue(id);}*/
-    "[" "]"
-}
-
-void ScalarElement(/*String id*/):{}{
-  /*{jjtThis.setValue(id);}*/
-	""
+void ScalarElement() : {}
+{
+<ID>
 }
 
 void Stmtlst() : {}
@@ -130,12 +97,7 @@ void Stmtlst() : {}
 
 void Stmt() : {}
 {
-  try{
-  While() | If() | (LOOKAHEAD(3) Assign() | Call()) <PVIRG>
-  }
-  catch(ParseException e){
-    error_skipto(PVIRG);
-  }
+While() | If() | Assign() | Call() <PVIRG>
 }
 
 void Assign() : {}
@@ -143,14 +105,9 @@ void Assign() : {}
 Lhs() <ASSIGN> Rhs() <PVIRG>
 }
 
-void Call() : {}
-{
-<ID> ( "." <ID> )? <LPAR> ( ArgumentList() )? <RPAR>
-}
-
 void Lhs() : {}
 {
-AccessElement()
+ArrayAccess() | ScalarAccess()
 }
 
 void Rhs() : {}
@@ -158,38 +115,24 @@ void Rhs() : {}
 ( Term() ( ( <ARITH_OP> | <BITWISE_OP> | <ADDSUB_OP> ) Term() )? ) | "[" ArraySize() "]"
 }
 
-void ArraySize() : {/*Token t;*/}
+void ArraySize() : {}
 {
-/*t=*/<ID> ScalarAccess(/*t.image()*/) | <INTEGER>
+ScalarAccess() | <INTEGER>
 }
 
 void Term() : {}
 {
- ( <ADDSUB_OP> )? ( <INTEGER> | (LOOKAHEAD(3) Call() | AccessElement()))
+( <ADDSUB_OP> )? ( <INTEGER> | Call() | ArrayAccess() | ScalarAccess())
 }
 
 void Exprtest() : {}
 {
-      try{
-          <LPAR> Lhs() <RELA_OP> Rhs() <RPAR>
-          }
-          catch(ParseException ex){
-            System.out.println("Catch Exprtest");
-            error_skipto(RPAR);
-          }
+<LPAR> Lhs() <RELA_OP> Rhs() <RPAR>
 }
 
 void While() : {}
 {
-    try{
-    <WHILE> Exprtest() <LCHAVETA>
-    }
-    catch(ParseException ex){
-      System.out.println("Catch While");
-      error_skipto(LCHAVETA);
-    }
-    Stmtlst() <RCHAVETA>
-
+<WHILE> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>
 }
 
 void If() : {}
@@ -197,6 +140,10 @@ void If() : {}
 <IF> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA> ( <ELSE> <LCHAVETA> Stmtlst() <RCHAVETA> )?
 }
 
+void Call() : {}
+{
+<ID> ( "." <ID> )? <LPAR> ( ArgumentList() )? <RPAR>
+}
 
 void ArgumentList() : {}
 {
@@ -208,35 +155,17 @@ void Argument() : {}
 ( <ID> | <STRING> | <INTEGER> )
 }
 
-void AccessElement() : {/*Token t;*/}
-  {
-    /*t=*/<ID> (ArrayAccess(/*t.image*/) | ScalarAccess(/*t.image*/))
-  }
-
-void ArrayAccess(/*String id*/) : {}
+void ArrayAccess() : {}
 {
-  /*{jjtThis.setValue(id);}*/
-"[" Index() "]"
+<ID> "[" Index() "]"
 }
 
-void ScalarAccess(/*String id*/) : {}
+void ScalarAccess() : {}
 {
-  /*{jjtThis.setValue(id);}*/
- ( "." <SIZE> )?
+<ID> ( "." <SIZE> )?
 }
-
 
 void Index() : {}
 {
 <ID> | <INTEGER>
-}
-
-JAVACODE
-void error_skipto(int kind) {
-  ParseException e = generateParseException();  // generate the exception object.
-  System.out.println(e.toString());  // print the error message
-  Token t;
-  do {
-    t = getNextToken();
-  } while (t.kind != kind);
 }
