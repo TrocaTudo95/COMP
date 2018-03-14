@@ -5,7 +5,7 @@
 }
 
 PARSER_BEGIN(grammar)
-// c\u00c3\u00b3digo Java que invoca o parser
+// c\u00f3digo Java que invoca o parser
 import java.io.*;
 public class grammar/*@bgen(jjtree)*/implements grammarTreeConstants/*@egen*/ {/*@bgen(jjtree)*/
   protected static JJTgrammarState jjtree = new JJTgrammarState();
@@ -107,7 +107,11 @@ void Declaration() : {/*@bgen(jjtree) Declaration */
 {/*@bgen(jjtree) Declaration */
   try {
 /*@egen*/
+<<<<<<< HEAD
   ( Element() ) ( <ASSIGN> ( ( "[" ArraySize() "]") | ( <ADDSUB_OP> )? <INTEGER> ) )? <PVIRG>/*@bgen(jjtree)*/
+=======
+  ( ArrayElement() | ScalarElement() ) ( <ASSIGN> ( ( "[" ArraySize() "]") | ( <ADDSUB_OP> )? <INTEGER> ) )? <PVIRG>/*@bgen(jjtree)*/
+>>>>>>> aa79b97c92090db0527b3a6fb5469623d6d901db
   } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -138,6 +142,7 @@ void Function() : {/*@bgen(jjtree) Function */
 {/*@bgen(jjtree) Function */
   try {
 /*@egen*/
+<<<<<<< HEAD
   < FUNCTION >
   < ID >
   (
@@ -150,6 +155,11 @@ void Function() : {/*@bgen(jjtree) Function */
   < RPAR >
   < LCHAVETA >
   Stmtlst() < RCHAVETA >/*@bgen(jjtree)*/
+=======
+  ( ( <FUNCTION> ( ArrayElement() | ScalarElement() ) <ASSIGN> <ID>
+<LPAR> ( Varlist() )? <RPAR> ) | ( <FUNCTION> <ID> <LPAR> ( Varlist()
+  )? <RPAR> ) ) <LCHAVETA> Stmtlst() <RCHAVETA>/*@bgen(jjtree)*/
+>>>>>>> aa79b97c92090db0527b3a6fb5469623d6d901db
   } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -180,7 +190,11 @@ void Varlist() : {/*@bgen(jjtree) Varlist */
 {/*@bgen(jjtree) Varlist */
   try {
 /*@egen*/
+<<<<<<< HEAD
   ( Element() ) ( <VIRG> ( Element()) )*/*@bgen(jjtree)*/
+=======
+  ( ArrayElement() | ScalarElement() ) ( <VIRG> ( ArrayElement() | ScalarElement()) )*/*@bgen(jjtree)*/
+>>>>>>> aa79b97c92090db0527b3a6fb5469623d6d901db
   } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -323,7 +337,11 @@ void Lhs() : {/*@bgen(jjtree) Lhs */
 {/*@bgen(jjtree) Lhs */
   try {
 /*@egen*/
+<<<<<<< HEAD
   AccessElement()/*@bgen(jjtree)*/
+=======
+  ArrayAccess() | ScalarAccess()/*@bgen(jjtree)*/
+>>>>>>> aa79b97c92090db0527b3a6fb5469623d6d901db
   } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -416,7 +434,11 @@ void Term() : {/*@bgen(jjtree) Term */
 {/*@bgen(jjtree) Term */
   try {
 /*@egen*/
+<<<<<<< HEAD
   ( <ADDSUB_OP> )? ( <INTEGER> | Call() | AccessElement())/*@bgen(jjtree)*/
+=======
+  ( <ADDSUB_OP> )? ( <INTEGER> | Call() | ArrayAccess() | ScalarAccess())/*@bgen(jjtree)*/
+>>>>>>> aa79b97c92090db0527b3a6fb5469623d6d901db
   } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -699,6 +721,7 @@ void Index() : {/*@bgen(jjtree) Index */
 /*@egen*/}
 {/*@bgen(jjtree) Index */
   try {
+<<<<<<< HEAD
 /*@egen*/
   <ID> | <INTEGER>/*@bgen(jjtree)*/
   } finally {
@@ -725,7 +748,14 @@ try {
 } finally {
   if (jjtc000) {
     jjtree.closeNodeScope(jjtn000, true);
+=======
+/*@egen*/
+  <ID> | <INTEGER>/*@bgen(jjtree)*/
+  } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+>>>>>>> aa79b97c92090db0527b3a6fb5469623d6d901db
   }
-}
 /*@egen*/
 }
