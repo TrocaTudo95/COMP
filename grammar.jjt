@@ -1,6 +1,6 @@
 options
 {
-  LOOKAHEAD=3;
+  LOOKAHEAD=1;
 }
 
 PARSER_BEGIN(grammar)
@@ -66,16 +66,11 @@ SimpleNode Module() : {}
 
 void Declaration() : {}
 {
-<<<<<<< HEAD
   ( Element() ) ( <ASSIGN> ( ( "[" ArraySize() "]") | ( <ADDSUB_OP> )? <INTEGER> ) )? <PVIRG>
-=======
-  ( ArrayElement() | ScalarElement() ) ( <ASSIGN> ( ( "[" ArraySize() "]") | ( <ADDSUB_OP> )? <INTEGER> ) )? <PVIRG>
->>>>>>> aa79b97c92090db0527b3a6fb5469623d6d901db
 }
 
 void Function() : {}
 {
-<<<<<<< HEAD
   < FUNCTION >
   < ID >
   (
@@ -88,20 +83,11 @@ void Function() : {}
   < RPAR >
   < LCHAVETA >
   Stmtlst() < RCHAVETA >
-=======
-  ( ( <FUNCTION> ( ArrayElement() | ScalarElement() ) <ASSIGN> <ID>
-<LPAR> ( Varlist() )? <RPAR> ) | ( <FUNCTION> <ID> <LPAR> ( Varlist()
-  )? <RPAR> ) ) <LCHAVETA> Stmtlst() <RCHAVETA>
->>>>>>> aa79b97c92090db0527b3a6fb5469623d6d901db
 }
 
 void Varlist() : {}
 {
-<<<<<<< HEAD
   ( Element() ) ( <VIRG> ( Element()) )*
-=======
-  ( ArrayElement() | ScalarElement() ) ( <VIRG> ( ArrayElement() | ScalarElement()) )*
->>>>>>> aa79b97c92090db0527b3a6fb5469623d6d901db
 }
 
 void Element() : {}
@@ -128,11 +114,7 @@ Lhs() <ASSIGN> Rhs() <PVIRG>
 
 void Lhs() : {}
 {
-<<<<<<< HEAD
   AccessElement()
-=======
-  ArrayAccess() | ScalarAccess()
->>>>>>> aa79b97c92090db0527b3a6fb5469623d6d901db
 }
 
 void Rhs() : {}
@@ -147,11 +129,7 @@ void ArraySize() : {}
 
 void Term() : {}
 {
-<<<<<<< HEAD
   ( <ADDSUB_OP> )? ( <INTEGER> | Call() | AccessElement())
-=======
-  ( <ADDSUB_OP> )? ( <INTEGER> | Call() | ArrayAccess() | ScalarAccess())
->>>>>>> aa79b97c92090db0527b3a6fb5469623d6d901db
 }
 
 void Exprtest() : {}
@@ -204,7 +182,6 @@ void ScalarAccess(/*String id*/) : {}
 void Index() : {}
 {
   <ID> | <INTEGER>
-<<<<<<< HEAD
 }
 
 JAVACODE
@@ -215,6 +192,4 @@ void error_skipto(int kind) {
   do {
     t = getNextToken();
   } while (t.kind != kind);
-=======
->>>>>>> aa79b97c92090db0527b3a6fb5469623d6d901db
 }
