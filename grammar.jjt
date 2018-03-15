@@ -176,7 +176,20 @@ void Exprtest() : {}
 
 void While() : {}
 {
-<WHILE> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>
+  try {
+    <WHILE> Exprtest() <LCHAVETA>
+  }
+  catch (ParseException e) {
+    String msg="Error in while";
+    error_skipto(LCHAVETA,msg);
+  }
+  try {
+    Stmtlst() <RCHAVETA>
+  }
+  catch (ParseException e) {
+    String msg="Error in while";
+    error_skipto(RCHAVETA,msg);
+  }
 }
 
 void If() : {}

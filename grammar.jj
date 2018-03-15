@@ -513,28 +513,41 @@ void While() : {/*@bgen(jjtree) While */
   jjtree.openNodeScope(jjtn000);
 /*@egen*/}
 {/*@bgen(jjtree) While */
-try {
+  try {
 /*@egen*/
-<WHILE> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>/*@bgen(jjtree)*/
-} catch (Throwable jjte000) {
-  if (jjtc000) {
-    jjtree.clearNodeScope(jjtn000);
-    jjtc000 = false;
-  } else {
-    jjtree.popNode();
+  try {
+    <WHILE> Exprtest() <LCHAVETA>
   }
-  if (jjte000 instanceof RuntimeException) {
-    throw (RuntimeException)jjte000;
+  catch (ParseException e) {
+    String msg="Error in while";
+    error_skipto(LCHAVETA,msg);
   }
-  if (jjte000 instanceof ParseException) {
-    throw (ParseException)jjte000;
+  try {
+    Stmtlst() <RCHAVETA>
   }
-  throw (Error)jjte000;
-} finally {
-  if (jjtc000) {
-    jjtree.closeNodeScope(jjtn000, true);
+  catch (ParseException e) {
+    String msg="Error in while";
+    error_skipto(RCHAVETA,msg);
+  }/*@bgen(jjtree)*/
+  } catch (Throwable jjte000) {
+    if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+    if (jjte000 instanceof RuntimeException) {
+      throw (RuntimeException)jjte000;
+    }
+    if (jjte000 instanceof ParseException) {
+      throw (ParseException)jjte000;
+    }
+    throw (Error)jjte000;
+  } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
   }
-}
 /*@egen*/
 }
 
