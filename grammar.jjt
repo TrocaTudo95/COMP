@@ -160,7 +160,12 @@ void Term() : {}
 
 void Exprtest() : {}
 {
-<LPAR> Lhs() <RELA_OP> Rhs() <RPAR>
+  try{
+  <LPAR> Lhs() <RELA_OP> Rhs() <RPAR>
+}catch(ParseException e){
+  String msg="Error in Exprtest 1";
+  error_skipto(RPAR,msg);
+}
 }
 
 void While() : {}
@@ -170,7 +175,25 @@ void While() : {}
 
 void If() : {}
 {
-  <IF> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA> ( <ELSE> <LCHAVETA>Stmtlst() <RCHAVETA> )?
+  try{
+      <IF> Exprtest() <LCHAVETA>
+  }catch(ParseException e){
+    String msg="Error in IF 1";
+    error_skipto(LCHAVETA,msg);
+  }try{
+    Stmtlst() <RCHAVETA>
+  }catch(ParseException e){
+    String msg="Error in IF 2";
+    error_skipto(RCHAVETA,msg);
+  }
+  (try{
+     <ELSE> <LCHAVETA>Stmtlst() <RCHAVETA>
+  }catch(ParseException e){
+    String msg="Error in IF 3";
+    error_skipto(RCHAVETA,msg);
+  })?
+
+
 }
 
 void Call() : {}
@@ -217,6 +240,7 @@ void error_skipto(int kind,String error_msg) {
   }
   ParseException e = generateParseException();  // generate the exception object.
   System.out.println(error_msg);  // print the error message
+  System.out.println(e);
   Token t;
   do {
     t = getNextToken();
