@@ -169,14 +169,10 @@ void Function() : {/*@bgen(jjtree) Function */
       String msg="Error in function 1";
       error_skipto(RPAR,msg);
     }
-    try{
-      < LCHAVETA >
+/*    try{
+    */  < LCHAVETA >
       Stmtlst()
-      < RCHAVETA >
-    }catch(ParseException ex){
-        String msg="Error in function 2";
-        error_skipto(RCHAVETA,msg);
-      }/*@bgen(jjtree)*/
+      < RCHAVETA >/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -197,6 +193,11 @@ void Function() : {/*@bgen(jjtree) Function */
     }
   }
 /*@egen*/
+  /*  }catch(ParseException ex){
+        String msg="Error in function 2";
+        error_skipto(RCHAVETA,msg);
+      }
+      */
 }
 
 void Varlist() : {/*@bgen(jjtree) Varlist */
@@ -323,9 +324,15 @@ void Assign() : {/*@bgen(jjtree) Assign */
   try {
 /*@egen*/
   try{
-    Lhs() <ASSIGN> Rhs() <PVIRG>
+    Lhs() <ASSIGN>
   }catch(ParseException e){
-    String msg="Error in assign";
+    String msg="Error in assign 1";
+    error_skipto(ASSIGN,msg);
+  }
+  try{
+    Rhs() <PVIRG>
+  }catch(ParseException e){
+    String msg="Error in assign 2";
     error_skipto(PVIRG,msg);
   }/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
@@ -517,44 +524,20 @@ void While() : {/*@bgen(jjtree) While */
   jjtree.openNodeScope(jjtn000);
 /*@egen*/}
 {/*@bgen(jjtree) While */
-<<<<<<< HEAD
-      try {
-/*@egen*/
-      <WHILE> Exprtest() <LCHAVETA>  Stmtlst() <RCHAVETA>/*@bgen(jjtree)*/
-      } catch (Throwable jjte000) {
-        if (jjtc000) {
-          jjtree.clearNodeScope(jjtn000);
-          jjtc000 = false;
-        } else {
-          jjtree.popNode();
-        }
-        if (jjte000 instanceof RuntimeException) {
-          throw (RuntimeException)jjte000;
-        }
-        if (jjte000 instanceof ParseException) {
-          throw (ParseException)jjte000;
-        }
-        throw (Error)jjte000;
-      } finally {
-        if (jjtc000) {
-          jjtree.closeNodeScope(jjtn000, true);
-        }
-      }
-=======
   try {
 /*@egen*/
   try {
     <WHILE> Exprtest() <LCHAVETA>
   }
   catch (ParseException e) {
-    String msg="Error in while";
+    String msg="Error in while 1";
     error_skipto(LCHAVETA,msg);
   }
   try {
     Stmtlst() <RCHAVETA>
   }
   catch (ParseException e) {
-    String msg="Error in while";
+    String msg="Error in while 2";
     error_skipto(RCHAVETA,msg);
   }/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
@@ -576,7 +559,6 @@ void While() : {/*@bgen(jjtree) While */
       jjtree.closeNodeScope(jjtn000, true);
     }
   }
->>>>>>> 6368ade74efc92ed99b92d91c81ca0479ac2fb08
 /*@egen*/
 }
 
@@ -820,12 +802,12 @@ boolean jjtc000 = true;
 jjtree.openNodeScope(jjtn000);
 try {
 /*@egen*/
+  ParseException e = generateParseException();  // generate the exception object.
   if(error_counter < 10){
     error_counter++;
+    System.out.println(error_msg);  // print the error message
+    System.out.println(e);
   }
-  ParseException e = generateParseException();  // generate the exception object.
-  System.out.println(error_msg);  // print the error message
-  System.out.println(e);
   Token t;
   do {
     t = getNextToken();

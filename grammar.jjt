@@ -102,7 +102,7 @@ void Function() : {}
       String msg="Error in function 1";
       error_skipto(RPAR,msg);
     }
-    try{
+     try{
       < LCHAVETA >
       Stmtlst()
       < RCHAVETA >
@@ -110,6 +110,7 @@ void Function() : {}
         String msg="Error in function 2";
         error_skipto(RCHAVETA,msg);
       }
+
 }
 
 void Varlist() : {}
@@ -140,9 +141,15 @@ void Stmt() : {}
 void Assign() : {}
 {
   try{
-    Lhs() <ASSIGN> Rhs() <PVIRG>
+    Lhs() <ASSIGN>
   }catch(ParseException e){
-    String msg="Error in assign";
+    String msg="Error in assign 1";
+    error_skipto(ASSIGN,msg);
+  }
+  try{
+    Rhs() <PVIRG>
+  }catch(ParseException e){
+    String msg="Error in assign 2";
     error_skipto(PVIRG,msg);
   }
 
@@ -265,12 +272,12 @@ void Index() : {}
 
 JAVACODE
 void error_skipto(int kind,String error_msg) {
+  ParseException e = generateParseException();  // generate the exception object.
   if(error_counter < 10){
     error_counter++;
+    System.out.println(error_msg);  // print the error message
+    System.out.println(e);
   }
-  ParseException e = generateParseException();  // generate the exception object.
-  System.out.println(error_msg);  // print the error message
-  System.out.println(e);
   Token t;
   do {
     t = getNextToken();
