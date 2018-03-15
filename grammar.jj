@@ -34,7 +34,7 @@ BufferedReader  br;
   catch (FileNotFoundException e) {
     System.out.println(e);
 }
-
+  System.out.println("Errors: " + error_counter);
  }
 }
 PARSER_END(grammar)
@@ -88,7 +88,12 @@ SimpleNode Module() : {/*@bgen(jjtree) Module */
 {/*@bgen(jjtree) Module */
   try {
 /*@egen*/
-  <MODULE> <ID> <LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>/*@bgen(jjtree)*/
+  try{
+    <MODULE> <ID> <LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
+  }catch(ParseException e){
+    String msg="Declarations must be before functions";
+    error_skipto(RCHAVETA,msg);
+  }/*@bgen(jjtree)*/
   {
     jjtree.closeNodeScope(jjtn000, true);
     jjtc000 = false;
@@ -169,10 +174,14 @@ void Function() : {/*@bgen(jjtree) Function */
       String msg="Error in function 1";
       error_skipto(RPAR,msg);
     }
-/*    try{
-    */  < LCHAVETA >
+     try{
+      < LCHAVETA >
       Stmtlst()
-      < RCHAVETA >/*@bgen(jjtree)*/
+      < RCHAVETA >
+    }catch(ParseException ex){
+        String msg="Error in function 2";
+        error_skipto(RCHAVETA,msg);
+      }/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -193,11 +202,7 @@ void Function() : {/*@bgen(jjtree) Function */
     }
   }
 /*@egen*/
-  /*  }catch(ParseException ex){
-        String msg="Error in function 2";
-        error_skipto(RCHAVETA,msg);
-      }
-      */
+
 }
 
 void Varlist() : {/*@bgen(jjtree) Varlist */
@@ -617,36 +622,29 @@ void Call() : {/*@bgen(jjtree) Call */
   jjtree.openNodeScope(jjtn000);
 /*@egen*/}
 {/*@bgen(jjtree) Call */
-  try {
+    try {
 /*@egen*/
-  try{
-    <ID> ( "." <ID> )? <LPAR> ( ArgumentList() )? <RPAR>
-  }
-  catch(ParseException e){
-    String msg="Error in call";
-    error_skipto(RPAR, msg);
-  }/*@bgen(jjtree)*/
-  } catch (Throwable jjte000) {
-    if (jjtc000) {
-      jjtree.clearNodeScope(jjtn000);
-      jjtc000 = false;
-    } else {
-      jjtree.popNode();
+    <ID> ( "." <ID> )? <LPAR> ( ArgumentList() )? <RPAR>/*@bgen(jjtree)*/
+    } catch (Throwable jjte000) {
+      if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        throw (RuntimeException)jjte000;
+      }
+      if (jjte000 instanceof ParseException) {
+        throw (ParseException)jjte000;
+      }
+      throw (Error)jjte000;
+    } finally {
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
     }
-    if (jjte000 instanceof RuntimeException) {
-      throw (RuntimeException)jjte000;
-    }
-    if (jjte000 instanceof ParseException) {
-      throw (ParseException)jjte000;
-    }
-    throw (Error)jjte000;
-  } finally {
-    if (jjtc000) {
-      jjtree.closeNodeScope(jjtn000, true);
-    }
-  }
 /*@egen*/
-
 }
 
 void ArgumentList() : {/*@bgen(jjtree) ArgumentList */

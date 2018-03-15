@@ -30,7 +30,7 @@ BufferedReader  br;
   catch (FileNotFoundException e) {
     System.out.println(e);
 }
-
+  System.out.println("Errors: " + error_counter);
  }
 }
 PARSER_END(grammar)
@@ -78,7 +78,12 @@ PARSER_END(grammar)
 }
 SimpleNode Module() : {}
 {
-  <MODULE> <ID> <LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
+  try{
+    <MODULE> <ID> <LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
+  }catch(ParseException e){
+    String msg="Declarations must be before functions";
+    error_skipto(RCHAVETA,msg);
+  }
   {
     return jjtThis;
   }
@@ -228,14 +233,7 @@ void If() : {}
 
 void Call() : {}
 {
-  try{
     <ID> ( "." <ID> )? <LPAR> ( ArgumentList() )? <RPAR>
-  }
-  catch(ParseException e){
-    String msg="Error in call";
-    error_skipto(RPAR, msg);
-  }
-
 }
 
 void ArgumentList() : {}
