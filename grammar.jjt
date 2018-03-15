@@ -1,12 +1,14 @@
 options
 {
   LOOKAHEAD=1;
+  MULTI=true;
 }
 
 PARSER_BEGIN(grammar)
 // código Java que invoca o parser
 import java.io.*;
 public class grammar {
+  private static int error_counter = 0;
  public static void main(String args[]) throws ParseException, FileNotFoundException {
 
 BufferedReader  br;
@@ -89,34 +91,36 @@ void Declaration() : {}
 
 void Function() : {}
 {
-  < FUNCTION >
-  < ID >
-  (("[" "]")? < ASSIGN > < ID >)?
-  < LPAR >
-  (Varlist())?
-  < RPAR >
-  < LCHAVETA >
-  Stmtlst() < RCHAVETA >
+  try{
+    < FUNCTION >
+    < ID >
+    (("[" "]")? < ASSIGN > < ID >)?
+    < LPAR >
+    (Varlist())?
+    < RPAR >
+  }catch(ParseException e){
+      System.out.println("Error in function 1");
+      error_skipto(RPAR);
+    }
+    try{
+      < LCHAVETA >
+      Stmtlst()
+      < RCHAVETA >
+    }catch(ParseException ex){
+        System.out.println("Error in Function 2");
+        error_skipto(RCHAVETA);
+      }
 }
 
 void Varlist() : {}
 {
-
-  ( Element() ) ( <VIRG> ( Element()) )*
+      ( Element() )( <VIRG> ( Element()) )*
 }
-
-
 
 void Element() : {}
 {
-  try{
-<ID> ("[" "]")?
+    <ID> ("[" "]")?
 }
-catch(ParseException e){
-  System.out.println("oi");
-}
-}
-
 
 
 void Stmtlst() : {}
@@ -208,6 +212,9 @@ void Index() : {}
 
 JAVACODE
 void error_skipto(int kind) {
+  if(error_counter < 10){
+    error_counter++;
+  }
   ParseException e = generateParseException();  // generate the exception object.
   System.out.println(e.toString());  // print the error message
   Token t;
