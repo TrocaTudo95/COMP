@@ -1,16 +1,34 @@
 options
 {
-  LOOKAHEAD=1;
+  LOOKAHEAD=3;
 }
 
 PARSER_BEGIN(grammar)
 // código Java que invoca o parser
 import java.io.*;
 public class grammar {
- public static void main(String args[]) throws ParseException {
- grammar parser = new grammar(System.in);
- SimpleNode root = parser.Module();
- root.dump("");
+ public static void main(String args[]) throws ParseException, FileNotFoundException {
+
+BufferedReader  br;
+ grammar parser;
+   try{
+     File inFile = null;
+  if (0 < args.length) {
+     inFile = new File(args[0]);
+  } else {
+     System.err.println("Invalid arguments count:" + args.length);
+  }
+
+    br = new BufferedReader(new FileReader(inFile));
+    parser= new grammar(br);
+
+     SimpleNode root = parser.Module();
+     root.dump("");
+  }
+  catch (FileNotFoundException e) {
+    System.out.println(e);
+}
+
  }
 }
 PARSER_END(grammar)
