@@ -99,16 +99,16 @@ void Function() : {}
     (Varlist())?
     < RPAR >
   }catch(ParseException e){
-      System.out.println("Error in function 1");
-      error_skipto(RPAR);
+      String msg="Error in function 1";
+      error_skipto(RPAR,msg);
     }
     try{
       < LCHAVETA >
       Stmtlst()
       < RCHAVETA >
     }catch(ParseException ex){
-        System.out.println("Error in Function 2");
-        error_skipto(RCHAVETA);
+        String msg="Error in function 2";
+        error_skipto(RCHAVETA,msg);
       }
 }
 
@@ -211,12 +211,12 @@ void Index() : {}
 }
 
 JAVACODE
-void error_skipto(int kind) {
+void error_skipto(int kind,String error_msg) {
   if(error_counter < 10){
     error_counter++;
   }
   ParseException e = generateParseException();  // generate the exception object.
-  System.out.println(e.toString());  // print the error message
+  System.out.println(error_msg);  // print the error message
   Token t;
   do {
     t = getNextToken();
