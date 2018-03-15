@@ -135,7 +135,13 @@ void Stmt() : {}
 
 void Assign() : {}
 {
-Lhs() <ASSIGN> Rhs() <PVIRG>
+  try{
+    Lhs() <ASSIGN> Rhs() <PVIRG>
+  }catch(ParseException e){
+    String msg="Error in assign";
+    error_skipto(PVIRG,msg);
+  }
+
 }
 
 void Lhs() : {}
@@ -198,7 +204,14 @@ void If() : {}
 
 void Call() : {}
 {
-<ID> ( "." <ID> )? <LPAR> ( ArgumentList() )? <RPAR>
+  try{
+    <ID> ( "." <ID> )? <LPAR> ( ArgumentList() )? <RPAR>
+  }
+  catch(ParseException e){
+    String msg="Error in call";
+    error_skipto(RPAR, msg);
+  }
+
 }
 
 void ArgumentList() : {}
