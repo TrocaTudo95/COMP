@@ -130,7 +130,11 @@ void Stmtlst() : {}
 
 void Stmt() : {}
 {
-  While() | If() | LOOKAHEAD(3) Assign() | Call() <PVIRG>
+  While() | If() | try{ LOOKAHEAD(3) Assign() | Call() <PVIRG>}
+  catch(ParseException e){
+    String msg="Error in stmt";
+    error_skipto(PVIRG,msg);
+  }
 }
 
 void Assign() : {}
@@ -176,7 +180,7 @@ void Exprtest() : {}
 
 void While() : {}
 {
-<WHILE> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>
+      <WHILE> Exprtest() <LCHAVETA>  Stmtlst() <RCHAVETA>
 }
 
 void If() : {}
