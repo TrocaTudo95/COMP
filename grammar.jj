@@ -6,7 +6,7 @@
 }
 
 PARSER_BEGIN(grammar)
-// c\u00f3digo Java que invoca o parser
+// c\u00c3\u00b3digo Java que invoca o parser
 import java.io.*;
 public class grammar/*@bgen(jjtree)*/implements grammarTreeConstants/*@egen*/ {/*@bgen(jjtree)*/
   protected static JJTgrammarState jjtree = new JJTgrammarState();
@@ -517,44 +517,20 @@ void While() : {/*@bgen(jjtree) While */
   jjtree.openNodeScope(jjtn000);
 /*@egen*/}
 {/*@bgen(jjtree) While */
-<<<<<<< HEAD
-      try {
-/*@egen*/
-      <WHILE> Exprtest() <LCHAVETA>  Stmtlst() <RCHAVETA>/*@bgen(jjtree)*/
-      } catch (Throwable jjte000) {
-        if (jjtc000) {
-          jjtree.clearNodeScope(jjtn000);
-          jjtc000 = false;
-        } else {
-          jjtree.popNode();
-        }
-        if (jjte000 instanceof RuntimeException) {
-          throw (RuntimeException)jjte000;
-        }
-        if (jjte000 instanceof ParseException) {
-          throw (ParseException)jjte000;
-        }
-        throw (Error)jjte000;
-      } finally {
-        if (jjtc000) {
-          jjtree.closeNodeScope(jjtn000, true);
-        }
-      }
-=======
   try {
 /*@egen*/
   try {
     <WHILE> Exprtest() <LCHAVETA>
   }
   catch (ParseException e) {
-    String msg="Error in while";
+    String msg="Error in while 1";
     error_skipto(LCHAVETA,msg);
   }
   try {
     Stmtlst() <RCHAVETA>
   }
   catch (ParseException e) {
-    String msg="Error in while";
+    String msg="Error in while 2";
     error_skipto(RCHAVETA,msg);
   }/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
@@ -576,7 +552,6 @@ void While() : {/*@bgen(jjtree) While */
       jjtree.closeNodeScope(jjtn000, true);
     }
   }
->>>>>>> 6368ade74efc92ed99b92d91c81ca0479ac2fb08
 /*@egen*/
 }
 
