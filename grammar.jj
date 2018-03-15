@@ -6,7 +6,7 @@
 }
 
 PARSER_BEGIN(grammar)
-// c\u00f3digo Java que invoca o parser
+// c\u00c3\u00b3digo Java que invoca o parser
 import java.io.*;
 public class grammar/*@bgen(jjtree)*/implements grammarTreeConstants/*@egen*/ {/*@bgen(jjtree)*/
   protected static JJTgrammarState jjtree = new JJTgrammarState();
@@ -316,29 +316,35 @@ void Assign() : {/*@bgen(jjtree) Assign */
   jjtree.openNodeScope(jjtn000);
 /*@egen*/}
 {/*@bgen(jjtree) Assign */
-try {
+  try {
 /*@egen*/
-Lhs() <ASSIGN> Rhs() <PVIRG>/*@bgen(jjtree)*/
-} catch (Throwable jjte000) {
-  if (jjtc000) {
-    jjtree.clearNodeScope(jjtn000);
-    jjtc000 = false;
-  } else {
-    jjtree.popNode();
+  try{
+    Lhs() <ASSIGN> Rhs() <PVIRG>
+  }catch(ParseException e){
+    String msg="Error in assign";
+    error_skipto(PVIRG,msg);
+  }/*@bgen(jjtree)*/
+  } catch (Throwable jjte000) {
+    if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+    if (jjte000 instanceof RuntimeException) {
+      throw (RuntimeException)jjte000;
+    }
+    if (jjte000 instanceof ParseException) {
+      throw (ParseException)jjte000;
+    }
+    throw (Error)jjte000;
+  } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
   }
-  if (jjte000 instanceof RuntimeException) {
-    throw (RuntimeException)jjte000;
-  }
-  if (jjte000 instanceof ParseException) {
-    throw (ParseException)jjte000;
-  }
-  throw (Error)jjte000;
-} finally {
-  if (jjtc000) {
-    jjtree.closeNodeScope(jjtn000, true);
-  }
-}
 /*@egen*/
+
 }
 
 void Lhs() : {/*@bgen(jjtree) Lhs */
@@ -564,29 +570,36 @@ void Call() : {/*@bgen(jjtree) Call */
   jjtree.openNodeScope(jjtn000);
 /*@egen*/}
 {/*@bgen(jjtree) Call */
-try {
+  try {
 /*@egen*/
-<ID> ( "." <ID> )? <LPAR> ( ArgumentList() )? <RPAR>/*@bgen(jjtree)*/
-} catch (Throwable jjte000) {
-  if (jjtc000) {
-    jjtree.clearNodeScope(jjtn000);
-    jjtc000 = false;
-  } else {
-    jjtree.popNode();
+  try{
+    <ID> ( "." <ID> )? <LPAR> ( ArgumentList() )? <RPAR>
   }
-  if (jjte000 instanceof RuntimeException) {
-    throw (RuntimeException)jjte000;
+  catch(ParseException e){
+    String msg="Error in call";
+    error_skipto(RPAR, msg);
+  }/*@bgen(jjtree)*/
+  } catch (Throwable jjte000) {
+    if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+    if (jjte000 instanceof RuntimeException) {
+      throw (RuntimeException)jjte000;
+    }
+    if (jjte000 instanceof ParseException) {
+      throw (ParseException)jjte000;
+    }
+    throw (Error)jjte000;
+  } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
   }
-  if (jjte000 instanceof ParseException) {
-    throw (ParseException)jjte000;
-  }
-  throw (Error)jjte000;
-} finally {
-  if (jjtc000) {
-    jjtree.closeNodeScope(jjtn000, true);
-  }
-}
 /*@egen*/
+
 }
 
 void ArgumentList() : {/*@bgen(jjtree) ArgumentList */
