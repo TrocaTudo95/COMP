@@ -1,6 +1,6 @@
 options
 {
-  LOOKAHEAD=3;
+  LOOKAHEAD=1;
 }
 
 PARSER_BEGIN(grammar)
@@ -91,11 +91,7 @@ void Function() : {}
 {
   < FUNCTION >
   < ID >
-  (
-    ("[" "]")? //Element
-    < ASSIGN >
-    < ID >)?
-
+  (("[" "]")? < ASSIGN > < ID >)?
   < LPAR >
   (Varlist())?
   < RPAR >
@@ -105,12 +101,20 @@ void Function() : {}
 
 void Varlist() : {}
 {
+
   ( Element() ) ( <VIRG> ( Element()) )*
 }
 
+
+
 void Element() : {}
 {
+  try{
 <ID> ("[" "]")?
+}
+catch(ParseException e){
+  System.out.println("oi");
+}
 }
 
 
@@ -122,12 +126,12 @@ void Stmtlst() : {}
 
 void Stmt() : {}
 {
-  While() | If() | (LOOKAHEAD(3) Assign() | Call()) <PVIRG>
+  While() | If() | LOOKAHEAD(3) Assign() | Call() <PVIRG>
 }
 
 void Assign() : {}
 {
-    Lhs() <ASSIGN> Rhs() <PVIRG>
+Lhs() <ASSIGN> Rhs() <PVIRG>
 }
 
 void Lhs() : {}
@@ -137,9 +141,8 @@ void Lhs() : {}
 
 void Rhs() : {}
 {
-
-      ( Term() ( ( <ARITH_OP> | <BITWISE_OP> | <ADDSUB_OP> ) Term() )? )| "[" ArraySize() "]"
-
+  ( Term() ( ( <ARITH_OP> | <BITWISE_OP> | <ADDSUB_OP> ) Term() )? )| "[" ArraySize() "]"
+}
 
 void ArraySize() : {}
 {
@@ -148,18 +151,17 @@ void ArraySize() : {}
 
 void Term() : {}
 {
-  ( <ADDSUB_OP> )? ( <INTEGER> | (LOOKAHEAD(3) Call() | AccessElement()))
+  ( <ADDSUB_OP> )? ( <INTEGER> | LOOKAHEAD(3)Call() | AccessElement())
 }
 
 void Exprtest() : {}
 {
-
-    <LPAR> Lhs() <RELA_OP> Rhs() <RPAR>
+<LPAR> Lhs() <RELA_OP> Rhs() <RPAR>
 }
 
 void While() : {}
 {
-  <WHILE> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>
+<WHILE> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>
 }
 
 void If() : {}
