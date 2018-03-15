@@ -104,12 +104,12 @@ void Stmtlst() : {}
 
 void Stmt() : {}
 {
-  While() | If() | Assign() | Call() <PVIRG>
+  While() | If() | (LOOKAHEAD(3) Assign() | Call()) <PVIRG>
 }
 
 void Assign() : {}
 {
-Lhs() <ASSIGN> Rhs() <PVIRG>
+    Lhs() <ASSIGN> Rhs() <PVIRG>
 }
 
 void Lhs() : {}
@@ -119,8 +119,9 @@ void Lhs() : {}
 
 void Rhs() : {}
 {
-  ( Term() ( ( <ARITH_OP> | <BITWISE_OP> | <ADDSUB_OP> ) Term() )? )| "[" ArraySize() "]"
-}
+
+      ( Term() ( ( <ARITH_OP> | <BITWISE_OP> | <ADDSUB_OP> ) Term() )? )| "[" ArraySize() "]"
+
 
 void ArraySize() : {}
 {
@@ -129,17 +130,18 @@ void ArraySize() : {}
 
 void Term() : {}
 {
-  ( <ADDSUB_OP> )? ( <INTEGER> | Call() | AccessElement())
+  ( <ADDSUB_OP> )? ( <INTEGER> | (LOOKAHEAD(3) Call() | AccessElement()))
 }
 
 void Exprtest() : {}
 {
-<LPAR> Lhs() <RELA_OP> Rhs() <RPAR>
+
+    <LPAR> Lhs() <RELA_OP> Rhs() <RPAR>
 }
 
 void While() : {}
 {
-<WHILE> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>
+  <WHILE> Exprtest() <LCHAVETA> Stmtlst() <RCHAVETA>
 }
 
 void If() : {}
