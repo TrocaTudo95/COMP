@@ -76,10 +76,10 @@ PARSER_END(grammar)
 | <STRING: "\"" (["a"-"z","A"-"Z","0"-"9",":"," ","="])+ "\"">
 
 }
-SimpleNode Module() : {}
+SimpleNode Module() : {Token t;}
 {
   try{
-    <MODULE> <ID> <LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
+    <MODULE>t=<ID> {jjtThis.setName(t.image);}<LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
   }catch(ParseException e){
     String msg="Declarations must be before functions";
     error_skipto(RCHAVETA,msg);
@@ -89,21 +89,21 @@ SimpleNode Module() : {}
   }
 }
 
-void Declaration() : {}
+void Declaration() : {Token t1, t2; int i;}
 {
   try{
-    ( Element() ) ( <ASSIGN> ( ( "[" ArraySize() "]") | ( <ADDSUB_OP> )? <INTEGER> ) )? <PVIRG>
+    ( i=Element(){jjtThis.setElementId(i);}) ( <ASSIGN> ( ( "[" ArraySize() "]") | ( t2=<ADDSUB_OP>{jjtThis.setSignal(t2.image);} )? t1=<INTEGER>{jjtThis.setElementValue(t1.image);} ) )? <PVIRG>
   }catch(ParseException e){
     String msg="Error in Declaration";
     error_skipto(PVIRG,msg);
   }
 }
 
-void Function() : {}
+void Function() : {Token t1;}
 {
   try{
     < FUNCTION >
-    < ID >
+    t1=< ID >{jjtThis.setName(t1.image);}
     (("[" "]")? < ASSIGN > < ID >)?
     < LPAR >
     (Varlist())?
@@ -128,9 +128,10 @@ void Varlist() : {}
       ( Element() )( <VIRG> ( Element()) )*
 }
 
-void Element() : {}
+int Element() : {Token t;}
 {
-    <ID> ("[" "]")?
+  t=<ID>{jjtThis.setName(t.image);} ("[" "]")?
+  {return jjtThis.id;}
 }
 
 
@@ -170,25 +171,25 @@ void Lhs() : {}
   AccessElement()
 }
 
-void Rhs() : {}
+void Rhs() : {Token t;}
 {
-  ( Term() ( ( <ARITH_OP> | <BITWISE_OP> | <ADDSUB_OP> ) Term() )? )| "[" ArraySize() "]"
+  ( Term() ( ( t=<ARITH_OP> | t=<BITWISE_OP> | t=<ADDSUB_OP> ){jjtThis.setOperation(t.image);} Term() )? )| "[" ArraySize() "]"
 }
 
-void ArraySize() : {}
+void ArraySize() : {Token t;}
 {
-(<ID>ScalarAccess()) | <INTEGER>
+(t=<ID>ScalarAccess(){jjtThis.setName(t.image);}) | (t=<INTEGER>{jjtThis.setValue(t.image);})
 }
 
-void Term() : {}
+void Term() : {Token t1,t2;}
 {
-  ( <ADDSUB_OP> )? ( <INTEGER> | LOOKAHEAD(3)Call() | AccessElement())
+  ( t2=<ADDSUB_OP>{jjtThis.setSignal(t2.image);} )? ( t1=<INTEGER>{jjtThis.setElementValue(t1.image);} | LOOKAHEAD(3)Call() | AccessElement())
 }
 
-void Exprtest() : {}
+void Exprtest() : {Token t;}
 {
   try{
-  <LPAR> Lhs() <RELA_OP> Rhs() <RPAR>
+  <LPAR> Lhs() t=<RELA_OP>{jjtThis.setOperation(t.image);} Rhs() <RPAR>
 }catch(ParseException e){
   String msg="Error in Exprtest 1";
   error_skipto(RPAR,msg);
@@ -236,9 +237,9 @@ void If() : {}
 
 }
 
-void Call() : {}
+void Call() : {Token t;}
 {
-    <ID> ( "." <ID> )? <LPAR> ( ArgumentList() )? <RPAR>
+t=<ID> {jjtThis.setName(t.image);}( "." <ID> )? <LPAR> ( ArgumentList() )? <RPAR>
 }
 
 void ArgumentList() : {}
@@ -246,31 +247,29 @@ void ArgumentList() : {}
 Argument() ( <VIRG> Argument() )*
 }
 
-void Argument() : {}
+void Argument() : {Token t;}
 {
-( <ID> | <STRING> | <INTEGER> )
+( t=<ID> {jjtThis.setName(t.image);} | t=<STRING> {jjtThis.set_str_arg(t.image);}| t=<INTEGER> {jjtThis.set_int_arg(t.image);})
 }
 
-void AccessElement() : {/*Token t;*/}
+void AccessElement() : {Token t;}
   {
-    /*t=*/<ID> (ArrayAccess(/*t.image*/) | ScalarAccess(/*t.image*/))
+    t=<ID> {jjtThis.setName(t.image);}(ArrayAccess() | ScalarAccess())
   }
 
-void ArrayAccess(/*String id*/) : {}
+void ArrayAccess() : {}
 {
-  /*{jjtThis.setValue(id);}*/
 "[" Index() "]"
 }
 
-void ScalarAccess(/*String id*/) : {}
+void ScalarAccess() : {}
 {
-  /*{jjtThis.setValue(id);}*/
  ( "." <SIZE> )?
 }
 
-void Index() : {}
+void Index() : {Token t;}
 {
-  <ID> | <INTEGER>
+(  t=<ID> {jjtThis.setName(t.image);})| (t=<INTEGER>{jjtThis.setIndex(t.image);})
 }
 
 JAVACODE
