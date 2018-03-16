@@ -156,7 +156,6 @@ void Assign() : {}
   }catch(ParseException e){
 
     String msg="Error found in left side of the assign!\n";
->>>>>>> b22be087f3637354bef3965819134b3228367506
     error_skipto(ASSIGN,msg);
   }
   try{
@@ -204,22 +203,14 @@ void While() : {}
     <WHILE> Exprtest() <LCHAVETA>
   }
   catch (ParseException e) {
-<<<<<<< HEAD
-    String msg="Error in while Exprtest";
-=======
     String msg="Error in while expression!\n";
->>>>>>> b22be087f3637354bef3965819134b3228367506
     error_skipto(LCHAVETA,msg);
   }
   try {
     Stmtlst() <RCHAVETA>
   }
   catch (ParseException e) {
-<<<<<<< HEAD
     String msg="Error in while body";
-=======
-    String msg="Error in while condition\n";
->>>>>>> b22be087f3637354bef3965819134b3228367506
     error_skipto(RCHAVETA,msg);
   }
 }
@@ -229,18 +220,18 @@ void If() : {}
   try{
       <IF> Exprtest() <LCHAVETA>
   }catch(ParseException e){
-    String msg="Error in if Exprtest";
+    String msg="Error in if condition!\n";
     error_skipto(LCHAVETA,msg);
   }try{
     Stmtlst() <RCHAVETA>
   }catch(ParseException e){
-    String msg="Error in if body";
+    String msg="Error in if action!\n";
     error_skipto(RCHAVETA,msg);
   }
   (try{
      <ELSE> <LCHAVETA>Stmtlst() <RCHAVETA>
   }catch(ParseException e){
-    String msg="Error in else";
+    String msg="Error in else statement!\n";
     error_skipto(RCHAVETA,msg);
   })?
 
