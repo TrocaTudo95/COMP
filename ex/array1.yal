@@ -1,8 +1,6 @@
 
 module array1
 {
-
-
   function print_array(N)
   {
 
