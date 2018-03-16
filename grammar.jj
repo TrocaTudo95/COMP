@@ -169,10 +169,14 @@ void Function() : {/*@bgen(jjtree) Function */
       String msg="Error in function 1";
       error_skipto(RPAR,msg);
     }
-/*    try{
-    */  < LCHAVETA >
+     try{
+      < LCHAVETA >
       Stmtlst()
-      < RCHAVETA >/*@bgen(jjtree)*/
+      < RCHAVETA >
+    }catch(ParseException ex){
+        String msg="Error in function 2";
+        error_skipto(RCHAVETA,msg);
+      }/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -193,11 +197,7 @@ void Function() : {/*@bgen(jjtree) Function */
     }
   }
 /*@egen*/
-  /*  }catch(ParseException ex){
-        String msg="Error in function 2";
-        error_skipto(RCHAVETA,msg);
-      }
-      */
+
 }
 
 void Varlist() : {/*@bgen(jjtree) Varlist */
