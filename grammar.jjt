@@ -30,7 +30,7 @@ BufferedReader  br;
   catch (FileNotFoundException e) {
     System.out.println(e);
 }
-
+  System.out.println("Errors: " + error_counter);
  }
 }
 PARSER_END(grammar)
@@ -78,7 +78,12 @@ PARSER_END(grammar)
 }
 SimpleNode Module() : {}
 {
-  <MODULE> <ID> <LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
+  try{
+    <MODULE> <ID> <LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
+  }catch(ParseException e){
+    String msg="Declarations must be before functions";
+    error_skipto(RCHAVETA,msg);
+  }
   {
     return jjtThis;
   }
@@ -86,7 +91,12 @@ SimpleNode Module() : {}
 
 void Declaration() : {}
 {
-  ( Element() ) ( <ASSIGN> ( ( "[" ArraySize() "]") | ( <ADDSUB_OP> )? <INTEGER> ) )? <PVIRG>
+  try{
+    ( Element() ) ( <ASSIGN> ( ( "[" ArraySize() "]") | ( <ADDSUB_OP> )? <INTEGER> ) )? <PVIRG>
+  }catch(ParseException e){
+    String msg="Error in Declaration";
+    error_skipto(PVIRG,msg);
+  }
 }
 
 void Function() : {}
@@ -228,14 +238,7 @@ void If() : {}
 
 void Call() : {}
 {
-  try{
     <ID> ( "." <ID> )? <LPAR> ( ArgumentList() )? <RPAR>
-  }
-  catch(ParseException e){
-    String msg="Error in call";
-    error_skipto(RPAR, msg);
-  }
-
 }
 
 void ArgumentList() : {}
@@ -273,8 +276,8 @@ void Index() : {}
 JAVACODE
 void error_skipto(int kind,String error_msg) {
   ParseException e = generateParseException();  // generate the exception object.
-  if(error_counter < 10){
-    error_counter++;
+  error_counter++;
+  if(error_counter <= 10){
     System.out.println(error_msg);  // print the error message
     System.out.println(e);
   }
