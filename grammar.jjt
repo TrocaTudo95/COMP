@@ -154,13 +154,15 @@ void Assign() : {}
   try{
     Lhs() <ASSIGN>
   }catch(ParseException e){
-    String msg="Error in assign on the left side";
+
+    String msg="Error found in left side of the assign!\n";
+>>>>>>> b22be087f3637354bef3965819134b3228367506
     error_skipto(ASSIGN,msg);
   }
   try{
     Rhs() <PVIRG>
   }catch(ParseException e){
-    String msg="Error in assign on the right side";
+    String msg="Error found in right side of the assign!\n";
     error_skipto(PVIRG,msg);
   }
 
@@ -202,14 +204,22 @@ void While() : {}
     <WHILE> Exprtest() <LCHAVETA>
   }
   catch (ParseException e) {
+<<<<<<< HEAD
     String msg="Error in while Exprtest";
+=======
+    String msg="Error in while expression!\n";
+>>>>>>> b22be087f3637354bef3965819134b3228367506
     error_skipto(LCHAVETA,msg);
   }
   try {
     Stmtlst() <RCHAVETA>
   }
   catch (ParseException e) {
+<<<<<<< HEAD
     String msg="Error in while body";
+=======
+    String msg="Error in while condition\n";
+>>>>>>> b22be087f3637354bef3965819134b3228367506
     error_skipto(RCHAVETA,msg);
   }
 }
