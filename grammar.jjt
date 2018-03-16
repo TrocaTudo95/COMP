@@ -1,0 +1,288 @@
+options
+{
+  LOOKAHEAD=1;
+  MULTI=true;
+}
+
+PARSER_BEGIN(grammar)
+// código Java que invoca o parser
+import java.io.*;
+public class grammar {
+  private static int error_counter = 0;
+ public static void main(String args[]) throws ParseException, FileNotFoundException {
+
+BufferedReader  br;
+ grammar parser;
+   try{
+     File inFile = null;
+  if (0 < args.length) {
+     inFile = new File(args[0]);
+  } else {
+     System.err.println("Invalid arguments count:" + args.length);
+  }
+
+    br = new BufferedReader(new FileReader(inFile));
+    parser= new grammar(br);
+
+     SimpleNode root = parser.Module();
+     root.dump("");
+  }
+  catch (FileNotFoundException e) {
+    System.out.println(e);
+}
+  System.out.println("Errors: " + error_counter);
+ }
+}
+PARSER_END(grammar)
+
+
+<DEFAULT> SKIP : {
+" "
+| "\t"
+| "\n"
+| "\r"
+| <"//" (~["\n","\r"])* ("\n" | "\r" | "\r\n")>
+| <"/*" (~["*"])* "*" ("*" | ~["*","/"] (~["*"])* "*")* "/">
+}
+
+/* reserved words */
+<DEFAULT> TOKEN : {
+<RELA_OP: ">" | "<" | "<=" | ">=" | "==" | "!=">
+| <ADDSUB_OP: "+" | "-">
+| <ARITH_OP: "*" | "/" | "<<" | ">>" | ">>>">
+| <BITWISE_OP: "&" | "|" | "^">
+| <NOT_OP: "!">
+| <WHILE: "while">
+| <IF: "if">
+| <ELSE: "else">
+| <ASSIGN: "=">
+| <ASPA: "\"">
+| <LPAR: "(">
+| <RPAR: ")">
+| <VIRG: ",">
+| <PVIRG: ";">
+| <LCHAVETA: "{">
+| <RCHAVETA: "}">
+| <FUNCTION: "function">
+| <MODULE: "module">
+| <SIZE: "size">
+}
+
+<DEFAULT> TOKEN : {
+<INTEGER: (<DIGIT>)+>
+| <ID: <LETTER> (<LETTER> | <DIGIT>)*>
+| <#LETTER: ["$","A"-"Z","_","a"-"z"]>
+| <#DIGIT: ["0"-"9"]>
+| <STRING: "\"" (["a"-"z","A"-"Z","0"-"9",":"," ","="])+ "\"">
+
+}
+SimpleNode Module() : {}
+{
+  try{
+    <MODULE> <ID> <LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
+  }catch(ParseException e){
+    String msg="Declarations must be before functions";
+    error_skipto(RCHAVETA,msg);
+  }
+  {
+    return jjtThis;
+  }
+}
+
+void Declaration() : {}
+{
+  try{
+    ( Element() ) ( <ASSIGN> ( ( "[" ArraySize() "]") | ( <ADDSUB_OP> )? <INTEGER> ) )? <PVIRG>
+  }catch(ParseException e){
+    String msg="Error in Declaration";
+    error_skipto(PVIRG,msg);
+  }
+}
+
+void Function() : {}
+{
+  try{
+    < FUNCTION >
+    < ID >
+    (("[" "]")? < ASSIGN > < ID >)?
+    < LPAR >
+    (Varlist())?
+    < RPAR >
+  }catch(ParseException e){
+      String msg="Error in function 1";
+      error_skipto(RPAR,msg);
+    }
+     try{
+      < LCHAVETA >
+      Stmtlst()
+      < RCHAVETA >
+    }catch(ParseException ex){
+        String msg="Error in function 2";
+        error_skipto(RCHAVETA,msg);
+      }
+
+}
+
+void Varlist() : {}
+{
+      ( Element() )( <VIRG> ( Element()) )*
+}
+
+void Element() : {}
+{
+    <ID> ("[" "]")?
+}
+
+
+void Stmtlst() : {}
+{
+( Stmt() )*
+}
+
+void Stmt() : {}
+{
+  While() | If() | try{ LOOKAHEAD(3) Assign() | Call() <PVIRG>}
+  catch(ParseException e){
+    String msg="Error in stmt";
+    error_skipto(PVIRG,msg);
+  }
+}
+
+void Assign() : {}
+{
+  try{
+    Lhs() <ASSIGN>
+  }catch(ParseException e){
+    String msg="Error in assign 1";
+    error_skipto(ASSIGN,msg);
+  }
+  try{
+    Rhs() <PVIRG>
+  }catch(ParseException e){
+    String msg="Error in assign 2";
+    error_skipto(PVIRG,msg);
+  }
+
+}
+
+void Lhs() : {}
+{
+  AccessElement()
+}
+
+void Rhs() : {}
+{
+  ( Term() ( ( <ARITH_OP> | <BITWISE_OP> | <ADDSUB_OP> ) Term() )? )| "[" ArraySize() "]"
+}
+
+void ArraySize() : {}
+{
+(<ID>ScalarAccess()) | <INTEGER>
+}
+
+void Term() : {}
+{
+  ( <ADDSUB_OP> )? ( <INTEGER> | LOOKAHEAD(3)Call() | AccessElement())
+}
+
+void Exprtest() : {}
+{
+  try{
+  <LPAR> Lhs() <RELA_OP> Rhs() <RPAR>
+}catch(ParseException e){
+  String msg="Error in Exprtest 1";
+  error_skipto(RPAR,msg);
+}
+}
+
+void While() : {}
+{
+  try {
+    <WHILE> Exprtest() <LCHAVETA>
+  }
+  catch (ParseException e) {
+    String msg="Error in while 1";
+    error_skipto(LCHAVETA,msg);
+  }
+  try {
+    Stmtlst() <RCHAVETA>
+  }
+  catch (ParseException e) {
+    String msg="Error in while 2";
+    error_skipto(RCHAVETA,msg);
+  }
+}
+
+void If() : {}
+{
+  try{
+      <IF> Exprtest() <LCHAVETA>
+  }catch(ParseException e){
+    String msg="Error in IF 1";
+    error_skipto(LCHAVETA,msg);
+  }try{
+    Stmtlst() <RCHAVETA>
+  }catch(ParseException e){
+    String msg="Error in IF 2";
+    error_skipto(RCHAVETA,msg);
+  }
+  (try{
+     <ELSE> <LCHAVETA>Stmtlst() <RCHAVETA>
+  }catch(ParseException e){
+    String msg="Error in IF 3";
+    error_skipto(RCHAVETA,msg);
+  })?
+
+
+}
+
+void Call() : {}
+{
+    <ID> ( "." <ID> )? <LPAR> ( ArgumentList() )? <RPAR>
+}
+
+void ArgumentList() : {}
+{
+Argument() ( <VIRG> Argument() )*
+}
+
+void Argument() : {}
+{
+( <ID> | <STRING> | <INTEGER> )
+}
+
+void AccessElement() : {/*Token t;*/}
+  {
+    /*t=*/<ID> (ArrayAccess(/*t.image*/) | ScalarAccess(/*t.image*/))
+  }
+
+void ArrayAccess(/*String id*/) : {}
+{
+  /*{jjtThis.setValue(id);}*/
+"[" Index() "]"
+}
+
+void ScalarAccess(/*String id*/) : {}
+{
+  /*{jjtThis.setValue(id);}*/
+ ( "." <SIZE> )?
+}
+
+void Index() : {}
+{
+  <ID> | <INTEGER>
+}
+
+JAVACODE
+void error_skipto(int kind,String error_msg) {
+  ParseException e = generateParseException();  // generate the exception object.
+  error_counter++;
+  if(error_counter <= 10){
+    System.out.println(error_msg);  // print the error message
+    System.out.println(e);
+  }
+  Token t;
+  do {
+    t = getNextToken();
+  } while (t.kind != kind);
+}
