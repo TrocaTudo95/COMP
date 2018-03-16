@@ -81,7 +81,7 @@ SimpleNode Module() : {Token t;}
   try{
     <MODULE>t=<ID> {jjtThis.setName(t.image);}<LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
   }catch(ParseException e){
-    String msg="Declarations must be before functions";
+    String msg="Error in module";
     error_skipto(RCHAVETA,msg);
   }
   {
@@ -94,7 +94,7 @@ void Declaration() : {Token t1, t2; int i;}
   try{
     ( i=Element(){jjtThis.setElementId(i);}) ( <ASSIGN> ( ( "[" ArraySize() "]") | ( t2=<ADDSUB_OP>{jjtThis.setSignal(t2.image);} )? t1=<INTEGER>{jjtThis.setElementValue(t1.image);} ) )? <PVIRG>
   }catch(ParseException e){
-    String msg="Error in Declaration";
+    String msg="Error declaring module variables";
     error_skipto(PVIRG,msg);
   }
 }
@@ -109,7 +109,7 @@ void Function() : {Token t1;}
     (Varlist())?
     < RPAR >
   }catch(ParseException e){
-      String msg="Error in function 1";
+      String msg="Error in function Varlist or in the return variable";
       error_skipto(RPAR,msg);
     }
      try{
@@ -117,7 +117,7 @@ void Function() : {Token t1;}
       Stmtlst()
       < RCHAVETA >
     }catch(ParseException ex){
-        String msg="Error in function 2";
+        String msg="Error in function Stmtlst, there is an error in the function body";
         error_skipto(RCHAVETA,msg);
       }
 
@@ -144,7 +144,7 @@ void Stmt() : {}
 {
   While() | If() | try{ LOOKAHEAD(3) Assign() | Call() <PVIRG>}
   catch(ParseException e){
-    String msg="Error in stmt";
+    String msg="Error in one of the statements";
     error_skipto(PVIRG,msg);
   }
 }
@@ -154,13 +154,13 @@ void Assign() : {}
   try{
     Lhs() <ASSIGN>
   }catch(ParseException e){
-    String msg="Error in assign 1";
+    String msg="Error in assign on the left side";
     error_skipto(ASSIGN,msg);
   }
   try{
     Rhs() <PVIRG>
   }catch(ParseException e){
-    String msg="Error in assign 2";
+    String msg="Error in assign on the right side";
     error_skipto(PVIRG,msg);
   }
 
@@ -191,7 +191,7 @@ void Exprtest() : {Token t;}
   try{
   <LPAR> Lhs() t=<RELA_OP>{jjtThis.setOperation(t.image);} Rhs() <RPAR>
 }catch(ParseException e){
-  String msg="Error in Exprtest 1";
+  String msg="Error in Exprtest";
   error_skipto(RPAR,msg);
 }
 }
@@ -202,14 +202,14 @@ void While() : {}
     <WHILE> Exprtest() <LCHAVETA>
   }
   catch (ParseException e) {
-    String msg="Error in while 1";
+    String msg="Error in while Exprtest";
     error_skipto(LCHAVETA,msg);
   }
   try {
     Stmtlst() <RCHAVETA>
   }
   catch (ParseException e) {
-    String msg="Error in while 2";
+    String msg="Error in while body";
     error_skipto(RCHAVETA,msg);
   }
 }
@@ -219,18 +219,18 @@ void If() : {}
   try{
       <IF> Exprtest() <LCHAVETA>
   }catch(ParseException e){
-    String msg="Error in IF 1";
+    String msg="Error in if Exprtest";
     error_skipto(LCHAVETA,msg);
   }try{
     Stmtlst() <RCHAVETA>
   }catch(ParseException e){
-    String msg="Error in IF 2";
+    String msg="Error in if body";
     error_skipto(RCHAVETA,msg);
   }
   (try{
      <ELSE> <LCHAVETA>Stmtlst() <RCHAVETA>
   }catch(ParseException e){
-    String msg="Error in IF 3";
+    String msg="Error in else";
     error_skipto(RCHAVETA,msg);
   })?
 

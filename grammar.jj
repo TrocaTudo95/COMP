@@ -91,7 +91,7 @@ SimpleNode Module() : {/*@bgen(jjtree) Module */
   try{
     <MODULE>t=<ID> {jjtn000.setName(t.image);}<LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
   }catch(ParseException e){
-    String msg="Declarations must be before functions";
+    String msg="Error in module";
     error_skipto(RCHAVETA,msg);
   }/*@bgen(jjtree)*/
   {
@@ -135,7 +135,7 @@ void Declaration() : {/*@bgen(jjtree) Declaration */
   try{
     ( i=Element(){jjtn000.setElementId(i);}) ( <ASSIGN> ( ( "[" ArraySize() "]") | ( t2=<ADDSUB_OP>{jjtn000.setSignal(t2.image);} )? t1=<INTEGER>{jjtn000.setElementValue(t1.image);} ) )? <PVIRG>
   }catch(ParseException e){
-    String msg="Error in Declaration";
+    String msg="Error declaring module variables";
     error_skipto(PVIRG,msg);
   }/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
@@ -176,7 +176,7 @@ void Function() : {/*@bgen(jjtree) Function */
     (Varlist())?
     < RPAR >
   }catch(ParseException e){
-      String msg="Error in function 1";
+      String msg="Error in function Varlist or in the return variable";
       error_skipto(RPAR,msg);
     }
      try{
@@ -184,7 +184,7 @@ void Function() : {/*@bgen(jjtree) Function */
       Stmtlst()
       < RCHAVETA >
     }catch(ParseException ex){
-        String msg="Error in function 2";
+        String msg="Error in function Stmtlst, there is an error in the function body";
         error_skipto(RCHAVETA,msg);
       }/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
@@ -306,7 +306,7 @@ void Stmt() : {/*@bgen(jjtree) Stmt */
 /*@egen*/
   While() | If() | try{ LOOKAHEAD(3) Assign() | Call() <PVIRG>}
   catch(ParseException e){
-    String msg="Error in stmt";
+    String msg="Error in one of the statements";
     error_skipto(PVIRG,msg);
   }/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
@@ -342,13 +342,13 @@ void Assign() : {/*@bgen(jjtree) Assign */
   try{
     Lhs() <ASSIGN>
   }catch(ParseException e){
-    String msg="Error in assign 1";
+    String msg="Error in assign on the left side";
     error_skipto(ASSIGN,msg);
   }
   try{
     Rhs() <PVIRG>
   }catch(ParseException e){
-    String msg="Error in assign 2";
+    String msg="Error in assign on the right side";
     error_skipto(PVIRG,msg);
   }/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
@@ -524,7 +524,7 @@ void Exprtest() : {/*@bgen(jjtree) Exprtest */
   try{
   <LPAR> Lhs() t=<RELA_OP>{jjtn000.setOperation(t.image);} Rhs() <RPAR>
 }catch(ParseException e){
-  String msg="Error in Exprtest 1";
+  String msg="Error in Exprtest";
   error_skipto(RPAR,msg);
 }/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
@@ -561,14 +561,14 @@ void While() : {/*@bgen(jjtree) While */
     <WHILE> Exprtest() <LCHAVETA>
   }
   catch (ParseException e) {
-    String msg="Error in while 1";
+    String msg="Error in while Exprtest";
     error_skipto(LCHAVETA,msg);
   }
   try {
     Stmtlst() <RCHAVETA>
   }
   catch (ParseException e) {
-    String msg="Error in while 2";
+    String msg="Error in while body";
     error_skipto(RCHAVETA,msg);
   }/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
@@ -604,18 +604,18 @@ void If() : {/*@bgen(jjtree) If */
   try{
       <IF> Exprtest() <LCHAVETA>
   }catch(ParseException e){
-    String msg="Error in IF 1";
+    String msg="Error in if Exprtest";
     error_skipto(LCHAVETA,msg);
   }try{
     Stmtlst() <RCHAVETA>
   }catch(ParseException e){
-    String msg="Error in IF 2";
+    String msg="Error in if body";
     error_skipto(RCHAVETA,msg);
   }
   (try{
      <ELSE> <LCHAVETA>Stmtlst() <RCHAVETA>
   }catch(ParseException e){
-    String msg="Error in IF 3";
+    String msg="Error in else";
     error_skipto(RCHAVETA,msg);
   })?/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
