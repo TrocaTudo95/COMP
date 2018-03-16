@@ -219,18 +219,18 @@ void If() : {}
   try{
       <IF> Exprtest() <LCHAVETA>
   }catch(ParseException e){
-    String msg="Error in IF 1";
+    String msg="Error in if condition!\n";
     error_skipto(LCHAVETA,msg);
   }try{
     Stmtlst() <RCHAVETA>
   }catch(ParseException e){
-    String msg="Error in IF 2";
+    String msg="Error in if action!\n";
     error_skipto(RCHAVETA,msg);
   }
   (try{
      <ELSE> <LCHAVETA>Stmtlst() <RCHAVETA>
   }catch(ParseException e){
-    String msg="Error in IF 3";
+    String msg="Error in else statement!\n";
     error_skipto(RCHAVETA,msg);
   })?
 
