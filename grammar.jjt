@@ -276,8 +276,8 @@ void Index() : {}
 JAVACODE
 void error_skipto(int kind,String error_msg) {
   ParseException e = generateParseException();  // generate the exception object.
-  if(error_counter < 10){
-    error_counter++;
+  error_counter++;
+  if(error_counter <= 10){
     System.out.println(error_msg);  // print the error message
     System.out.println(e);
   }
