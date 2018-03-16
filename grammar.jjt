@@ -91,7 +91,12 @@ SimpleNode Module() : {}
 
 void Declaration() : {}
 {
-  ( Element() ) ( <ASSIGN> ( ( "[" ArraySize() "]") | ( <ADDSUB_OP> )? <INTEGER> ) )? <PVIRG>
+  try{
+    ( Element() ) ( <ASSIGN> ( ( "[" ArraySize() "]") | ( <ADDSUB_OP> )? <INTEGER> ) )? <PVIRG>
+  }catch(ParseException e){
+    String msg="Error in Declaration";
+    error_skipto(PVIRG,msg);
+  }
 }
 
 void Function() : {}
