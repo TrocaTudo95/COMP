@@ -6,9 +6,9 @@ class ASTStmt extends SimpleNode {
     super(id);
   }
 
-  public ASTStmt(grammar p, int id) {
+  public ASTStmt(yal2jvm p, int id) {
     super(p, id);
   }
 
 }
-/* JavaCC - OriginalChecksum=5e828c1d683aa601821e3e515ab94691 (do not edit this line) */
+/* JavaCC - OriginalChecksum=bf4117653231575e76a58ace23384507 (do not edit this line) */

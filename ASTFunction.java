@@ -6,9 +6,9 @@ class ASTFunction extends SimpleNode {
     super(id);
   }
 
-  public ASTFunction(grammar p, int id) {
+  public ASTFunction(yal2jvm p, int id) {
     super(p, id);
   }
 
 }
-/* JavaCC - OriginalChecksum=2141962f6087d7961d0bfe9b3f5a082f (do not edit this line) */
+/* JavaCC - OriginalChecksum=a2652e971e8086c1460c0bacb6e77b08 (do not edit this line) */

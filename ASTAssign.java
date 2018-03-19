@@ -6,9 +6,9 @@ class ASTAssign extends SimpleNode {
     super(id);
   }
 
-  public ASTAssign(grammar p, int id) {
+  public ASTAssign(yal2jvm p, int id) {
     super(p, id);
   }
 
 }
-/* JavaCC - OriginalChecksum=da55d74160d2721452e414af74567b99 (do not edit this line) */
+/* JavaCC - OriginalChecksum=b822ef442d50fb2875ef08544f450a7d (do not edit this line) */

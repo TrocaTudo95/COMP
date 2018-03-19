@@ -7,7 +7,7 @@ class ASTElement extends SimpleNode {
     super(id);
   }
 
-  public ASTElement(grammar p, int id) {
+  public ASTElement(yal2jvm p, int id) {
     super(p, id);
   }
 

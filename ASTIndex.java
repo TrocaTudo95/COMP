@@ -7,7 +7,7 @@ class ASTIndex extends SimpleNode {
     super(id);
   }
 
-  public ASTIndex(grammar p, int id) {
+  public ASTIndex(yal2jvm p, int id) {
     super(p, id);
   }
   public void setIndex(String id){
@@ -16,7 +16,7 @@ class ASTIndex extends SimpleNode {
 
   @Override
   public String toString() {
-    return grammarTreeConstants.jjtNodeName[id] + " " + this.name + "  value:" + this.index;
+    return yal2jvmTreeConstants.jjtNodeName[id] + " " + this.name + "  value:" + this.index;
   }
 
 }

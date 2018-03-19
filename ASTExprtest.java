@@ -7,7 +7,7 @@ class ASTExprtest extends SimpleNode {
     super(id);
   }
 
-  public ASTExprtest(grammar p, int id) {
+  public ASTExprtest(yal2jvm p, int id) {
     super(p, id);
   }
 
@@ -18,9 +18,9 @@ class ASTExprtest extends SimpleNode {
 @Override
 public String toString() {
   if(this.operation!=null)
-  return grammarTreeConstants.jjtNodeName[id] + " " + this.name + "  operator:" + this.operation;
+  return yal2jvmTreeConstants.jjtNodeName[id] + " " + this.name + "  operator:" + this.operation;
   else
-  return grammarTreeConstants.jjtNodeName[id] + " " + this.name ;
+  return yal2jvmTreeConstants.jjtNodeName[id] + " " + this.name ;
 }
 }
 /* JavaCC - OriginalChecksum=ff3171bcbe6a3ba94811ed3933aebc1f (do not edit this line) */

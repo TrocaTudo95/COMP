@@ -4,15 +4,15 @@ options
   MULTI=true;
 }
 
-PARSER_BEGIN(grammar)
+PARSER_BEGIN(yal2jvm)
 // código Java que invoca o parser
 import java.io.*;
-public class grammar {
+public class yal2jvm {
   private static int error_counter = 0;
  public static void main(String args[]) throws ParseException, FileNotFoundException {
 
 BufferedReader  br;
- grammar parser;
+ yal2jvm parser;
    try{
      File inFile = null;
   if (0 < args.length) {
@@ -22,7 +22,7 @@ BufferedReader  br;
   }
 
     br = new BufferedReader(new FileReader(inFile));
-    parser= new grammar(br);
+    parser= new yal2jvm(br);
 
      SimpleNode root = parser.Module();
      root.dump("");
@@ -33,7 +33,7 @@ BufferedReader  br;
   System.out.println("Errors: " + error_counter);
  }
 }
-PARSER_END(grammar)
+PARSER_END(yal2jvm)
 
 
 <DEFAULT> SKIP : {

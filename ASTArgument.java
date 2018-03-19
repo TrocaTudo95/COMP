@@ -8,7 +8,7 @@ class ASTArgument extends SimpleNode {
     super(id);
   }
 
-  public ASTArgument(grammar p, int id) {
+  public ASTArgument(yal2jvm p, int id) {
     super(p, id);
   }
   public void set_str_arg(String arg){
@@ -26,7 +26,7 @@ class ASTArgument extends SimpleNode {
     else
       temp= " type:String value:"+this.str_arg;
 
-    return grammarTreeConstants.jjtNodeName[id] + "   " + this.name + temp;
+    return yal2jvmTreeConstants.jjtNodeName[id] + "   " + this.name + temp;
   }
 }
 /* JavaCC - OriginalChecksum=e86f66cff9855a3eddf055967b3542f6 (do not edit this line) */

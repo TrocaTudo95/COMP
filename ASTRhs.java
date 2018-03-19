@@ -8,7 +8,7 @@ class ASTRhs extends SimpleNode {
     super(id);
   }
 
-  public ASTRhs(grammar p, int id) {
+  public ASTRhs(yal2jvm p, int id) {
     super(p, id);
   }
 
@@ -19,9 +19,9 @@ class ASTRhs extends SimpleNode {
 @Override
 public String toString() {
   if(this.operation!=null)
-  return grammarTreeConstants.jjtNodeName[id] + " " + this.name + "  operator:" + this.operation;
+  return yal2jvmTreeConstants.jjtNodeName[id] + " " + this.name + "  operator:" + this.operation;
   else
-  return grammarTreeConstants.jjtNodeName[id] + " " + this.name ;
+  return yal2jvmTreeConstants.jjtNodeName[id] + " " + this.name ;
 }
 
 }

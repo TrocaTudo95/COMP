@@ -6,9 +6,9 @@ class ASTScalarAccess extends SimpleNode {
     super(id);
   }
 
-  public ASTScalarAccess(grammar p, int id) {
+  public ASTScalarAccess(yal2jvm p, int id) {
     super(p, id);
   }
 
 }
-/* JavaCC - OriginalChecksum=e4359e271abc64fc4fde6a924b71450b (do not edit this line) */
+/* JavaCC - OriginalChecksum=4bd0a6f4f8a76e0c680b63da6f7540c7 (do not edit this line) */

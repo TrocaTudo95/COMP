@@ -6,9 +6,9 @@ class ASTWhile extends SimpleNode {
     super(id);
   }
 
-  public ASTWhile(grammar p, int id) {
+  public ASTWhile(yal2jvm p, int id) {
     super(p, id);
   }
 
 }
-/* JavaCC - OriginalChecksum=b4d419292e86ed9842464f7295712a74 (do not edit this line) */
+/* JavaCC - OriginalChecksum=6c1040b493c4b0c1271927efbf8f3a6f (do not edit this line) */

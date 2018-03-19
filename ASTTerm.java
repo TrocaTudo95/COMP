@@ -8,7 +8,7 @@ class ASTTerm extends SimpleNode {
     super(id);
   }
 
-  public ASTTerm(grammar p, int id) {
+  public ASTTerm(yal2jvm p, int id) {
     super(p, id);
   }
 
@@ -29,7 +29,7 @@ class ASTTerm extends SimpleNode {
 
   @Override
   public String toString() {
-    return grammarTreeConstants.jjtNodeName[id] +" "+ "element value:"+ this.element_value;
+    return yal2jvmTreeConstants.jjtNodeName[id] +" "+ "element value:"+ this.element_value;
   }
 
 }

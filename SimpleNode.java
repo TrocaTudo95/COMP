@@ -8,14 +8,14 @@ class SimpleNode implements Node {
   protected int id;
   protected int value;
   protected String name;
-  protected grammar parser;
+  protected yal2jvm parser;
 
   public SimpleNode(int i) {
     id = i;
     name="";
   }
 
-  public SimpleNode(grammar p, int i) {
+  public SimpleNode(yal2jvm p, int i) {
     this(i);
     parser = p;
   }
@@ -58,7 +58,7 @@ class SimpleNode implements Node {
      you need to do. */
 
   public String toString() {
-    return grammarTreeConstants.jjtNodeName[id]+ " " + this.name;
+    return yal2jvmTreeConstants.jjtNodeName[id]+ " " + this.name;
   }
   public String toString(String prefix) { return prefix + toString(); }
 

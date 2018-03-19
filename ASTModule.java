@@ -6,9 +6,9 @@ class ASTModule extends SimpleNode {
     super(id);
   }
 
-  public ASTModule(grammar p, int id) {
+  public ASTModule(yal2jvm p, int id) {
     super(p, id);
   }
 
 }
-/* JavaCC - OriginalChecksum=565e6e797fc6064236c407438c83eb1e (do not edit this line) */
+/* JavaCC - OriginalChecksum=9b9343e04f61c32fe112ea4c8db513ec (do not edit this line) */

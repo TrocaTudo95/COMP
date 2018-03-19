@@ -6,9 +6,9 @@ class ASTAccessElement extends SimpleNode {
     super(id);
   }
 
-  public ASTAccessElement(grammar p, int id) {
+  public ASTAccessElement(yal2jvm p, int id) {
     super(p, id);
   }
 
 }
-/* JavaCC - OriginalChecksum=cb6eff662d2a40e1a8a90928296bc90c (do not edit this line) */
+/* JavaCC - OriginalChecksum=5cb57520f1b7d6f77670f63c633c5392 (do not edit this line) */

@@ -6,9 +6,9 @@ class ASTerror_skipto extends SimpleNode {
     super(id);
   }
 
-  public ASTerror_skipto(grammar p, int id) {
+  public ASTerror_skipto(yal2jvm p, int id) {
     super(p, id);
   }
 
 }
-/* JavaCC - OriginalChecksum=a16b5408eab606dfea561a2d04fedac7 (do not edit this line) */
+/* JavaCC - OriginalChecksum=9af9ca19a70ccc9e7bd5c30297e64d65 (do not edit this line) */

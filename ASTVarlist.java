@@ -6,9 +6,9 @@ class ASTVarlist extends SimpleNode {
     super(id);
   }
 
-  public ASTVarlist(grammar p, int id) {
+  public ASTVarlist(yal2jvm p, int id) {
     super(p, id);
   }
 
 }
-/* JavaCC - OriginalChecksum=4dfa2ceb8912331eaafee15c636db949 (do not edit this line) */
+/* JavaCC - OriginalChecksum=62904878d37f6ab640b4693e9aaf8baa (do not edit this line) */

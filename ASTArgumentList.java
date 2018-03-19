@@ -6,9 +6,9 @@ class ASTArgumentList extends SimpleNode {
     super(id);
   }
 
-  public ASTArgumentList(grammar p, int id) {
+  public ASTArgumentList(yal2jvm p, int id) {
     super(p, id);
   }
 
 }
-/* JavaCC - OriginalChecksum=3f55c9c2676f38395e7c6c8861fd617a (do not edit this line) */
+/* JavaCC - OriginalChecksum=227b01c4beab7b51ee27fd1741abfc1a (do not edit this line) */

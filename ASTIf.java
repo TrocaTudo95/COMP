@@ -6,9 +6,9 @@ class ASTIf extends SimpleNode {
     super(id);
   }
 
-  public ASTIf(grammar p, int id) {
+  public ASTIf(yal2jvm p, int id) {
     super(p, id);
   }
 
 }
-/* JavaCC - OriginalChecksum=27db37232db25c47ec3703d88c70178e (do not edit this line) */
+/* JavaCC - OriginalChecksum=4b3e4c231e0afc3d61129e3c066655a0 (do not edit this line) */

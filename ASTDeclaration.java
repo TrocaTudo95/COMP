@@ -11,7 +11,7 @@ class ASTDeclaration extends SimpleNode {
     super(id);
   }
 
-  public ASTDeclaration(grammar p, int id) {
+  public ASTDeclaration(yal2jvm p, int id) {
     super(p, id);
   }
 
@@ -36,7 +36,7 @@ class ASTDeclaration extends SimpleNode {
 
   @Override
   public String toString() {
-    return grammarTreeConstants.jjtNodeName[id] + " " + this.name  + "element id:" + this.element_id +" "+ "element value:"+ this.element_value;
+    return yal2jvmTreeConstants.jjtNodeName[id] + " " + this.name  + "element id:" + this.element_id +" "+ "element value:"+ this.element_value;
   }
 }
 /* JavaCC - OriginalChecksum=5d869d09fafa3370307ad4a40f0167bb (do not edit this line) */

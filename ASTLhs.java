@@ -6,9 +6,9 @@ class ASTLhs extends SimpleNode {
     super(id);
   }
 
-  public ASTLhs(grammar p, int id) {
+  public ASTLhs(yal2jvm p, int id) {
     super(p, id);
   }
 
 }
-/* JavaCC - OriginalChecksum=746600b3a9db8eb2f13451c258be4230 (do not edit this line) */
+/* JavaCC - OriginalChecksum=3ff9e3ae6aa569f2c1475e98d7f21869 (do not edit this line) */

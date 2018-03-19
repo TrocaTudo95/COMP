@@ -6,9 +6,9 @@ class ASTArrayAccess extends SimpleNode {
     super(id);
   }
 
-  public ASTArrayAccess(grammar p, int id) {
+  public ASTArrayAccess(yal2jvm p, int id) {
     super(p, id);
   }
 
 }
-/* JavaCC - OriginalChecksum=0a91ece0fac63fddf262275d2ec74cf2 (do not edit this line) */
+/* JavaCC - OriginalChecksum=bd38f05fb55ac0b6d4b6eb9386025960 (do not edit this line) */
