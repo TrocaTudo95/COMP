@@ -6,7 +6,7 @@
 }
 
 PARSER_BEGIN(yal2jvm)
-// c\u00c3\u00b3digo Java que invoca o parser
+// c\u00f3digo Java que invoca o parser
 import java.io.*;
 public class yal2jvm/*@bgen(jjtree)*/implements yal2jvmTreeConstants/*@egen*/ {/*@bgen(jjtree)*/
   protected static JJTyal2jvmState jjtree = new JJTyal2jvmState();
