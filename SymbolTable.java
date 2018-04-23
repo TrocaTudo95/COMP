@@ -64,7 +64,7 @@ class SymbolTable {
      * @param id the symbol
      * @param info the data asosciated with id
      * */
-    public void addId(AbstractSymbol id, Object info) {
+    public void addId(AbstractSymbol id, Node info) {
 	if (tbl.empty()) {
 	    Utilities.fatalError("addId: can't add a symbol without a scope.");
 	}
@@ -91,7 +91,7 @@ class SymbolTable {
 	}
 	return null;
     }
-    
+
     /**
      * Probes the symbol table.  Check the top scope (only) for the
      * symbol <code>sym</code>.  If found, return the information field.

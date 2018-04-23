@@ -26,7 +26,7 @@ class ASTArgument extends SimpleNode {
     else
       temp= " type:String value:"+this.str_arg;
 
-    return yal2jvmTreeConstants.jjtNodeName[id] + "   " + this.name + temp;
+    return yal2jvmTreeConstants.jjtNodeName[id] + " " + this.name + temp;
   }
 }
-/* JavaCC - OriginalChecksum=e86f66cff9855a3eddf055967b3542f6 (do not edit this line) */
+/* JavaCC -stion has one right answer; wrong answers are graded with minus 1/4 of  OriginalChecksum=e86f66cff9855a3eddf055967b3542f6 (do not edit this line) */

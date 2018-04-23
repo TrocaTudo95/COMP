@@ -2,6 +2,7 @@ options
 {
   LOOKAHEAD=1;
   MULTI=true;
+  TRACK_TOKENS=true;
 }
 
 PARSER_BEGIN(yal2jvm)
@@ -9,6 +10,22 @@ PARSER_BEGIN(yal2jvm)
 import java.io.*;
 public class yal2jvm {
   private static int error_counter = 0;
+  private static SymbolTable st;
+
+  private static void makeSymbolTable(SimpleNode root){
+
+    int i= root.jjtGetNumChildren();
+    st.enterScope();
+    System.out.print("\n\n\n\n\n");
+    for(int j=0; j<i; j++){
+      String temp= root.jjtGetChild(j).getSymbolTableName();
+      AbstractSymbol as=new AbstractSymbol(temp,temp.length(),j);
+      st.addId(as,root.jjtGetChild(j));
+      System.out.println(temp);
+    }
+    System.out.print("\n\n\n\n\n");
+
+  }
  public static void main(String args[]) throws ParseException, FileNotFoundException {
 
 BufferedReader  br;
@@ -23,9 +40,13 @@ BufferedReader  br;
 
     br = new BufferedReader(new FileReader(inFile));
     parser= new yal2jvm(br);
+    st=new SymbolTable();
 
      SimpleNode root = parser.Module();
      root.dump("");
+     makeSymbolTable(root);
+
+
   }
   catch (FileNotFoundException e) {
     System.out.println(e);

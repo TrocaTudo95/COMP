@@ -32,5 +32,7 @@ interface Node {
   public int jjtGetNumChildren();
 
   public int getId();
+  
+  public String getSymbolTableName();
 }
 /* JavaCC - OriginalChecksum=44463b86a5a32f00f5e3ad9c8b8406be (do not edit this line) */

@@ -20,7 +20,7 @@ import java.io.PrintStream;
  *
  * @see AbstractTable
  * */
-abstract class AbstractSymbol {
+ class AbstractSymbol {
     /** The stored string */
     protected String str;
 
@@ -34,8 +34,8 @@ abstract class AbstractSymbol {
      * @param index the table index
      * */
     public AbstractSymbol(String str, int len, int index) {
-	this.str = str.length() == len ? str : str.substring(0, len);
-	this.index = index;
+	     this.str = str.length() == len ? str : str.substring(0, len);
+	     this.index = index;
     }
 
     /** Tests if the string argument is equal to the string in this symbol.
@@ -84,6 +84,4 @@ abstract class AbstractSymbol {
 	return str;
     }
 
-    /** Returns a copy of this symbol */
-    public abstract Object clone();
 }
