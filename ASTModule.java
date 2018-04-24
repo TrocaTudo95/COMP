@@ -10,5 +10,20 @@ class ASTModule extends SimpleNode {
     super(p, id);
   }
 
+  public void process(File s){
+
+    s.write(".class public " + this.name + "\n");
+    s.write(".super java/lang/Object\n");
+
+    if (children != null) {
+      for (int i = 0; i < children.length; ++i) {
+        SimpleNode n = (SimpleNode)children[i];
+        if (n != null) {
+          n.process(s);
+        }
+      }
+    }
+  }
+
 }
 /* JavaCC - OriginalChecksum=9b9343e04f61c32fe112ea4c8db513ec (do not edit this line) */

@@ -80,6 +80,18 @@ class SimpleNode implements Node {
       }
     }
   }
+
+
+  public void process(File s){
+    if (children != null) {
+      for (int i = 0; i < children.length; ++i) {
+        SimpleNode n = (SimpleNode)children[i];
+        if (n != null) {
+          n.process(s);
+        }
+      }
+    }
+  }
   public int getId() {
     return id;
   }

@@ -28,14 +28,7 @@ public class yal2jvm {
   }
   public static void generator(String fileName,Node root){
     File s = new File(fileName + ".j");
-    //inicio
-    s.write(".class public " + root.getName() + "\n");
-    s.write(".super java/lang/Object\n");
-    //resto do ficheiro
-    
-
-
-
+    root.process(s);
     //fim
     s.write(".method static public <clinit>()V\n");
     s.write(".limit stack 0\n");
