@@ -10,5 +10,11 @@ class ASTFunction extends SimpleNode {
     super(p, id);
   }
 
+  public void process(File s){
+
+    s.write(getName());
+    s.write("(");
+  }
+
 }
 /* JavaCC - OriginalChecksum=a2652e971e8086c1460c0bacb6e77b08 (do not edit this line) */
