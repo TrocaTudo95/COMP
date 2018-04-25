@@ -166,7 +166,7 @@ void Declaration() : {/*@bgen(jjtree) Declaration */
   try {
 /*@egen*/
   try{
-    ( i=Element(){jjtn000.setElementId(i);}) ( <ASSIGN> ( ( "[" ArraySize() "]") | ( t2=<ADDSUB_OP>{jjtn000.setSignal(t2.image);} )? t1=<INTEGER>{jjtn000.setElementValue(t1.image);} ) )? <PVIRG>
+    ( i=Element(){jjtn000.setElementId(i);jjtn000.setType("I");}) ( <ASSIGN> ( ( "[" ArraySize() "]"{jjtn000.setType("[I");}) | ( t2=<ADDSUB_OP>{jjtn000.setSignal(t2.image);} )? t1=<INTEGER>{jjtn000.setElementValue(t1.image);} ) )? <PVIRG>
   }catch(ParseException e){
     String msg="Error declaring module variables";
     error_skipto(PVIRG,msg);
@@ -293,7 +293,7 @@ int Element() : {/*@bgen(jjtree) Element */
 {/*@bgen(jjtree) Element */
   try {
 /*@egen*/
-  t=<ID>{jjtn000.setName(t.image);jjtn000.setType("int");} ("[" "]"{jjtn000.setType("array");})?/*@bgen(jjtree)*/
+  t=<ID>{jjtn000.setName(t.image);jjtn000.setType("I");} ("[" "]"{jjtn000.setType("[I");})?/*@bgen(jjtree)*/
   {
     jjtree.closeNodeScope(jjtn000, true);
     jjtc000 = false;

@@ -133,7 +133,7 @@ if (jjtc000) {
     try {
       try {
         i = Element();
-jjtn000.setElementId(i);
+jjtn000.setElementId(i);jjtn000.setType("I");
         switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
         case ASSIGN:{
           jj_consume_token(ASSIGN);
@@ -142,6 +142,7 @@ jjtn000.setElementId(i);
             jj_consume_token(31);
             ArraySize();
             jj_consume_token(32);
+jjtn000.setType("[I");
             break;
             }
           case ADDSUB_OP:
@@ -326,12 +327,12 @@ if (jjtc000) {
                  jjtn000.jjtSetFirstToken(getToken(1));Token t;
     try {
       t = jj_consume_token(ID);
-jjtn000.setName(t.image);jjtn000.setType("int");
+jjtn000.setName(t.image);jjtn000.setType("I");
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case 31:{
         jj_consume_token(31);
         jj_consume_token(32);
-jjtn000.setType("array");
+jjtn000.setType("[I");
         break;
         }
       default:
