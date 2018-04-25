@@ -203,7 +203,7 @@ BufferedReader  br;
       try {
         jj_consume_token(FUNCTION);
         t = jj_consume_token(ID);
-       jjtn000.setReturn("void");jjtn000.setName(t.image);
+       jjtn000.setReturn("void");jjtn000.setName(t.image);jjtn000.setReturn("void");jjtn000.setReturnType("V");
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case ASSIGN:
         case 31:
@@ -211,6 +211,7 @@ BufferedReader  br;
           case 31:
             jj_consume_token(31);
             jj_consume_token(32);
+               jjtn000.setReturnType("A");
             break;
           default:
             jj_la1[5] = jj_gen;
@@ -218,7 +219,7 @@ BufferedReader  br;
           }
           jj_consume_token(ASSIGN);
           t1 = jj_consume_token(ID);
-                                  jjtn000.setReturn(t.image);jjtn000.setName(t1.image);
+                                                               jjtn000.setReturn(t.image);jjtn000.setName(t1.image);String temp=jjtn000.getReturnType(); if(temp==null || temp=="V")jjtn000.setReturnType("I");
           break;
         default:
           jj_la1[6] = jj_gen;

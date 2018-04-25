@@ -6,6 +6,8 @@ import java.util.*;
 public
 class ASTFunction extends SimpleNode {
   protected String return_type;
+  protected String return_name;
+
   public ASTFunction(int id) {
     super(id);
   }
@@ -16,7 +18,14 @@ class ASTFunction extends SimpleNode {
     public String toString() { return yal2jvmTreeConstants.jjtNodeName[id] +" "+ this.name + " " + this.return_type; }
 
     public void setReturn(String retorno){
+      this.return_name =retorno;
+    }
+
+    public void setReturnType(String retorno){
       this.return_type =retorno;
+    }
+    public String getReturnType(){
+      return  this.return_type;
     }
 
   public AbstractSymbol getSymbol(){

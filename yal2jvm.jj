@@ -208,9 +208,9 @@ void Function() : {/*@bgen(jjtree) Function */
 /*@egen*/
   try{
     <FUNCTION> t=<ID>
-      {jjtn000.setReturn("void");jjtn000.setName(t.image);}
+      {jjtn000.setReturn("void");jjtn000.setName(t.image);jjtn000.setReturn("void");jjtn000.setReturnType("V");}
       (
-      ("[" "]")? <ASSIGN> t1=<ID>{jjtn000.setReturn(t.image);jjtn000.setName(t1.image);}
+      ("[" "]"{jjtn000.setReturnType("A");})? <ASSIGN> t1=<ID>{jjtn000.setReturn(t.image);jjtn000.setName(t1.image);String temp=jjtn000.getReturnType(); if(temp==null || temp=="V")jjtn000.setReturnType("I");}
       )?
       <LPAR>
       ( Varlist() )?

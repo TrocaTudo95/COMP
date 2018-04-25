@@ -135,9 +135,9 @@ void Function() : {Token t,t1;}
 {
   try{
     <FUNCTION> t=<ID>
-      {jjtThis.setReturn("void");jjtThis.setName(t.image);}
+      {jjtThis.setReturn("void");jjtThis.setName(t.image);jjtThis.setReturn("void");jjtThis.setReturnType("V");}
       (
-      ("[" "]")? <ASSIGN> t1=<ID>{jjtThis.setReturn(t.image);jjtThis.setName(t1.image);}
+      ("[" "]"{jjtThis.setReturnType("A");})? <ASSIGN> t1=<ID>{jjtThis.setReturn(t.image);jjtThis.setName(t1.image);String temp=jjtThis.getReturnType(); if(temp==null || temp=="V")jjtThis.setReturnType("I");}
       )?
       <LPAR>
       ( Varlist() )?
