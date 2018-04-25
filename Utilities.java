@@ -3,6 +3,7 @@
 import java.io.PrintStream;
 
 class Utilities {
+
     // change this to true to enable table checking
     private static final boolean checkTables = false;
 

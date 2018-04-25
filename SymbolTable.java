@@ -38,9 +38,11 @@ import java.util.Hashtable;
  * */
 class SymbolTable {
     private Stack tbl;
+    private String name;
 
     /** Creates an empty symbol table. */
-    public SymbolTable() {
+    public SymbolTable(String name) {
+      this.name=name;
 	tbl = new Stack();
     }
 

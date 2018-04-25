@@ -5,12 +5,23 @@ import java.util.*;
 
 public
 class ASTFunction extends SimpleNode {
+  protected String return_type;
   public ASTFunction(int id) {
     super(id);
   }
 
   public ASTFunction(yal2jvm p, int id) {
     super(p, id);
+  }
+    public String toString() { return yal2jvmTreeConstants.jjtNodeName[id] +" "+ this.name + " " + this.return_type; }
+
+    public void setReturn(String retorno){
+      this.return_type =retorno;
+    }
+
+  public AbstractSymbol getSymbol(){
+  //  AbstractSymbol as= new AbstractSymbol(this.name);
+  return null;
   }
 
   public void process(BufferedWriter s){
