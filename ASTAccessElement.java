@@ -9,6 +9,8 @@ class ASTAccessElement extends SimpleNode {
   public ASTAccessElement(yal2jvm p, int id) {
     super(p, id);
   }
+  public String toString() { return yal2jvmTreeConstants.jjtNodeName[id] +" "+ this.name; }
+  
 
 }
 /* JavaCC - OriginalChecksum=5cb57520f1b7d6f77670f63c633c5392 (do not edit this line) */

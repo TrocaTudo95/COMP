@@ -80,6 +80,7 @@ class SimpleNode implements Node {
       }
     }
   }
+
   public int getId() {
     return id;
   }
@@ -98,5 +99,6 @@ class SimpleNode implements Node {
     return yal2jvmTreeConstants.jjtNodeName[id]+ " " + this.name;
   }
 }
+
 
 /* JavaCC - OriginalChecksum=ac0da302db6d74d4623f1efffa69f6a2 (do not edit this line) */

@@ -14,22 +14,22 @@ public class yal2jvm/*@bgen(jjtree)*/implements yal2jvmTreeConstants/*@egen*/ {/
 
 /*@egen*/
   private static int error_counter = 0;
-  private static SymbolTable st;
 
-  private static void makeSymbolTable(SimpleNode root){
 
-    int i= root.jjtGetNumChildren();
-    st.enterScope();
-    System.out.print("\n\n\n\n\n");
-    for(int j=0; j<i; j++){
-      String temp= root.jjtGetChild(j).getSymbolTableName();
-      AbstractSymbol as=new AbstractSymbol(temp,temp.length(),j);
-      st.addId(as,root.jjtGetChild(j));
-      System.out.println(temp);
-    }
-    System.out.print("\n\n\n\n\n");
-
-  }
+  // private static void makeSymbolTable(SimpleNode root){
+  //
+  //   int i= root.jjtGetNumChildren();
+  //   st.enterScope();
+  //   System.out.print("\n\n\n\n\n");
+  //   for(int j=0; j<i; j++){
+  //     String temp= root.jjtGetChild(j).getSymbolTableName();
+  //     AbstractSymbol as=new AbstractSymbol(temp);
+  //     st.addId(as,root.jjtGetChild(j));
+  //     System.out.println(temp);
+  //   }
+  //   System.out.print("\n\n\n\n\n");
+  //
+  // }
  public static void main(String args[]) throws ParseException, FileNotFoundException {
 
 BufferedReader  br;
@@ -44,11 +44,10 @@ BufferedReader  br;
 
     br = new BufferedReader(new FileReader(inFile));
     parser= new yal2jvm(br);
-    st=new SymbolTable();
 
      SimpleNode root = parser.Module();
      root.dump("");
-     makeSymbolTable(root);
+    // makeSymbolTable(root);
 
 
   }
@@ -186,22 +185,27 @@ void Declaration() : {/*@bgen(jjtree) Declaration */
 /*@egen*/
 }
 
+
+
+
 void Function() : {/*@bgen(jjtree) Function */
                    ASTFunction jjtn000 = new ASTFunction(JJTFUNCTION);
                    boolean jjtc000 = true;
                    jjtree.openNodeScope(jjtn000);
                    jjtn000.jjtSetFirstToken(getToken(1));
-/*@egen*/Token t1;}
+/*@egen*/Token t,t1;}
 {/*@bgen(jjtree) Function */
   try {
 /*@egen*/
   try{
-    < FUNCTION >
-    t1=< ID >{jjtn000.setName(t1.image);}
-    (("[" "]")? < ASSIGN > < ID >)?
-    < LPAR >
-    (Varlist())?
-    < RPAR >
+    <FUNCTION> t=<ID>
+      {jjtn000.setReturn("void");jjtn000.setName(t.image);}
+      (
+      ("[" "]")? <ASSIGN> t1=<ID>{jjtn000.setReturn(t.image);jjtn000.setName(t1.image);}
+      )?
+      <LPAR>
+      ( Varlist() )?
+  <RPAR>
   }catch(ParseException e){
       String msg="Error in function Varlist or in the return variable";
       error_skipto(RPAR,msg);
@@ -280,7 +284,7 @@ int Element() : {/*@bgen(jjtree) Element */
 {/*@bgen(jjtree) Element */
   try {
 /*@egen*/
-  t=<ID>{jjtn000.setName(t.image);} ("[" "]")?/*@bgen(jjtree)*/
+  t=<ID>{jjtn000.setName(t.image);jjtn000.setType("int");} ("[" "]"{jjtn000.setType("array");})?/*@bgen(jjtree)*/
   {
     jjtree.closeNodeScope(jjtn000, true);
     jjtc000 = false;

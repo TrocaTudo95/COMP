@@ -3,22 +3,22 @@
 import java.io.*;
 public class yal2jvm/*@bgen(jjtree)*/implements yal2jvmTreeConstants, yal2jvmConstants {/*@bgen(jjtree)*/
   protected static JJTyal2jvmState jjtree = new JJTyal2jvmState();private static int error_counter = 0;
-  private static SymbolTable st;
 
-  private static void makeSymbolTable(SimpleNode root){
 
-    int i= root.jjtGetNumChildren();
-    st.enterScope();
-    System.out.print("\u005cn\u005cn\u005cn\u005cn\u005cn");
-    for(int j=0; j<i; j++){
-      String temp= root.jjtGetChild(j).getSymbolTableName();
-      AbstractSymbol as=new AbstractSymbol(temp,temp.length(),j);
-      st.addId(as,root.jjtGetChild(j));
-      System.out.println(temp);
-    }
-    System.out.print("\u005cn\u005cn\u005cn\u005cn\u005cn");
-
-  }
+  // private static void makeSymbolTable(SimpleNode root){
+  //
+  //   int i= root.jjtGetNumChildren();
+  //   st.enterScope();
+  //   System.out.print("\n\n\n\n\n");
+  //   for(int j=0; j<i; j++){
+  //     String temp= root.jjtGetChild(j).getSymbolTableName();
+  //     AbstractSymbol as=new AbstractSymbol(temp);
+  //     st.addId(as,root.jjtGetChild(j));
+  //     System.out.println(temp);
+  //   }
+  //   System.out.print("\n\n\n\n\n");
+  //
+  // }
  public static void main(String args[]) throws ParseException, FileNotFoundException {
 
 BufferedReader  br;
@@ -33,11 +33,10 @@ BufferedReader  br;
 
     br = new BufferedReader(new FileReader(inFile));
     parser= new yal2jvm(br);
-    st=new SymbolTable();
 
      SimpleNode root = parser.Module();
      root.dump("");
-     makeSymbolTable(root);
+    // makeSymbolTable(root);
 
 
   }
@@ -190,12 +189,12 @@ BufferedReader  br;
                    ASTFunction jjtn000 = new ASTFunction(JJTFUNCTION);
                    boolean jjtc000 = true;
                    jjtree.openNodeScope(jjtn000);
-                   jjtn000.jjtSetFirstToken(getToken(1));Token t1;
+                   jjtn000.jjtSetFirstToken(getToken(1));Token t,t1;
     try {
       try {
         jj_consume_token(FUNCTION);
-        t1 = jj_consume_token(ID);
-              jjtn000.setName(t1.image);
+        t = jj_consume_token(ID);
+       jjtn000.setReturn("void");jjtn000.setName(t.image);
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case ASSIGN:
         case 31:
@@ -209,7 +208,8 @@ BufferedReader  br;
             ;
           }
           jj_consume_token(ASSIGN);
-          jj_consume_token(ID);
+          t1 = jj_consume_token(ID);
+                                  jjtn000.setReturn(t.image);jjtn000.setName(t1.image);
           break;
         default:
           jj_la1[6] = jj_gen;
@@ -310,11 +310,12 @@ BufferedReader  br;
                  jjtn000.jjtSetFirstToken(getToken(1));Token t;
     try {
       t = jj_consume_token(ID);
-         jjtn000.setName(t.image);
+         jjtn000.setName(t.image);jjtn000.setType("int");
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case 31:
         jj_consume_token(31);
         jj_consume_token(32);
+                                                                    jjtn000.setType("array");
         break;
       default:
         jj_la1[9] = jj_gen;
@@ -1148,11 +1149,6 @@ try {ParseException e = generateParseException();  // generate the exception obj
     return false;
   }
 
-  static private boolean jj_3R_11() {
-    if (jj_3R_15()) return true;
-    return false;
-  }
-
   static private boolean jj_3R_19() {
     Token xsp;
     xsp = jj_scanpos;
@@ -1166,15 +1162,20 @@ try {ParseException e = generateParseException();  // generate the exception obj
     return false;
   }
 
-  static private boolean jj_3R_6() {
-    if (jj_3R_8()) return true;
-    if (jj_scan_token(ASSIGN)) return true;
-    if (jj_3R_9()) return true;
+  static private boolean jj_3R_11() {
+    if (jj_3R_15()) return true;
     return false;
   }
 
   static private boolean jj_3R_16() {
     if (jj_3R_20()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_6() {
+    if (jj_3R_8()) return true;
+    if (jj_scan_token(ASSIGN)) return true;
+    if (jj_3R_9()) return true;
     return false;
   }
 

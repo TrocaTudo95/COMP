@@ -2,12 +2,23 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 public
 class ASTFunction extends SimpleNode {
+  protected String return_type;
   public ASTFunction(int id) {
     super(id);
   }
 
   public ASTFunction(yal2jvm p, int id) {
     super(p, id);
+  }
+    public String toString() { return yal2jvmTreeConstants.jjtNodeName[id] +" "+ this.name + " " + this.return_type; }
+
+    public void setReturn(String retorno){
+      this.return_type =retorno;
+    }
+
+  public AbstractSymbol getSymbol(){
+  //  AbstractSymbol as= new AbstractSymbol(this.name);
+  return null;
   }
 
 }

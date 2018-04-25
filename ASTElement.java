@@ -3,6 +3,7 @@
 public
 class ASTElement extends SimpleNode {
     private int element_value;
+    private String data_type;
   public ASTElement(int id) {
     super(id);
   }
@@ -11,8 +12,11 @@ class ASTElement extends SimpleNode {
     super(p, id);
   }
 
-  public void setNameOrValue(boolean choose, String attr){
 
+  public String toString() { return yal2jvmTreeConstants.jjtNodeName[id] +" "+ this.name; }
+
+  public void setType(String type){
+    this.data_type=type;
   }
 
 }
