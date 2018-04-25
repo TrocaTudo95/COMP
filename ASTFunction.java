@@ -18,7 +18,7 @@ class ASTFunction extends SimpleNode {
     s.write(".method public static " + this.name + "(");
     if (children != null) {
       for (int i = 0; i < children.length; ++i) {
-        if(1==1){ // validar se é um varlist
+        if(children[i].getClass().getName() == "ASTVarlist"){
         SimpleNode n = (SimpleNode)children[i];
         if (n != null) {
           n.process(s);
@@ -26,7 +26,7 @@ class ASTFunction extends SimpleNode {
       }
     }
   }
-    s.write(")"+"\n"); //falta meter o return value ex: ")V" para void
+    s.write(")"+"\n");
     s.write(".limit locals " + "\n");
     s.write(".limit stack " + "\n");
 
