@@ -9,6 +9,8 @@
 PARSER_BEGIN(yal2jvm)
 // c\u00f3digo Java que invoca o parser
 import java.io.*;
+import java.util.*;
+
 public class yal2jvm/*@bgen(jjtree)*/implements yal2jvmTreeConstants/*@egen*/ {/*@bgen(jjtree)*/
   protected static JJTyal2jvmState jjtree = new JJTyal2jvmState();
 
@@ -30,6 +32,26 @@ public class yal2jvm/*@bgen(jjtree)*/implements yal2jvmTreeConstants/*@egen*/ {/
     System.out.print("\n\n\n\n\n");
 
   }
+  public static void generator(String fileName,SimpleNode root){
+    String file = fileName.substring(0,fileName.length()-4);
+      try {
+    BufferedWriter s = new BufferedWriter(new FileWriter(file + ".j"));
+    root.process(s);
+    //fim
+    s.write(".method static public <clinit>()V\n");
+    s.write(".limit stack 0\n");
+    s.write(".limit locals 0\n");
+    s.write("return\n");
+    s.write(".end method\n");
+    s.close();
+  }
+    catch (IOException e)
+    {
+      System.out.println("Exception ");
+
+    }
+
+  }
  public static void main(String args[]) throws ParseException, FileNotFoundException {
 
 BufferedReader  br;
@@ -49,6 +71,7 @@ BufferedReader  br;
      SimpleNode root = parser.Module();
      root.dump("");
      makeSymbolTable(root);
+     generator(args[0],root);
 
 
   }
