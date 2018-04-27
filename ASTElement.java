@@ -17,7 +17,19 @@ class ASTElement extends SimpleNode {
 
   public void process(BufferedWriter s){
     try{
-      s.write(this.name + " ");
+      if(this.parent.getClass().getName() == "ASTDeclaration"){
+        s.write(this.name);
+        if(((ASTDeclaration)this.parent).getType() == "[I"){
+          s.write(" [I");
+        }
+        else{
+          s.write(" I");
+        }
+
+      }
+      else if(this.parent.getClass().getName() == "ASTVarlist"){
+        s.write(this.data_type);
+      }
     }
     catch (IOException e)
     {

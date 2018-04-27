@@ -123,7 +123,7 @@ SimpleNode Module() : {Token t;}
 void Declaration() : {Token t1, t2; int i;}
 {
   try{
-    ( i=Element(){jjtThis.setElementId(i);jjtThis.setType("I");}) ( <ASSIGN> ( ( "[" ArraySize() "]"{jjtThis.setType("[I");}) | ( t2=<ADDSUB_OP>{jjtThis.setSignal(t2.image);} )? t1=<INTEGER>{jjtThis.setElementValue(t1.image);} ) )? <PVIRG>
+    ( i=Element(){jjtThis.setElementId(i);jjtThis.setType("I");}) ( <ASSIGN> ( ( "[" ArraySize() "]"){jjtThis.setType("[I");} | ( t2=<ADDSUB_OP>{jjtThis.setSignal(t2.image);} )? t1=<INTEGER>{jjtThis.setElementValue(t1.image);} ) )? <PVIRG>
   }catch(ParseException e){
     String msg="Error declaring module variables";
     error_skipto(PVIRG,msg);
@@ -215,7 +215,7 @@ void Rhs() : {Token t;}
 
 void ArraySize() : {Token t;}
 {
-(t=<ID>ScalarAccess(){jjtThis.setName(t.image);}) | (t=<INTEGER>{jjtThis.setValue(t.image);})
+(t=<ID>ScalarAccess(){jjtThis.setName(t.image);} ) | (t=<INTEGER>{jjtThis.setValue(t.image);})
 }
 
 void Term() : {Token t1,t2;}

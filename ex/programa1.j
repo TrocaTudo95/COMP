@@ -1,14 +1,14 @@
 .class public programa1
 .super java/lang/Object
 .field static data [I
-.field static mx null
-.field static mn null
-.method public static det(d )V
+.field static mx I
+.field static mn I
+.method public static det([I)V
 .limit locals 
 .limit stack 
-d return
+[Ireturn
 .end method
-.method public static main()V
+.method public static main([Ljava/lang/String;)V
 .limit locals 
 .limit stack 
 return

@@ -47,7 +47,7 @@ BufferedReader  br;
     // makeSymbolTable(root);
      generator(args[0],root);
 
-     root.getSymbolTable();
+     SymbolTable st=root.getSymbolTable();
 
 
   }
@@ -130,10 +130,11 @@ BufferedReader  br;
                       ASTDeclaration jjtn000 = new ASTDeclaration(JJTDECLARATION);
                       boolean jjtc000 = true;
                       jjtree.openNodeScope(jjtn000);
-                      jjtn000.jjtSetFirstToken(getToken(1));Token t1, t2;
+                      jjtn000.jjtSetFirstToken(getToken(1));Token t1, t2; int i;
     try {
       try {
-        Element();
+        i = Element();
+                  jjtn000.setElementId(i);jjtn000.setType("I");
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case ASSIGN:
           jj_consume_token(ASSIGN);
@@ -142,21 +143,21 @@ BufferedReader  br;
             jj_consume_token(31);
             ArraySize();
             jj_consume_token(32);
-                                                   jjtn000.setType("[I");
+                                                                                                      jjtn000.setType("[I");
             break;
           case ADDSUB_OP:
           case INTEGER:
             switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
             case ADDSUB_OP:
               t2 = jj_consume_token(ADDSUB_OP);
-                                                                                               jjtn000.setSignal(t2.image);
+                                                                                                                                                 jjtn000.setSignal(t2.image);
               break;
             default:
               jj_la1[2] = jj_gen;
               ;
             }
             t1 = jj_consume_token(INTEGER);
-                                                                                                                                             jjtn000.setElementValue(t1.image);
+                                                                                                                                                                                               jjtn000.setElementValue(t1.image);
             break;
           default:
             jj_la1[3] = jj_gen;
@@ -314,12 +315,12 @@ BufferedReader  br;
     }
   }
 
-  static final public void Element() throws ParseException {
-                  /*@bgen(jjtree) Element */
-                  ASTElement jjtn000 = new ASTElement(JJTELEMENT);
-                  boolean jjtc000 = true;
-                  jjtree.openNodeScope(jjtn000);
-                  jjtn000.jjtSetFirstToken(getToken(1));Token t;
+  static final public int Element() throws ParseException {
+                 /*@bgen(jjtree) Element */
+                 ASTElement jjtn000 = new ASTElement(JJTELEMENT);
+                 boolean jjtc000 = true;
+                 jjtree.openNodeScope(jjtn000);
+                 jjtn000.jjtSetFirstToken(getToken(1));Token t;
     try {
       t = jj_consume_token(ID);
          jjtn000.setName(t.image);jjtn000.setType("I");
@@ -333,12 +334,17 @@ BufferedReader  br;
         jj_la1[9] = jj_gen;
         ;
       }
+    jjtree.closeNodeScope(jjtn000, true);
+    jjtc000 = false;
+    jjtn000.jjtSetLastToken(getToken(0));
+   {if (true) return jjtn000.id;}
     } finally {
     if (jjtc000) {
       jjtree.closeNodeScope(jjtn000, true);
       jjtn000.jjtSetLastToken(getToken(0));
     }
     }
+    throw new Error("Missing return statement in function");
   }
 
   static final public void Stmtlst() throws ParseException {
@@ -608,10 +614,10 @@ BufferedReader  br;
         break;
       case INTEGER:
         t = jj_consume_token(INTEGER);
-                                                                  jjtree.closeNodeScope(jjtn000, true);
-                                                                  jjtc000 = false;
-                                                                  jjtn000.jjtSetLastToken(getToken(0));
-                                                                 jjtn000.setValue(t.image);
+                                                                   jjtree.closeNodeScope(jjtn000, true);
+                                                                   jjtc000 = false;
+                                                                   jjtn000.jjtSetLastToken(getToken(0));
+                                                                  jjtn000.setValue(t.image);
         break;
       default:
         jj_la1[16] = jj_gen;
@@ -1151,16 +1157,6 @@ try {ParseException e = generateParseException();  // generate the exception obj
     finally { jj_save(1, xla); }
   }
 
-  static private boolean jj_3R_26() {
-    if (jj_scan_token(STRING)) return true;
-    return false;
-  }
-
-  static private boolean jj_3_2() {
-    if (jj_3R_7()) return true;
-    return false;
-  }
-
   static private boolean jj_3R_7() {
     if (jj_scan_token(ID)) return true;
     Token xsp;
@@ -1336,6 +1332,16 @@ try {ParseException e = generateParseException();  // generate the exception obj
 
   static private boolean jj_3R_15() {
     if (jj_3R_19()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_26() {
+    if (jj_scan_token(STRING)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_2() {
+    if (jj_3R_7()) return true;
     return false;
   }
 

@@ -13,7 +13,7 @@ class SimpleNode implements Node {
   protected yal2jvm parser;
   protected Token firstToken;
   protected Token lastToken;
-    protected String name;
+  protected String name;
 
   public SimpleNode(int i) {
     id = i;

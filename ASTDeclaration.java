@@ -20,20 +20,23 @@ class ASTDeclaration extends SimpleNode {
     super(p, id);
   }
 
-  public void  process(BufferedWriter s){
+  public String getType(){
+    return this.type;
+  }
+
+  public void process(BufferedWriter s){
     try{
       s.write(".field static ");
 
       if (children != null) {
         for (int i = 0; i < children.length; ++i) {
           SimpleNode n = (SimpleNode)children[i];
-          if (n != null) {
+          if(n != null){
             n.process(s);
           }
         }
       }
-
-      s.write(this.type +"\n");
+      s.write("\n");
     }
     catch (IOException e)
     {
