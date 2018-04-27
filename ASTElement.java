@@ -19,7 +19,7 @@ class ASTElement extends SimpleNode {
     try{
       if(this.parent.getClass().getName() == "ASTDeclaration"){
         s.write(this.name);
-        if(((ASTDeclaration)this.parent).getType() == "["){
+        if(((ASTDeclaration)this.parent).getType() == "[I"){
           s.write(" [I");
         }
         else{
@@ -28,11 +28,7 @@ class ASTElement extends SimpleNode {
 
       }
       else if(this.parent.getClass().getName() == "ASTVarlist"){
-        if(this.data_type == "[]"){
-          s.write(this.name + "[]");
-        }else{
         s.write(this.data_type);
-      }
       }
     }
     catch (IOException e)

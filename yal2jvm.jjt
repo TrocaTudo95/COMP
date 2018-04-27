@@ -121,7 +121,7 @@ SimpleNode Module() : {Token t;}
 void Declaration() : {Token t1, t2; int i;}
 {
   try{
-    ( i=Element(){jjtThis.setElementId(i);jjtThis.setType("I");}) ( <ASSIGN> ( ( "[" ArraySize() "]"){jjtThis.setType("[");} | ( t2=<ADDSUB_OP>{jjtThis.setSignal(t2.image);} )? t1=<INTEGER>{jjtThis.setElementValue(t1.image);} ) )? <PVIRG>
+    ( i=Element(){jjtThis.setElementId(i);jjtThis.setType("I");}) ( <ASSIGN> ( ( "[" ArraySize() "]"){jjtThis.setType("[I");} | ( t2=<ADDSUB_OP>{jjtThis.setSignal(t2.image);} )? t1=<INTEGER>{jjtThis.setElementValue(t1.image);} ) )? <PVIRG>
   }catch(ParseException e){
     String msg="Error declaring module variables";
     error_skipto(PVIRG,msg);
@@ -164,7 +164,7 @@ void Varlist() : {}
 
 int Element() : {Token t;}
 {
-  t=<ID>{jjtThis.setName(t.image);jjtThis.setType("I");} ("[" "]"{jjtThis.setType("[]");})?
+  t=<ID>{jjtThis.setName(t.image);jjtThis.setType("I");} ("[" "]"{jjtThis.setType("[I");})?
   {return jjtThis.id;}
 }
 

@@ -142,7 +142,7 @@ jjtn000.setElementId(i);jjtn000.setType("I");
             jj_consume_token(31);
             ArraySize();
             jj_consume_token(32);
-jjtn000.setType("[");
+jjtn000.setType("[I");
             break;
             }
           case ADDSUB_OP:
@@ -332,7 +332,7 @@ jjtn000.setName(t.image);jjtn000.setType("I");
       case 31:{
         jj_consume_token(31);
         jj_consume_token(32);
-jjtn000.setType("[]");
+jjtn000.setType("[I");
         break;
         }
       default:
