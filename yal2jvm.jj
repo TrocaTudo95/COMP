@@ -58,6 +58,8 @@ BufferedReader  br;
     // makeSymbolTable(root);
      generator(args[0],root);
 
+     root.getSymbolTable();
+
 
   }
   catch (FileNotFoundException e) {
@@ -161,12 +163,12 @@ void Declaration() : {/*@bgen(jjtree) Declaration */
                       boolean jjtc000 = true;
                       jjtree.openNodeScope(jjtn000);
                       jjtn000.jjtSetFirstToken(getToken(1));
-/*@egen*/Token t1, t2; int i;}
+/*@egen*/Token t1, t2;}
 {/*@bgen(jjtree) Declaration */
   try {
 /*@egen*/
   try{
-    ( i=Element(){jjtn000.setElementId(i);jjtn000.setType("I");}) ( <ASSIGN> ( ( "[" ArraySize() "]"{jjtn000.setType("[I");}) | ( t2=<ADDSUB_OP>{jjtn000.setSignal(t2.image);} )? t1=<INTEGER>{jjtn000.setElementValue(t1.image);} ) )? <PVIRG>
+    (Element()) ( <ASSIGN> ( ( "[" ArraySize() "]"{jjtn000.setType("[I");}) | ( t2=<ADDSUB_OP>{jjtn000.setSignal(t2.image);} )? t1=<INTEGER>{jjtn000.setElementValue(t1.image);} ) )? <PVIRG>
   }catch(ParseException e){
     String msg="Error declaring module variables";
     error_skipto(PVIRG,msg);
@@ -284,23 +286,16 @@ void Varlist() : {/*@bgen(jjtree) Varlist */
 /*@egen*/
 }
 
-int Element() : {/*@bgen(jjtree) Element */
-                 ASTElement jjtn000 = new ASTElement(JJTELEMENT);
-                 boolean jjtc000 = true;
-                 jjtree.openNodeScope(jjtn000);
-                 jjtn000.jjtSetFirstToken(getToken(1));
+void Element() : {/*@bgen(jjtree) Element */
+                  ASTElement jjtn000 = new ASTElement(JJTELEMENT);
+                  boolean jjtc000 = true;
+                  jjtree.openNodeScope(jjtn000);
+                  jjtn000.jjtSetFirstToken(getToken(1));
 /*@egen*/Token t;}
 {/*@bgen(jjtree) Element */
   try {
 /*@egen*/
   t=<ID>{jjtn000.setName(t.image);jjtn000.setType("I");} ("[" "]"{jjtn000.setType("[I");})?/*@bgen(jjtree)*/
-  {
-    jjtree.closeNodeScope(jjtn000, true);
-    jjtc000 = false;
-    jjtn000.jjtSetLastToken(getToken(0));
-  }
-/*@egen*/
-  {return jjtn000.id;}/*@bgen(jjtree)*/
   } finally {
     if (jjtc000) {
       jjtree.closeNodeScope(jjtn000, true);

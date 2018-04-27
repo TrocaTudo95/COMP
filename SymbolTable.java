@@ -66,11 +66,11 @@ class SymbolTable {
      * @param id the symbol
      * @param info the data asosciated with id
      * */
-    public void addId(AbstractSymbol id, Node info) {
+    public void addId(String name, AbstractSymbol info) {
 	if (tbl.empty()) {
 	    Utilities.fatalError("addId: can't add a symbol without a scope.");
 	}
-	((Hashtable)tbl.peek()).put(id, info);
+	((Hashtable)tbl.peek()).put(name, info);
     }
 
     /**
@@ -81,18 +81,18 @@ class SymbolTable {
      * @param sym the symbol
      * @return the info associated with sym, or null if not found
      * */
-    public Object lookup(AbstractSymbol sym) {
-	if (tbl.empty()) {
-	    Utilities.fatalError("lookup: no scope in symbol table.");
-	}
-	// I break the abstraction here a bit by knowing that stack is
-	// really a vector...
-	for (int i = tbl.size() - 1; i >= 0; i--) {
-	    Object info = ((Hashtable)tbl.elementAt(i)).get(sym);
-	    if (info != null) return info;
-	}
-	return null;
-    }
+  //   public AbstractSymbol lookup(String name) {
+	// if (tbl.empty()) {
+	//     Utilities.fatalError("lookup: no scope in symbol table.");
+	// }
+	// // I break the abstraction here a bit by knowing that stack is
+	// // really a vector...
+	// for (int i = tbl.size() - 1; i >= 0; i--) {
+	//     AbstractSymbol info = ((Hashtable)tbl.elementAt(i)).get(name);
+	//     if (info != null) return info;
+	// }
+	// return null;
+  //   }
 
     /**
      * Probes the symbol table.  Check the top scope (only) for the
@@ -114,12 +114,9 @@ class SymbolTable {
      * @return the string rep
      * */
     public String toString() {
-	String res = "";
-	// I break the abstraction here a bit by knowing that stack is
-	// really a vector...
-	for (int i = tbl.size() - 1, j = 0; i >= 0; i--, j++) {
-	    res += "Scope " + j + ": " + tbl.elementAt(i) + "\n";
-	}
-	return res;
+while(!tbl.empty()){
+    tbl.pop();
     }
+    return "";
+}
 }

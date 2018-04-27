@@ -27,20 +27,21 @@ import java.util.ArrayList;
 
     /** The stored string */
     protected String str;
-    protected dataType data_type;
-    protected dataType return_type;
+    protected String data_type;
+    protected String return_type;
     protected int initial_value;
-    protected int number_of_parameters;
-    protected ArrayList<dataType> parameters;
+    protected ArrayList<String> parameters_type;
+    protected ArrayList<String> parameters_name;
     public SymbolTable children;
 
 
-    public AbstractSymbol(String str,dataType data_type, dataType return_type,int initial_value,ArrayList<dataType> parameters) {
+    public AbstractSymbol(String str,String data_type, String return_type,int initial_value,ArrayList<String> parameters_type,ArrayList<String> parameters_name) {
 	     this.str = str;
        this.data_type=data_type;
        this.return_type=return_type;
        this.initial_value=initial_value;
-       this.parameters=parameters;
+       this.parameters_type=parameters_type;
+       this.parameters_name=parameters_name;
     }
 
     /** Tests if the string argument is equal to the string in this symbol.
@@ -76,6 +77,15 @@ import java.util.ArrayList;
     /** Returns a printable representation of this symbol. */
     public String toString() {
 	return str;
+    }
+
+    public void print(){
+      System.out.println("Name:"+this.str);
+      System.out.println("Data_Type:"+this.data_type);
+      System.out.println("Return_type:"+this.return_type);
+      System.out.println("Initial_value:"+this.initial_value);
+      System.out.println("Parameters_type:"+this.parameters_type);
+      System.out.println("Parameters_name:"+this.parameters_name);
     }
 
 }

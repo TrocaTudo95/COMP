@@ -54,6 +54,8 @@ BufferedReader  br;
     // makeSymbolTable(root);
      generator(args[0],root);
 
+     SymbolTable st=root.getSymbolTable();
+
 
   }
   catch (FileNotFoundException e) {
