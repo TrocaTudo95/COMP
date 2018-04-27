@@ -142,7 +142,7 @@ jjtn000.setElementId(i);jjtn000.setType("I");
             jj_consume_token(31);
             ArraySize();
             jj_consume_token(32);
-jjtn000.setType("[I");
+jjtn000.setType("[");
             break;
             }
           case ADDSUB_OP:
@@ -332,7 +332,7 @@ jjtn000.setName(t.image);jjtn000.setType("I");
       case 31:{
         jj_consume_token(31);
         jj_consume_token(32);
-jjtn000.setType("[I");
+jjtn000.setType("[]");
         break;
         }
       default:
@@ -626,8 +626,8 @@ jjtn000.setName(t.image);
       case INTEGER:{
         t = jj_consume_token(INTEGER);
 jjtree.closeNodeScope(jjtn000, true);
-                                                                  jjtc000 = false;
-                                                                  jjtn000.jjtSetLastToken(getToken(0));
+                                                                   jjtc000 = false;
+                                                                   jjtn000.jjtSetLastToken(getToken(0));
 jjtn000.setValue(t.image);
         break;
         }

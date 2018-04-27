@@ -17,13 +17,30 @@ class ASTElement extends SimpleNode {
 
   public void process(BufferedWriter s){
     try{
-      s.write(this.name + " ");
+      if(this.parent.getClass().getName() == "ASTDeclaration"){
+        s.write(this.name);
+        if(((ASTDeclaration)this.parent).getType() == "["){
+          s.write(" [I");
+        }
+        else{
+          s.write(" I");
+        }
+
+      }
+      else if(this.parent.getClass().getName() == "ASTVarlist"){
+        if(this.data_type == "[]"){
+          s.write(this.name + "[]");
+        }else{
+        s.write(this.data_type);
+      }
+      }
     }
     catch (IOException e)
     {
       System.out.println("Exception ");
     }
   }
+
 
 
   public String toString() { return yal2jvmTreeConstants.jjtNodeName[id] +" "+ this.name; }

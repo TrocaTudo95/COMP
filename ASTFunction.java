@@ -36,7 +36,12 @@ class ASTFunction extends SimpleNode {
   public void process(BufferedWriter s){
     try{
     s.write(".method public static " + this.name + "(");
-    if (children != null) {
+
+    if(this.name == "main"){
+      s.write("[Ljava/lang/String;");
+    }
+
+    if(children != null) {
       for (int i = 0; i < children.length; ++i) {
         if(children[i].getClass().getName() == "ASTVarlist"){
         SimpleNode n = (SimpleNode)children[i];
