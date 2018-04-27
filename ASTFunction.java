@@ -37,7 +37,7 @@ class ASTFunction extends SimpleNode {
     try{
     s.write(".method public static " + this.name + "(");
 
-    if(this.name == "main"){
+    if(this.name.equals("main")){
       s.write("[Ljava/lang/String;");
     }
 
