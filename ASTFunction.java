@@ -61,6 +61,14 @@ class ASTFunction extends SimpleNode {
   return as;
   }
 
+
+
+  public SymbolTable getFunctionTable(SymbolTable st){
+    return null;
+  }
+
+
+
   public void process(BufferedWriter s){
     try{
     s.write(".method public static " + this.name + "(");
@@ -100,6 +108,21 @@ class ASTFunction extends SimpleNode {
       System.out.println("Exception ");
 
     }
+  }
+
+
+  public void functionTable(SymbolTable st){
+    if(children != null) {
+      for (int i = 0; i < children.length; ++i) {
+        if(children[i].getClass().getName() == "ASTStmtlst"){
+        ASTStmtlst n = (ASTStmtlst)children[i];
+        if (n != null) {
+          n.lookForLocals(this.name,st);
+        }
+      }
+    }
+  }
+
   }
 
 }
