@@ -7,6 +7,7 @@ public
 class SimpleNode implements Node {
 
   protected Node parent;
+  protected static String Module;
   protected Node[] children;
   protected int id;
   protected int value;
@@ -14,6 +15,10 @@ class SimpleNode implements Node {
   protected Token firstToken;
   protected Token lastToken;
   protected String name;
+
+  public void setModule(String module){
+    this.Module = module;
+  }
 
   public SimpleNode(int i) {
     id = i;

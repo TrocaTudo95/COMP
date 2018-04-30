@@ -108,7 +108,7 @@ PARSER_END(yal2jvm)
 SimpleNode Module() : {Token t;}
 {
   try{
-    <MODULE>t=<ID> {jjtThis.setName(t.image);}<LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
+    <MODULE>t=<ID> {jjtThis.setName(t.image);jjtThis.setModule(t.image);}<LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
   }catch(ParseException e){
     String msg="Error in module";
     error_skipto(RCHAVETA,msg);
@@ -272,9 +272,9 @@ void If() : {}
 
 }
 
-void Call() : {Token t;}
+void Call() : {Token t1,t2;}
 {
-t=<ID> {jjtThis.setName(t.image);}( "." <ID> )? <LPAR> ( ArgumentList() )? <RPAR>
+t1=<ID> {jjtThis.setName(t1.image);}( "." t2=<ID> {jjtThis.setModule(t1.image);jjtThis.setName(t2.image);})? <LPAR> ( ArgumentList() )? <RPAR>
 }
 
 void ArgumentList() : {}
@@ -284,7 +284,7 @@ Argument() ( <VIRG> Argument() )*
 
 void Argument() : {Token t;}
 {
-( t=<ID> {jjtThis.setName(t.image);} | t=<STRING> {jjtThis.set_str_arg(t.image);}| t=<INTEGER> {jjtThis.set_int_arg(t.image);})
+( t=<ID> {jjtThis.setName(t.image);jjtThis.setType("ID");} | t=<STRING> {jjtThis.set_str_arg(t.image);jjtThis.setType("S");}| t=<INTEGER> {jjtThis.set_int_arg(t.image);jjtThis.setType("I");})
 }
 
 void AccessElement() : {Token t;}

@@ -119,7 +119,7 @@ SimpleNode Module() : {/*@bgen(jjtree) Module */
   try {
 /*@egen*/
   try{
-    <MODULE>t=<ID> {jjtn000.setName(t.image);}<LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
+    <MODULE>t=<ID> {jjtn000.setName(t.image);jjtn000.setModule(t.image);}<LCHAVETA> ( Declaration() )* ( Function() )* <RCHAVETA>
   }catch(ParseException e){
     String msg="Error in module";
     error_skipto(RCHAVETA,msg);
@@ -717,11 +717,11 @@ void Call() : {/*@bgen(jjtree) Call */
                boolean jjtc000 = true;
                jjtree.openNodeScope(jjtn000);
                jjtn000.jjtSetFirstToken(getToken(1));
-/*@egen*/Token t;}
+/*@egen*/Token t1,t2;}
 {/*@bgen(jjtree) Call */
 try {
 /*@egen*/
-t=<ID> {jjtn000.setName(t.image);}( "." <ID> )? <LPAR> ( ArgumentList() )? <RPAR>/*@bgen(jjtree)*/
+t1=<ID> {jjtn000.setName(t1.image);}( "." t2=<ID> {jjtn000.setModule(t1.image);jjtn000.setName(t2.image);})? <LPAR> ( ArgumentList() )? <RPAR>/*@bgen(jjtree)*/
 } catch (Throwable jjte000) {
   if (jjtc000) {
     jjtree.clearNodeScope(jjtn000);
@@ -793,19 +793,19 @@ try {
            jjtc000 = false;
            jjtn000.jjtSetLastToken(getToken(0));
          }
-/*@egen*/ {jjtn000.setName(t.image);} | t=<STRING>/*@bgen(jjtree)*/
-                                                  {
-                                                    jjtree.closeNodeScope(jjtn000, true);
-                                                    jjtc000 = false;
-                                                    jjtn000.jjtSetLastToken(getToken(0));
-                                                  }
-/*@egen*/ {jjtn000.set_str_arg(t.image);}| t=<INTEGER>/*@bgen(jjtree)*/
-                                                                                               {
-                                                                                                 jjtree.closeNodeScope(jjtn000, true);
-                                                                                                 jjtc000 = false;
-                                                                                                 jjtn000.jjtSetLastToken(getToken(0));
-                                                                                               }
-/*@egen*/ {jjtn000.set_int_arg(t.image);})/*@bgen(jjtree)*/
+/*@egen*/ {jjtn000.setName(t.image);jjtn000.setType("ID");} | t=<STRING>/*@bgen(jjtree)*/
+                                                                        {
+                                                                          jjtree.closeNodeScope(jjtn000, true);
+                                                                          jjtc000 = false;
+                                                                          jjtn000.jjtSetLastToken(getToken(0));
+                                                                        }
+/*@egen*/ {jjtn000.set_str_arg(t.image);jjtn000.setType("S");}| t=<INTEGER>/*@bgen(jjtree)*/
+                                                                                                                                          {
+                                                                                                                                            jjtree.closeNodeScope(jjtn000, true);
+                                                                                                                                            jjtc000 = false;
+                                                                                                                                            jjtn000.jjtSetLastToken(getToken(0));
+                                                                                                                                          }
+/*@egen*/ {jjtn000.set_int_arg(t.image);jjtn000.setType("I");})/*@bgen(jjtree)*/
 } finally {
   if (jjtc000) {
     jjtree.closeNodeScope(jjtn000, true);

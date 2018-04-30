@@ -65,7 +65,7 @@ BufferedReader  br;
       try {
         jj_consume_token(MODULE);
         t = jj_consume_token(ID);
-jjtn000.setName(t.image);
+jjtn000.setName(t.image);jjtn000.setModule(t.image);
         jj_consume_token(LCHAVETA);
         label_1:
         while (true) {
@@ -868,14 +868,15 @@ if (jjtc000) {
                ASTCall jjtn000 = new ASTCall(JJTCALL);
                boolean jjtc000 = true;
                jjtree.openNodeScope(jjtn000);
-               jjtn000.jjtSetFirstToken(getToken(1));Token t;
+               jjtn000.jjtSetFirstToken(getToken(1));Token t1,t2;
     try {
-      t = jj_consume_token(ID);
-jjtn000.setName(t.image);
+      t1 = jj_consume_token(ID);
+jjtn000.setName(t1.image);
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case 33:{
         jj_consume_token(33);
-        jj_consume_token(ID);
+        t2 = jj_consume_token(ID);
+jjtn000.setModule(t1.image);jjtn000.setName(t2.image);
         break;
         }
       default:
@@ -972,23 +973,23 @@ if (jjtc000) {
 jjtree.closeNodeScope(jjtn000, true);
            jjtc000 = false;
            jjtn000.jjtSetLastToken(getToken(0));
-jjtn000.setName(t.image);
+jjtn000.setName(t.image);jjtn000.setType("ID");
         break;
         }
       case STRING:{
         t = jj_consume_token(STRING);
 jjtree.closeNodeScope(jjtn000, true);
-                                                    jjtc000 = false;
-                                                    jjtn000.jjtSetLastToken(getToken(0));
-jjtn000.set_str_arg(t.image);
+                                                                          jjtc000 = false;
+                                                                          jjtn000.jjtSetLastToken(getToken(0));
+jjtn000.set_str_arg(t.image);jjtn000.setType("S");
         break;
         }
       case INTEGER:{
         t = jj_consume_token(INTEGER);
 jjtree.closeNodeScope(jjtn000, true);
-                                                                                                 jjtc000 = false;
-                                                                                                 jjtn000.jjtSetLastToken(getToken(0));
-jjtn000.set_int_arg(t.image);
+                                                                                                                                            jjtc000 = false;
+                                                                                                                                            jjtn000.jjtSetLastToken(getToken(0));
+jjtn000.set_int_arg(t.image);jjtn000.setType("I");
         break;
         }
       default:
@@ -1173,12 +1174,6 @@ try {ParseException e = generateParseException();  // generate the exception obj
     finally { jj_save(1, xla); }
   }
 
-  static private boolean jj_3R_26()
- {
-    if (jj_scan_token(STRING)) return true;
-    return false;
-  }
-
   static private boolean jj_3_2()
  {
     if (jj_3R_7()) return true;
@@ -1198,13 +1193,13 @@ try {ParseException e = generateParseException();  // generate the exception obj
     return false;
   }
 
-  static private boolean jj_3R_27()
+  static private boolean jj_3R_23()
  {
     if (jj_scan_token(INTEGER)) return true;
     return false;
   }
 
-  static private boolean jj_3R_23()
+  static private boolean jj_3R_27()
  {
     if (jj_scan_token(INTEGER)) return true;
     return false;
@@ -1300,6 +1295,18 @@ try {ParseException e = generateParseException();  // generate the exception obj
     return false;
   }
 
+  static private boolean jj_3R_26()
+ {
+    if (jj_scan_token(STRING)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_11()
+ {
+    if (jj_3R_15()) return true;
+    return false;
+  }
+
   static private boolean jj_3R_31()
  {
     if (jj_scan_token(INTEGER)) return true;
@@ -1360,12 +1367,6 @@ try {ParseException e = generateParseException();  // generate the exception obj
     if (jj_3R_27()) return true;
     }
     }
-    return false;
-  }
-
-  static private boolean jj_3R_11()
- {
-    if (jj_3R_15()) return true;
     return false;
   }
 
