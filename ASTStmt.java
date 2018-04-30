@@ -13,12 +13,10 @@ class ASTStmt extends SimpleNode {
   public void lookForLocals(String func_name, SymbolTable st){
     if(children != null) {
       for (int i = 0; i < children.length; ++i) {
-              System.out.println(children[i].getClass().getName());
-        if(children[i].getClass().getName() == "ASTAssign"){
+            if(children[i].getClass().getName() == "ASTAssign"){
         ASTAssign n = (ASTAssign)children[i];
         if (n != null) {
-          System.out.println("Looking for locals on stmt");
-          n.lookForLocals(this.name,st);
+        n.lookForLocals(func_name,st);
 
         }
       }

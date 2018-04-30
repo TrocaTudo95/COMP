@@ -27,7 +27,6 @@ class ASTAccessElement extends SimpleNode {
       else if(children[i].getClass().getName() == "ASTArrayAccess"){
       ASTArrayAccess n = (ASTArrayAccess)children[i];
       if (n != null) {
-        
         if(!st.existVar(func_name,this.name)){
            AbstractSymbol as=new AbstractSymbol(this.name,"ARRAY",null,0,null,null);
           st.addLocalVar(func_name,this.name,as);

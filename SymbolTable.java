@@ -12,7 +12,6 @@ class SymbolTable {
 
     public void addSymbol(String name, AbstractSymbol info){
        if( ! this.mainTable.containsKey(name)){
-         System.out.println("INSERTED NEW ELEMENT");
         this.mainTable.put(name,info);
     }
   }
@@ -21,7 +20,6 @@ class SymbolTable {
        if( ! this.mainTable.containsKey(var) ){
          AbstractSymbol as= this.mainTable.get(name);
          if(as==null)
-         System.out.println("ola "+var);
          if(as.containsInParameters(var)){
           return true;
          }

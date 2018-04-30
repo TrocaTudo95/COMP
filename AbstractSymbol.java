@@ -56,7 +56,7 @@ import java.util.ArrayList;
       System.out.println("Return_type:"+this.return_type);
       System.out.println("Initial_value:"+this.initial_value);
       System.out.println("Parameters_type:"+this.parameters_type);
-      System.out.println("Parameters_name:"+this.parameters_name);
+      System.out.println("Parameters_name:"+this.parameters_name+ "\n\n");
     }
 
 }
