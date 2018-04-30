@@ -124,8 +124,9 @@ class SimpleNode implements Node {
             //get the table for the function
                 nt = ((ASTFunction)n).getSymbol();
                 st.addSymbol(nt.getString(),nt);
+                  System.out.println("OLA " +nt.getString());
                 nt.print();
-                ((ASTFunction)n).functionTable(st);
+              //  ((ASTFunction)n).functionTable(st);
             }
             else if(n instanceof ASTDeclaration){
                nt = ((ASTDeclaration)n).getSymbol();

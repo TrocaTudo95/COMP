@@ -10,5 +10,21 @@ class ASTAssign extends SimpleNode {
     super(p, id);
   }
 
+  public void lookForLocals(String func_name, SymbolTable st){
+    if(children != null) {
+      for (int i = 0; i < children.length; ++i) {
+              System.out.println(children[i].getClass().getName());
+        if(children[i].getClass().getName() == "ASTLhs"){
+        ASTLhs n = (ASTLhs)children[i];
+        if (n != null) {
+          System.out.println("Looking for locals on assign");
+          n.lookForLocals(this.name,st);
+
+        }
+      }
+    }
+  }
+  }
+
 }
 /* JavaCC - OriginalChecksum=b822ef442d50fb2875ef08544f450a7d (do not edit this line) */

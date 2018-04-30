@@ -112,11 +112,13 @@ class ASTFunction extends SimpleNode {
 
 
   public void functionTable(SymbolTable st){
+        System.out.println("Entering function");
     if(children != null) {
       for (int i = 0; i < children.length; ++i) {
         if(children[i].getClass().getName() == "ASTStmtlst"){
         ASTStmtlst n = (ASTStmtlst)children[i];
         if (n != null) {
+              System.out.println("Looking for locals on function");
           n.lookForLocals(this.name,st);
         }
       }

@@ -16,6 +16,7 @@ class ASTStmtlst extends SimpleNode {
         if(children[i].getClass().getName() == "ASTStmt"){
         ASTStmt n = (ASTStmt)children[i];
         if (n != null) {
+          System.out.println("Looking for locals on stmtslt");
           n.lookForLocals(this.name,st);
         }
       }
