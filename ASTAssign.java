@@ -10,5 +10,27 @@ class ASTAssign extends SimpleNode {
     super(p, id);
   }
 
+
+public void process(BufferedWriter s){
+
+  if (children != null) {
+    for (int i = 0; i < children.length; ++i) {
+      SimpleNode n = (SimpleNode)children[i];
+      if (n != null) {
+        n.process(s);
+      }
+    }
+  }
+
+//local variable
+  s.write("iconst_");
+  s.write(this.jjtGetValue);
+
+  s.write("istore_");
+  s.write(this.jjtGetValue);
+
+
+}
+
 }
 /* JavaCC - OriginalChecksum=b822ef442d50fb2875ef08544f450a7d (do not edit this line) */
