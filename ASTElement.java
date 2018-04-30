@@ -38,11 +38,13 @@ class ASTElement extends SimpleNode {
   }
 
 
-
-  public String toString() { return yal2jvmTreeConstants.jjtNodeName[id] +" "+ this.name; }
+  public String toString() { return yal2jvmTreeConstants.jjtNodeName[id] +" "+ this.name+ " "+this.data_type; }
 
   public void setType(String type){
     this.data_type=type;
+  }
+  public String getDataType(){
+    return this.data_type;
   }
 
 }

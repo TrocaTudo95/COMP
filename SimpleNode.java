@@ -118,6 +118,28 @@ class SimpleNode implements Node {
   public String getSymbolTableName() {
     return yal2jvmTreeConstants.jjtNodeName[id]+ " " + this.name;
   }
+
+  public SymbolTable getSymbolTable(){
+    SymbolTable st =new SymbolTable(this.name);
+    AbstractSymbol nt;
+
+    for(int i=0; i<children.length;i++){
+      SimpleNode n = (SimpleNode)children[i];
+            if(n instanceof ASTFunction){
+            //get the table for the function
+                nt = ((ASTFunction)n).getSymbol();
+                st.addSymbol(nt.getString(),nt);
+                nt.print();
+                ((ASTFunction)n).functionTable(st);
+            }
+            else if(n instanceof ASTDeclaration){
+               nt = ((ASTDeclaration)n).getSymbol();
+               st.addSymbol(nt.getString(),nt);
+               nt.print();
+            }
+    }
+    return st;
+  }
 }
 
 

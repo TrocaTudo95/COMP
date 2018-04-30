@@ -10,5 +10,19 @@ class ASTStmt extends SimpleNode {
     super(p, id);
   }
 
+  public void lookForLocals(String func_name, SymbolTable st){
+    if(children != null) {
+      for (int i = 0; i < children.length; ++i) {
+            if(children[i].getClass().getName() == "ASTAssign"){
+        ASTAssign n = (ASTAssign)children[i];
+        if (n != null) {
+        n.lookForLocals(func_name,st);
+
+        }
+      }
+    }
+  }
+  }
+
 }
 /* JavaCC - OriginalChecksum=bf4117653231575e76a58ace23384507 (do not edit this line) */

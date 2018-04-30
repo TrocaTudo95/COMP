@@ -29,9 +29,45 @@ class ASTFunction extends SimpleNode {
     }
 
   public AbstractSymbol getSymbol(){
-  //  AbstractSymbol as= new AbstractSymbol(this.name);
-  return null;
+    ArrayList<String> args_type=new ArrayList();
+    ArrayList<String> args_name=new ArrayList();
+    String rt="";
+    for(int i=0; i<children.length;i++){
+      SimpleNode n = (SimpleNode)children[i];
+      if(n instanceof ASTVarlist){
+
+        for(int j=0; j<n.jjtGetNumChildren();j++){
+          SimpleNode m = (SimpleNode)n.jjtGetChild(j);
+          if(m instanceof ASTElement){
+            args_name.add(m.getName());
+            if(((ASTElement)m).getDataType().equals("I"))
+              args_type.add("INT");
+            else
+            args_type.add("ARRAY");
+
+          }
+        }
+
+      }
+    }
+
+    if(this.return_type.equals("V"))
+    rt="VOID";
+    else if(this.return_type.equals("I"))
+      rt="INT";
+      else if(this.return_type.equals("[I"))
+      rt="ARRAY";
+   AbstractSymbol as= new AbstractSymbol(this.name,null,rt,0,args_type,args_name);
+  return as;
   }
+
+
+
+  public SymbolTable getFunctionTable(SymbolTable st){
+    return null;
+  }
+
+
 
   public void process(BufferedWriter s){
     try{
@@ -72,6 +108,21 @@ class ASTFunction extends SimpleNode {
       System.out.println("Exception ");
 
     }
+  }
+
+
+  public void functionTable(SymbolTable st){
+    if(children != null) {
+      for (int i = 0; i < children.length; ++i) {
+        if(children[i].getClass().getName() == "ASTStmtlst"){
+        ASTStmtlst n = (ASTStmtlst)children[i];
+        if (n != null) {
+          n.lookForLocals(this.name,st);
+        }
+      }
+    }
+  }
+
   }
 
 }

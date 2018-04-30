@@ -72,5 +72,20 @@ class ASTDeclaration extends SimpleNode {
   public String toString() {
     return yal2jvmTreeConstants.jjtNodeName[id] + " " + this.name  + "element id:" + this.element_id +" "+ "element value:"+ this.element_value;
   }
+
+    public AbstractSymbol getSymbol(){
+      String name="";
+      String data_type="";
+      for(int i=0; i<children.length;i++){
+        SimpleNode n = (SimpleNode)children[i];
+        if(n instanceof ASTArraySize){
+          data_type="ARRAY";
+        }
+        if(n instanceof ASTElement){
+          name=n.getName();
+        }
+    }
+      return new AbstractSymbol(name,data_type,null,this.element_value,null,null);
+}
 }
 /* JavaCC - OriginalChecksum=5d869d09fafa3370307ad4a40f0167bb (do not edit this line) */

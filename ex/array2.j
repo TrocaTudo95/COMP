@@ -1,11 +1,11 @@
 .class public array2
 .super java/lang/Object
-.method public static sum_array()
+.method public static sum_array(A )I
 .limit locals 
 .limit stack 
-return
+A return
 .end method
-.method public static main()
+.method public static main()V
 .limit locals 
 .limit stack 
 return

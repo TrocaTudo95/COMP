@@ -10,7 +10,34 @@ class ASTAccessElement extends SimpleNode {
     super(p, id);
   }
   public String toString() { return yal2jvmTreeConstants.jjtNodeName[id] +" "+ this.name; }
-  
+
+  public void lookForLocals(String func_name, SymbolTable st){
+    if(children != null) {
+      for (int i = 0; i < children.length; ++i) {
+        if(children[i].getClass().getName() == "ASTScalarAccess"){
+        ASTScalarAccess n = (ASTScalarAccess)children[i];
+        if (n != null) {
+          if(!st.existVar(func_name,this.name)){
+             AbstractSymbol as=new AbstractSymbol(this.name,"INT",null,0,null,null);
+            st.addLocalVar(func_name,this.name,as);
+            as.print();
+          }
+        }
+      }
+      else if(children[i].getClass().getName() == "ASTArrayAccess"){
+      ASTArrayAccess n = (ASTArrayAccess)children[i];
+      if (n != null) {
+        if(!st.existVar(func_name,this.name)){
+           AbstractSymbol as=new AbstractSymbol(this.name,"ARRAY",null,0,null,null);
+          st.addLocalVar(func_name,this.name,as);
+          as.print();
+        }
+      }
+    }
+    }
+  }
+  }
+
 
 }
 /* JavaCC - OriginalChecksum=5cb57520f1b7d6f77670f63c633c5392 (do not edit this line) */
