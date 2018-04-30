@@ -69,7 +69,7 @@ class ASTFunction extends SimpleNode {
 
 
 
-  public void process(BufferedWriter s){
+  public void process(BufferedWriter s, SymbolTable st){
     try{
     s.write(".method public static " + this.name + "(");
 
@@ -82,7 +82,7 @@ class ASTFunction extends SimpleNode {
         if(children[i].getClass().getName() == "ASTVarlist"){
         SimpleNode n = (SimpleNode)children[i];
         if (n != null) {
-          n.process(s);
+          n.process(s,st);
         }
       }
     }
@@ -95,7 +95,7 @@ class ASTFunction extends SimpleNode {
       for (int i = 0; i < children.length; ++i) {
         SimpleNode n = (SimpleNode)children[i];
         if (n != null) {
-          n.process(s);
+          n.process(s,st);
         }
       }
     }
