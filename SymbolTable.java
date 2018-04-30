@@ -59,7 +59,12 @@ public String getVarType(String func_name, String var){
    }
    else{
      as=mainTable.get(func_name);
-     ()
+     String s= as.returnsInParameters(var);
+     if(s!=null){
+       return "PARAMETER";
+     }
+     else
+     return("LOCAL");
    }
  }
 
