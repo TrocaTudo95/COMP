@@ -19,7 +19,7 @@ class ASTModule extends SimpleNode {
     super(p, id);
   }
 
-  public void process(BufferedWriter s){
+  public void process(BufferedWriter s, SymbolTable st){
 
     try{
     s.write(".class public " + this.name + "\n");
@@ -35,7 +35,7 @@ class ASTModule extends SimpleNode {
       for (int i = 0; i < children.length; ++i) {
         SimpleNode n = (SimpleNode)children[i];
         if (n != null) {
-          n.process(s);
+          n.process(s,st);
         }
       }
     }

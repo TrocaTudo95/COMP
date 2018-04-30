@@ -14,11 +14,11 @@ public class yal2jvm {
   private static int error_counter = 0;
 
 
-  public static void generator(String fileName,SimpleNode root){
+  public static void generator(String fileName,SimpleNode root, SymbolTable st){
     String file = fileName.substring(0,fileName.length()-4);
       try {
     BufferedWriter s = new BufferedWriter(new FileWriter(file + ".j"));
-    root.process(s);
+    root.process(s,st);
     //fim
     s.write(".method static public <clinit>()V\n");
     s.write(".limit stack 0\n");
@@ -51,10 +51,10 @@ BufferedReader  br;
 
      SimpleNode root = parser.Module();
      root.dump("");
-    // makeSymbolTable(root);
-     generator(args[0],root);
-
      SymbolTable st=root.getSymbolTable();
+     generator(args[0],root,st);
+
+
 
 
   }
