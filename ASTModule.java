@@ -35,7 +35,11 @@ class ASTModule extends SimpleNode {
       for (int i = 0; i < children.length; ++i) {
         SimpleNode n = (SimpleNode)children[i];
         if (n != null) {
-          n.process(s,st);
+          if(n.getClass().getName() == "ASTDeclaration"){
+            ((ASTDeclaration)n).process(s,st);
+          }else if(n.getClass().getName() == "ASTFunction"){
+            ((ASTFunction)n).process(s,st);
+          }
         }
       }
     }

@@ -24,7 +24,6 @@ class ASTAssign extends SimpleNode {
     }
   }
   }
-
 /*
 public void process(BufferedWriter s){
 

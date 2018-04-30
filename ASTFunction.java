@@ -82,7 +82,7 @@ class ASTFunction extends SimpleNode {
         if(children[i].getClass().getName() == "ASTVarlist"){
         SimpleNode n = (SimpleNode)children[i];
         if (n != null) {
-          n.process(s,st);
+          n.process(s,st,this.name);
         }
       }
     }
@@ -93,16 +93,14 @@ class ASTFunction extends SimpleNode {
 
     if (children != null) {
       for (int i = 0; i < children.length; ++i) {
+        if(children[i].getClass().getName() != "ASTVarlist"){
         SimpleNode n = (SimpleNode)children[i];
         if (n != null) {
-          if(n.getClass().getName() == "ASTStmtlst"){
-            ((ASTStmtlst)n).process(s,st,this.name);
-          }else{
-            n.process(s,st);
-          }
+            n.process(s,st,this.name);
         }
       }
     }
+  }
 
     s.write("return\n");
     s.write(".end method\n");

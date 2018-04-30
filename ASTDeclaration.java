@@ -32,7 +32,7 @@ class ASTDeclaration extends SimpleNode {
         for (int i = 0; i < children.length; ++i) {
           SimpleNode n = (SimpleNode)children[i];
           if(n != null){
-            n.process(s,st);
+            n.process(s,st,null);
           }
         }
       }
