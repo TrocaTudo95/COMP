@@ -52,23 +52,15 @@ public String getTypeVariable(String func_name,String var){
   }
 }
 
-
-  public String getVarType(String func_name, String var){
-    AbstractSymbol as= mainTable.get(var);
-    if(as!=null){
-      return "GLOBAL";
-    }
-    else{
-      as=mainTable.get(func_name);
-    String s= as.returnsInParameters(var);
-    if(s!=null){
-      return "PARAMETER";
-    }
-    else{
-      return "LOCAL"
-    }
-    }
-  }
-
+public String getVarType(String func_name, String var){
+   AbstractSymbol as= mainTable.get(var);
+   if(as!=null){
+     return "GLOBAL";
+   }
+   else{
+     as=mainTable.get(func_name);
+     ()
+   }
+ }
 
 }
