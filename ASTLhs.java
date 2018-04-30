@@ -23,5 +23,24 @@ class ASTLhs extends SimpleNode {
   }
   }
 
+  public void process(BufferedWriter s, SymbolTable st){
+
+    if(st.getVarType(function_name, this) == "PARAMETER"){ //check arguments
+
+    }
+    if(st.getVarType(function_name, this) == "GLOBAL"){ //check arguments
+
+    }
+    if(st.getVarType(function_name, this) == "LOCAL"){ //check arguments
+
+      if(value <= 3) //check value
+        s.write("istore ");
+      else s.write("istore_");
+
+      s.write(value);  //check value
+    }
+
+  }
+
 }
 /* JavaCC - OriginalChecksum=3ff9e3ae6aa569f2c1475e98d7f21869 (do not edit this line) */
