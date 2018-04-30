@@ -15,7 +15,7 @@ class ASTElement extends SimpleNode {
     super(p, id);
   }
 
-  public void process(BufferedWriter s, SymbolTable st){
+  public void process(BufferedWriter s, SymbolTable st,String funcName){
     try{
       if(this.parent.getClass().getName() == "ASTDeclaration"){
         s.write(this.name);

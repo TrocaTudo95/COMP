@@ -39,11 +39,7 @@ public String getTypeVariable(String func_name,String var){
     return as.getDataType();
   }
   else{
-    System.out.println("Merdaaaaaaaaaaaaaaaaaaaaaaa " + func_name + " " +var);
     as = this.mainTable.get(func_name);
-    if(as == null){
-      System.out.println("ahshshshshshshshshsh");
-    }
     if(as.returnsInParameters(var) != null){
       return as.returnsInParameters(var);
     }else{

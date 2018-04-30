@@ -12,7 +12,7 @@ public class yal2jvm/*@bgen(jjtree)*/implements yal2jvmTreeConstants, yal2jvmCon
     String file = fileName.substring(0,fileName.length()-4);
       try {
     BufferedWriter s = new BufferedWriter(new FileWriter(file + ".j"));
-    root.process(s,st);
+    ((ASTModule)root).process(s,st);
     //fim
     s.write(".method static public <clinit>()V\u005cn");
     s.write(".limit stack 0\u005cn");
