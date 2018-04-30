@@ -19,25 +19,31 @@ class ASTCall extends SimpleNode {
   }
 
 
-  public void process(BufferedWriter s,SymbolTable st){
+  public void process(BufferedWriter s,SymbolTable st,String funcName){
     try{
       if(this.FuncModule != null){
         s.write("invokestatic " + this.FuncModule + "/" + this.name + "(");
       }else{
         s.write("invokestatic " + this.Module + "/" + this.name + "(");
       }
+      AbstractSymbol as = st.mainTable.get(this.name);
       if(children != null) {
         for (int i = 0; i < children.length; ++i) {
           if(children[i].getClass().getName() == "ASTArgumentList"){
           SimpleNode n = (SimpleNode)children[i];
           if (n != null) {
-            n.process(s,st);
+            ((ASTArgumentList)n).process(s,st,funcName);
           }
         }
       }
     }
 
-      s.write(")");//falta o retorno
+      s.write(")");
+      if(as != null){
+      s.write(as.getReturnType());
+    }else{
+        s.write("V");
+    }
       s.write("\n");
     }
     catch (IOException e)

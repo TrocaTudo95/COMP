@@ -15,7 +15,6 @@ import java.util.ArrayList;
     protected SymbolTable st;
 
 
-
     public AbstractSymbol(String str,String data_type, String return_type,int initial_value,ArrayList<String> parameters_type,ArrayList<String> parameters_name) {
 	     this.str = str;
        this.data_type=data_type;
@@ -41,11 +40,28 @@ import java.util.ArrayList;
     public String getString() {
 	return str;
     }
+    public SymbolTable getSymbolTable(){
+      return this.st;
+    }
 
     /** Returns a printable representation of this symbol. */
     public String toString() {
 	return str;
     }
+
+    public String getReturnType(){
+      return return_type;
+    }
+
+    public ArrayList<String> getTypes(){
+      return this.parameters_type;
+    }
+
+    public String getDataType(){
+      return this.data_type;
+    }
+
+
     public void addVar(String var,AbstractSymbol info){
       this.st.mainTable.put(var,info);
     }
@@ -57,6 +73,14 @@ import java.util.ArrayList;
       System.out.println("Initial_value:"+this.initial_value);
       System.out.println("Parameters_type:"+this.parameters_type);
       System.out.println("Parameters_name:"+this.parameters_name+ "\n\n");
+    }
+
+    public String returnsInParameters(String var){
+      for(int i=0; i< parameters_name.size();i++){
+        if(parameters_name.get(i).equals(var))
+          return parameters_type.get(i);
+      }
+      return null;
     }
 
 }

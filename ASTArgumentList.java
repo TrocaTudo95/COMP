@@ -13,12 +13,12 @@ class ASTArgumentList extends SimpleNode {
     super(p, id);
   }
 
-  public void process(BufferedWriter s,SymbolTable st){
+  public void process(BufferedWriter s,SymbolTable st,String funcName){
       if(children != null) {
         for (int i = 0; i < children.length; ++i) {
           SimpleNode n = (SimpleNode)children[i];
           if (n != null) {
-            n.process(s,st);
+            ((ASTArgument)n).process(s,st,funcName);
           }
         }
       }

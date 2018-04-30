@@ -32,4 +32,27 @@ public void addLocalVar(String func_name, String var, AbstractSymbol info){
   AbstractSymbol as= this.mainTable.get(func_name);
   as.addVar(var,info);
 }
+
+public String getTypeVariable(String func_name,String var){
+  AbstractSymbol as = this.mainTable.get(var);
+  if(as != null){
+    return as.getDataType();
+  }
+  else{
+    System.out.println("Merdaaaaaaaaaaaaaaaaaaaaaaa " + func_name + " " +var);
+    as = this.mainTable.get(func_name);
+    if(as == null){
+      System.out.println("ahshshshshshshshshsh");
+    }
+    if(as.returnsInParameters(var) != null){
+      return as.returnsInParameters(var);
+    }else{
+      AbstractSymbol at = as.getSymbolTable().mainTable.get(var);
+      if(at != null){
+        return at.getDataType();
+      }
+      return null;
+    }
+  }
+}
 }

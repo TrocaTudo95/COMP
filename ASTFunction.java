@@ -95,7 +95,11 @@ class ASTFunction extends SimpleNode {
       for (int i = 0; i < children.length; ++i) {
         SimpleNode n = (SimpleNode)children[i];
         if (n != null) {
-          n.process(s,st);
+          if(n.getClass().getName() == "ASTStmtlst"){
+            ((ASTStmtlst)n).process(s,st,this.name);
+          }else{
+            n.process(s,st);
+          }
         }
       }
     }

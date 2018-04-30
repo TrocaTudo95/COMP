@@ -26,16 +26,20 @@ class ASTArgument extends SimpleNode {
     this.type = type;
   }
 
-  public void process(BufferedWriter s,SymbolTable st){
+  public void process(BufferedWriter s,SymbolTable st,String funcName){
     try{
-      if(this.type.equals("S")){
-        s.write("Ljava/lang/String;");
+      if(this.name != null){
+        if(st.getTypeVariable(funcName,this.name) == "INT"){
+          s.write("I");
+        }else if(st.getTypeVariable(funcName,this.name) == "ARRAY"){
+          s.write("[I");
+        }
       }
-      else if(this.type.equals("I")){
+      else if(this.type == "I"){
         s.write("I");
       }
-      else if(this.type.equals("ID")){
-        s.write("ola");
+      else if(this.type == "S"){
+        s.write("[Ljava/lang/String;");
       }
     }
     catch (IOException e)
