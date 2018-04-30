@@ -8,11 +8,11 @@ public class yal2jvm/*@bgen(jjtree)*/implements yal2jvmTreeConstants, yal2jvmCon
   protected static JJTyal2jvmState jjtree = new JJTyal2jvmState();private static int error_counter = 0;
 
 
-  public static void generator(String fileName,SimpleNode root){
+  public static void generator(String fileName,SimpleNode root, SymbolTable st){
     String file = fileName.substring(0,fileName.length()-4);
       try {
     BufferedWriter s = new BufferedWriter(new FileWriter(file + ".j"));
-    root.process(s);
+    root.process(s,st);
     //fim
     s.write(".method static public <clinit>()V\u005cn");
     s.write(".limit stack 0\u005cn");
@@ -45,8 +45,10 @@ BufferedReader  br;
 
      SimpleNode root = parser.Module();
      root.dump("");
-    // makeSymbolTable(root);
-     generator(args[0],root);
+     SymbolTable st=root.getSymbolTable();
+     generator(args[0],root,st);
+
+
 
 
   }
@@ -1174,12 +1176,6 @@ try {ParseException e = generateParseException();  // generate the exception obj
     finally { jj_save(1, xla); }
   }
 
-  static private boolean jj_3_2()
- {
-    if (jj_3R_7()) return true;
-    return false;
-  }
-
   static private boolean jj_3R_7()
  {
     if (jj_scan_token(ID)) return true;
@@ -1325,16 +1321,16 @@ try {ParseException e = generateParseException();  // generate the exception obj
     return false;
   }
 
-  static private boolean jj_3_1()
- {
-    if (jj_3R_6()) return true;
-    return false;
-  }
-
   static private boolean jj_3R_20()
  {
     if (jj_scan_token(31)) return true;
     if (jj_3R_28()) return true;
+    return false;
+  }
+
+  static private boolean jj_3_1()
+ {
+    if (jj_3R_6()) return true;
     return false;
   }
 
@@ -1387,6 +1383,12 @@ try {ParseException e = generateParseException();  // generate the exception obj
   static private boolean jj_3R_15()
  {
     if (jj_3R_19()) return true;
+    return false;
+  }
+
+  static private boolean jj_3_2()
+ {
+    if (jj_3R_7()) return true;
     return false;
   }
 

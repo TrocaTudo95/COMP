@@ -19,7 +19,7 @@ class ASTCall extends SimpleNode {
   }
 
 
-  public void process(BufferedWriter s){
+  public void process(BufferedWriter s,SymbolTable st){
     try{
       if(this.FuncModule != null){
         s.write("invokestatic " + this.FuncModule + "/" + this.name + "(");
@@ -31,7 +31,7 @@ class ASTCall extends SimpleNode {
           if(children[i].getClass().getName() == "ASTArgumentList"){
           SimpleNode n = (SimpleNode)children[i];
           if (n != null) {
-            n.process(s);
+            n.process(s,st);
           }
         }
       }

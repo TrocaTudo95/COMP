@@ -24,7 +24,7 @@ class ASTDeclaration extends SimpleNode {
     return this.type;
   }
 
-  public void process(BufferedWriter s){
+  public void process(BufferedWriter s,SymbolTable st){
     try{
       s.write(".field static ");
 
@@ -32,7 +32,7 @@ class ASTDeclaration extends SimpleNode {
         for (int i = 0; i < children.length; ++i) {
           SimpleNode n = (SimpleNode)children[i];
           if(n != null){
-            n.process(s);
+            n.process(s,st);
           }
         }
       }

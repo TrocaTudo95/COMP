@@ -26,7 +26,7 @@ class ASTArgument extends SimpleNode {
     this.type = type;
   }
 
-  public void process(BufferedWriter s){
+  public void process(BufferedWriter s,SymbolTable st){
     try{
       if(this.type.equals("S")){
         s.write("Ljava/lang/String;");
