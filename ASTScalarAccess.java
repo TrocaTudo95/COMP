@@ -14,7 +14,7 @@ class ASTScalarAccess extends SimpleNode {
   }
 
   public void process(BufferedWriter s,SymbolTable st,String funcName){
-
+    this.func_name=funcName;
     try{
 
       s.write("arraylength\n");

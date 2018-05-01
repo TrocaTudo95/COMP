@@ -19,7 +19,7 @@ class ASTArraySize extends SimpleNode {
   }
 
   public void process(BufferedWriter s,SymbolTable st,String funcName){
-
+    this.func_name=funcName;
     try{
     if(this.type == "I"){
       s.write("bitpush " + this.value + "\n");

@@ -5,7 +5,7 @@ import java.util.*;
 
 public
 class ASTAccessElement extends SimpleNode {
-  protected static int value_i = 1;
+    protected static int value_i = 1;
   protected static int value_a = 1;
   public ASTAccessElement(int id) {
     super(id);
@@ -44,6 +44,7 @@ class ASTAccessElement extends SimpleNode {
   }
 
   public void process(BufferedWriter s,SymbolTable st,String funcName){
+    this.func_name=funcName;
     try{
     if(this.parent.getClass().getName() == "ASTLhs"){
       if(st.getVarType(funcName, this.name) == "GLOBAL" || st.getVarType(funcName, this.name) == "PARAMETER"){
