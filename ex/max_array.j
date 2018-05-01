@@ -46,11 +46,6 @@ ireturn
 .end method
 
 .method public static main([Ljava/lang/String;)V
-<<<<<<< HEAD
-.limit locals 
-.limit stack 
-invokestatic max_array/maxarray()INT
-=======
 .limit locals 3
 .limit stack 3
 bipush 10
@@ -80,7 +75,6 @@ invokestatic max_array/maxarray([I)I
 
 istore_2
 
->>>>>>> ffab1cb36993ae260c3bfbb633770493771b2ffa
 return
 .end method
 
