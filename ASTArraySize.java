@@ -21,28 +21,37 @@ class ASTArraySize extends SimpleNode {
   public void process(BufferedWriter s,SymbolTable st,String funcName){
     this.func_name=funcName;
     try{
-    if(this.type == "I"){
-      s.write("bitpush " + this.value + "\n");
-      s.write("newarray int \n");
-    }else if(this.type == "ID"){
-      if(st.getTypeVariable(funcName, this.name) == "INT"){
-        if(((ASTRhs)this.parent).getLoadI() <= 3)
-          s.write("iload_");
-        else
-          s.write("iload ");
+      if(this.parent.getClass().getName() != "ASTDeclaration"){
+        if(this.type == "I"){
+          s.write("bitpush " + this.value + "\n");
+          s.write("newarray int \n");
+        }else if(this.type == "ID"){
+          if(st.getTypeVariable(funcName, this.name) == "INT"){
+            if(((ASTRhs)this.parent).getLoadI().size() <= 3)
+            s.write("iload_");
+            else
+            s.write("iload ");
 
-          s.write(((ASTRhs)this.parent).getLoadI() + "\n");
-          ((ASTRhs)this.parent).setLoadI(((ASTRhs)this.parent).getLoadI()+1);
-        }
-      if(st.getTypeVariable(funcName, this.name) == "ARRAY"){
-        if(((ASTRhs)this.parent).getLoadA() <= 3)
-          s.write("aload_");
-        else
-          s.write("aload ");
+            if(((ASTRhs)this.parent).getLoadI().contains(this.name)){
+              s.write((((ASTRhs)this.parent).getLoadI().indexOf(this.name)+1) + "\n");
+            }else{
+              ((ASTRhs)this.parent).setLoadI(this.name);
+              s.write(((ASTRhs)this.parent).getLoadI().size() + "\n");
+            }
+          }
+          if(st.getTypeVariable(funcName, this.name) == "ARRAY"){
+            if(((ASTRhs)this.parent).getLoadA().size() <= 3)
+            s.write("aload_");
+            else
+            s.write("aload ");
 
-          s.write(((ASTRhs)this.parent).getLoadA() + "\n");
-          ((ASTRhs)this.parent).setLoadA(((ASTRhs)this.parent).getLoadA()+1);
-      }
+            if(((ASTRhs)this.parent).getLoadA().contains(this.name)){
+              s.write((((ASTRhs)this.parent).getLoadA().indexOf(this.name)+1) + "\n");
+            }else{
+              ((ASTRhs)this.parent).setLoadA(this.name);
+              s.write(((ASTRhs)this.parent).getLoadA().size() + "\n");
+            }
+          }
 
       if (children != null) {
         for (int i = 0; i < children.length; ++i) {
@@ -54,6 +63,7 @@ class ASTArraySize extends SimpleNode {
       }
 
     }
+  }
   }catch (IOException e)
     {
       System.out.println("Exception ");

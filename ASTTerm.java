@@ -45,7 +45,7 @@ class ASTTerm extends SimpleNode {
       }
 
         if(this.element_value != -1){
-          s.write("iconst_" + this.element_value);
+          s.write("iconst_" + this.element_value + "\n");
         }
 
         if(children != null) {

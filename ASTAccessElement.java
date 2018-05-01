@@ -5,8 +5,8 @@ import java.util.*;
 
 public
 class ASTAccessElement extends SimpleNode {
-    protected static int value_i = 1;
-  protected static int value_a = 1;
+  protected static ArrayList<String> store_i = new ArrayList<String>();
+  protected static ArrayList<String> store_a = new ArrayList<String>();
   public ASTAccessElement(int id) {
     super(id);
   }
@@ -59,23 +59,31 @@ class ASTAccessElement extends SimpleNode {
 
         if(st.getTypeVariable(funcName, this.name) == "INT"){
 
-          if(this.value_i <= 3)
+          if(this.store_i.size() <= 3)
             s.write("istore_");
           else
             s.write("istore ");
 
-            s.write(this.value_i + "\n");
-            this.value_i++;
+            if(this.store_i.contains(this.name)){
+              s.write(this.store_i.indexOf(this.name)+1 + "\n");
+            }else{
+              this.store_i.add(this.name);
+              s.write(this.store_i.size() + "\n");
+            }
           }
         if(st.getTypeVariable(funcName, this.name) == "ARRAY"){
 
-            if(this.value_a <= 3)
+            if(this.store_a.size() <= 3)
               s.write("astore_");
             else
               s.write("astore ");
 
-              s.write(this.value_a + "\n");
-              this.value_a++;
+              if(this.store_a.contains(this.name)){
+                s.write(this.store_a.indexOf(this.name)+1 + "\n");
+              }else{
+                this.store_a.add(this.name);
+                s.write(this.store_a.size() + "\n");
+              }
             }
           }
         }
