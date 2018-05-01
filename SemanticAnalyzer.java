@@ -10,24 +10,25 @@ public class SemanticAnalyzer {
     //     }
     //     return true;
     // }
-    //
-    // public static boolean checkVarArray(SymbolTable t, String name){
-    //     if( ! t.getTypeOfSymbol(name).equals("Array")){
-    //         System.out.println("Semantic error - The variable "+name+ " is not an array");
-    //         return false;
-    //     }
-    //     return true;
-    // }
-    //
-    // public static boolean checkVarInitialized(SymbolTable t, String name){
-    //
-    //     int init = t.getInitializationOfSymbol(name);
-    //     if(init == -3){
-    //         System.out.println("Semantic error - The variable "+name+ " is not initialized");
-    //         return false;
-    //     }
-    //     return true;
-    // }
+
+    public static boolean checkVarArray(SymbolTable t, String name, String func_name){
+        if( ! t.getTypeVariable(func_name, name).equals("ARRAY")){
+            System.out.println("Semantic error - The variable "+name+ " is not an array");
+            return false;
+        }
+        return true;
+    }
+
+
+    public static boolean checkVarInitialized(SymbolTable t, String name, String func_name){
+
+        int init = t.getInitializationOfSymbol(func_name, name);
+        if(init == -3){
+            System.out.println("Semantic error - The variable "+name+ " is not initialized");
+            return false;
+        }
+        return true;
+    }
     //
     //
     // public static boolean checkVarScalar(SymbolTable t, String name){
@@ -100,6 +101,8 @@ public class SemanticAnalyzer {
     // }
     //
     //
+
+
     // /*
     //  * Checks if a comparison is valid
     //  */
@@ -136,7 +139,7 @@ public class SemanticAnalyzer {
     //     }
     //     return ret;
     // }
-    //
+
     //
     // public void compStructureAssignment(){
     //

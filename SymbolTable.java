@@ -68,4 +68,26 @@ public String getVarType(String func_name, String var){
    }
  }
 
+ public int getInitializationOfSymbol(String func_name, String var){
+   AbstractSymbol as = mainTable.get(var);
+   int initVal;
+
+   if(as!=null){
+     initVal = as.getInitialValue();
+   }
+   else{
+     as = mainTable.get(func_name);
+     String s= as.returnsInParameters(var);
+     if(s!=null){
+       initVal = 0;
+     }
+     else  initVal = as.getInitialValue();
+   }
+
+   if(initVal == -1)
+    return -1;
+   else return initVal;
+
+ }
+
 }
