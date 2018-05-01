@@ -13,9 +13,10 @@ import java.util.ArrayList;
     protected ArrayList<String> parameters_type;
     protected ArrayList<String> parameters_name;
     protected SymbolTable st;
+    protected int symbol_line;
 
 
-    public AbstractSymbol(String str,String data_type, String return_type,int initial_value,ArrayList<String> parameters_type,ArrayList<String> parameters_name) {
+    public AbstractSymbol(String str,String data_type, String return_type,int initial_value,ArrayList<String> parameters_type,ArrayList<String> parameters_name,int symbol_line) {
 	     this.str = str;
        this.data_type=data_type;
        this.return_type=return_type;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
        this.parameters_type=parameters_type;
        this.parameters_name=parameters_name;
        this.st= new SymbolTable(str);
+       this.symbol_line=symbol_line;
     }
 
     public boolean containsInParameters(String var){
@@ -56,6 +58,9 @@ import java.util.ArrayList;
     public ArrayList<String> getTypes(){
       return this.parameters_type;
     }
+    public ArrayList<String> getParameters(){
+      return this.parameters_name;
+    }
 
     public String getDataType(){
       return this.data_type;
@@ -72,7 +77,8 @@ import java.util.ArrayList;
       System.out.println("Return_type:"+this.return_type);
       System.out.println("Initial_value:"+this.initial_value);
       System.out.println("Parameters_type:"+this.parameters_type);
-      System.out.println("Parameters_name:"+this.parameters_name+ "\n\n");
+      System.out.println("Parameters_name:"+this.parameters_name);
+      System.out.println("line:"+this.symbol_line+ "\n\n");
     }
 
     public String returnsInParameters(String var){

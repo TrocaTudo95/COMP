@@ -57,15 +57,11 @@ class ASTFunction extends SimpleNode {
       rt="INT";
       else if(this.return_type.equals("[I"))
       rt="ARRAY";
-   AbstractSymbol as= new AbstractSymbol(this.name,null,rt,0,args_type,args_name);
+   AbstractSymbol as= new AbstractSymbol(this.name,null,rt,0,args_type,args_name,firstToken.beginLine);
   return as;
   }
 
 
-
-  public SymbolTable getFunctionTable(SymbolTable st){
-    return null;
-  }
 
 
 

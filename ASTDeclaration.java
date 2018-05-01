@@ -85,7 +85,7 @@ class ASTDeclaration extends SimpleNode {
           name=n.getName();
         }
     }
-      return new AbstractSymbol(name,data_type,null,this.element_value,null,null);
+      return new AbstractSymbol(name,data_type,null,this.element_value,null,null,firstToken.beginLine);
 }
 }
 /* JavaCC - OriginalChecksum=5d869d09fafa3370307ad4a40f0167bb (do not edit this line) */

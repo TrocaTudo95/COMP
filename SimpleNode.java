@@ -29,6 +29,10 @@ class SimpleNode implements Node {
     parser = p;
   }
 
+  public Token getToken(){
+    return this.firstToken;
+  }
+
   public void jjtOpen() {
   }
 

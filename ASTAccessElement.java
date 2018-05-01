@@ -18,7 +18,7 @@ class ASTAccessElement extends SimpleNode {
         ASTScalarAccess n = (ASTScalarAccess)children[i];
         if (n != null) {
           if(!st.existVar(func_name,this.name)){
-             AbstractSymbol as=new AbstractSymbol(this.name,"INT",null,0,null,null);
+             AbstractSymbol as=new AbstractSymbol(this.name,"INT",null,0,null,null,firstToken.beginLine);
             st.addLocalVar(func_name,this.name,as);
             as.print();
           }
@@ -28,7 +28,7 @@ class ASTAccessElement extends SimpleNode {
       ASTArrayAccess n = (ASTArrayAccess)children[i];
       if (n != null) {
         if(!st.existVar(func_name,this.name)){
-           AbstractSymbol as=new AbstractSymbol(this.name,"ARRAY",null,0,null,null);
+           AbstractSymbol as=new AbstractSymbol(this.name,"ARRAY",null,0,null,null,firstToken.beginLine);
           st.addLocalVar(func_name,this.name,as);
           as.print();
         }
