@@ -88,8 +88,8 @@ class ASTFunction extends SimpleNode {
     }
   }
     s.write(")"+ this.return_type +"\n");
-    s.write(".limit locals " + "\n");
-    s.write(".limit stack " + "\n");
+    s.write(".limit locals 5" + "\n");
+    s.write(".limit stack 5" + "\n");
 
     if (children != null) {
       for (int i = 0; i < children.length; ++i) {

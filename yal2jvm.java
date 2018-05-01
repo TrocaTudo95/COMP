@@ -622,15 +622,15 @@ if (jjtc000) {
 jjtree.closeNodeScope(jjtn000, true);
                        jjtc000 = false;
                        jjtn000.jjtSetLastToken(getToken(0));
-jjtn000.setName(t.image);
+jjtn000.setName(t.image);jjtn000.setType("ID");
         break;
         }
       case INTEGER:{
         t = jj_consume_token(INTEGER);
 jjtree.closeNodeScope(jjtn000, true);
-                                                                   jjtc000 = false;
-                                                                   jjtn000.jjtSetLastToken(getToken(0));
-jjtn000.setValue(t.image);
+                                                                                         jjtc000 = false;
+                                                                                         jjtn000.jjtSetLastToken(getToken(0));
+jjtn000.setValue(t.image);jjtn000.setType("I");
         break;
         }
       default:
