@@ -216,7 +216,7 @@ void Rhs() : {Token t;}
 
 void ArraySize() : {Token t;}
 {
-(t=<ID>ScalarAccess(){jjtThis.setName(t.image);} ) | (t=<INTEGER>{jjtThis.setValue(t.image);})
+(t=<ID>ScalarAccess(){jjtThis.setName(t.image);jjtThis.setType("ID");} ) | (t=<INTEGER>{jjtThis.setValue(t.image);jjtThis.setType("I");})
 }
 
 void Term() : {Token t1,t2;}

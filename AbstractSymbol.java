@@ -66,6 +66,10 @@ import java.util.ArrayList;
       return this.data_type;
     }
 
+    public int getInitialValue(){
+      return this.initial_value;
+    }
+
 
     public void addVar(String var,AbstractSymbol info){
       this.st.mainTable.put(var,info);

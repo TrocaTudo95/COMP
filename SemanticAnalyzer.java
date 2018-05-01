@@ -2,6 +2,27 @@ import java.util.ArrayList;
 
 public class SemanticAnalyzer {
 
+
+    public static boolean checkVarArray(SymbolTable t, String name, String func_name){
+        if( ! t.getTypeVariable(func_name, name).equals("ARRAY")){
+            System.out.println("Semantic error - The variable "+name+ " is not an array");
+            return false;
+        }
+        return true;
+    }
+
+
+    public static boolean checkVarInitialized(SymbolTable t, String name, String func_name){
+
+        int init = t.getInitializationOfSymbol(func_name, name);
+        if(init == -3){
+            System.out.println("Semantic error - The variable "+name+ " is not initialized");
+            return false;
+        }
+        return true;
+    }
+
+
     public static boolean checkVarExists(SymbolTable t, String name, String func_name,int line){
       int result;
          result=t.checkVarExists( name,func_name,line);
@@ -16,34 +37,17 @@ public class SemanticAnalyzer {
         return true;
     }
 
-    // public static boolean checkVarArray(SymbolTable t, String name){
-    //     if( ! t.getTypeOfSymbol(name).equals("Array")){
-    //         System.out.println("Semantic error - The variable "+name+ " is not an array");
-    //         return false;
-    //     }
-    //     return true;
-    // }
-    //
-    // public static boolean checkVarInitialized(SymbolTable t, String name){
-    //
-    //     int init = t.getInitializationOfSymbol(name);
-    //     if(init == -3){
-    //         System.out.println("Semantic error - The variable "+name+ " is not initialized");
-    //         return false;
-    //     }
-    //     return true;
-    // }
-    //
-    //
-    // public static boolean checkVarScalar(SymbolTable t, String name){
-    //     if(!t.getTypeOfSymbol(name).equals("Scalar")){
-    //         System.out.println("Semantic error - The variable "+name+ " is not a scalar");
-    //         return false;
-    //     }
-    //     return true;
-    // }
-    //
-    //
+
+
+    public static boolean checkVarScalar(SymbolTable t, String name, String func_name){
+        if(!t.getTypeVariable(func_name,name).equals("INT")){
+            System.out.println("Semantic error - The variable "+name+ " is not a scalar");
+            return false;
+        }
+        return true;
+    }
+
+
 
     /*
      * Validates a function call
@@ -121,43 +125,47 @@ public class SemanticAnalyzer {
     }
 
     //
-    // /*
-    //  * Checks if a comparison is valid
-    //  */
-    // public boolean comparison(SymbolTable t, Node[] children){
-    //     SimpleNode n1 = (SimpleNode) children[0];
-    //     String name = n1.getName();
-    //     SimpleNode rhs = (SimpleNode) children[1];
-    //     boolean ret = false;
-    //     switch(n1.getClass().getName()){
-    //         case "ASTArrayAccess":
-    //             ret = checkVarExists(t, name) && checkVarArray(t,name);
-    //
-    //             SimpleNode nd = (SimpleNode)n1.children[0];
-    //             if(nd instanceof ASTIndexID){
-    //                 checkVarExists(t, nd.getName());
-    //             }
-    //             break;
-    //
-    //         case "ASTScalarAccess":
-    //             ret = checkVarExists(t, name) && checkVarArray(t,name);
-    //             break;
-    //
-    //         case "ASTSimpleAccess":
-    //             ret = checkVarExists(t, name) && checkVarScalar(t,name) && checkVarInitialized(t,name);
-    //             break;
-    //     }
-    //     /* validate assignment */
-    //     SimpleNode aux = (SimpleNode)rhs.children[0];
-    //     if(aux.children == null){
-    //         ret = checkVarScalar(t,aux.getName()) && checkVarInitialized(t,aux.getName());
-    //     }
-    //     else{
-    //         //TODO add the other options a < b.size a < b[3] a < b.call()
-    //     }
-    //     return ret;
-    // }
-    //
+
+
+    /*
+     * Checks if a comparison is valid
+     */
+    public boolean comparison(SymbolTable t, Node[] children){
+        SimpleNode n1 = (SimpleNode) children[0];
+        String name = n1.getName();
+        String func_name = n1.getFuncName();
+        int line = n1.getToken().beginLine;
+        SimpleNode rhs = (SimpleNode) children[1];
+        boolean ret = false;
+        switch(n1.getClass().getName()){
+            case "ASTArrayAccess":
+                ret = checkVarExists(t, name, func_name,line) && checkVarArray(t,name, func_name);
+
+                SimpleNode nd = (SimpleNode)n1.children[0];
+                if(nd instanceof ASTIndex){
+                    checkVarExists(t, nd.getName(), nd.getFuncName(), nd.getToken().beginLine);
+                }
+                break;
+
+            case "ASTScalarAccess":
+                ret = checkVarExists(t, name, func_name, line) && checkVarArray(t,name,func_name);
+                break;
+
+            case "ASTSimpleAccess":
+                ret = checkVarExists(t, name, func_name, line) && checkVarScalar(t,name, func_name) && checkVarInitialized(t,name, func_name);
+                break;
+        }
+        /* validate assignment */
+        SimpleNode aux = (SimpleNode)rhs.children[0];
+        if(aux.children == null){
+            ret = checkVarScalar(t,aux.getName(), aux.getFuncName()) && checkVarInitialized(t,aux.getName(), aux.getFuncName());
+        }
+        else{
+            //TODO add the other options a < b.size a < b[3] a < b.call()
+        }
+        return ret;
+    }
+
     //
     // public void compStructureAssignment(){
     //
