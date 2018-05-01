@@ -52,14 +52,19 @@ public class SemanticAnalyzer {
     /*
      * Validates a function call
      */
-    public static boolean validateFunction(SymbolTable t, SimpleNode nd){
+    public static boolean validateFunction(SymbolTable t, SimpleNode nd)throws ParseException{
+
+
 
 
         String call_name = nd.getName();
         ASTArgumentList call;
+        //TODO funcoes nao feitas por mim
         //if(nd.jjtGetNumChildren()==0)
 
          call = (ASTArgumentList)nd.jjtGetChild(0);
+         String err;
+         int i_err=-798;
 
 
 
@@ -67,7 +72,9 @@ public class SemanticAnalyzer {
         ArrayList<String> types=  t.mainTable.get(call_name).getTypes();
 
         if(names==null){
-            System.out.println("Semantic error - The function "+call_name+" does not exist");
+          err="Semantic error - The function "+call_name+" does not exist";
+          yal2jvm.error_skipto(i_err,err);
+            //System.out.println("Semantic error - The function "+call_name+" does not exist");
             return false;
         }
         else{
@@ -78,7 +85,8 @@ public class SemanticAnalyzer {
                 nArgs = call.jjtGetNumChildren();
             }
             if(nArgs != names.size()){
-                System.out.println("Semantic error - number of arguments in function "+call_name);
+              err="Semantic error - number of arguments in function "+call_name;
+                yal2jvm.error_skipto(i_err,err);
                 return false;
             }
             else if(call.jjtGetNumChildren()!=0) {
@@ -97,13 +105,17 @@ public class SemanticAnalyzer {
                         }
 
                         String type = t.getTypeVariable(test.getFuncName(),test.getName());
+                        err="the type is: "+ type+" and it should be: "+types.get(i);
+                          yal2jvm.error_skipto(i_err,err);
                         res =  types.get(i).equals(type);
 
                     }
 
 
                     if(!res){
-                        System.out.println("Semantic Error - Argument "+test.getName()+" do not match with the "+ i+"º argument of the function"+call_name);
+                      int h=i+1;
+                      err="Semantic Error - Argument "+test.getName()+" do not match with the "+h +"º argument of the function " +call_name;
+                         yal2jvm.error_skipto(i_err,err);
                         return false;
                     }
                 }
