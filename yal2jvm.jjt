@@ -53,6 +53,7 @@ BufferedReader  br;
      root.dump("");
      SymbolTable st=root.getSymbolTable();
      generator(args[0],root,st);
+     root.semanticAnalysis(st);
 
 
 
@@ -310,15 +311,19 @@ void Index() : {Token t;}
 }
 
 JAVACODE
-void error_skipto(int kind,String error_msg) {
+public  void error_skipto(int kind,String error_msg) {
   ParseException e = generateParseException();  // generate the exception object.
   error_counter++;
   if(error_counter <= 10){
-    System.out.println(error_msg);  // print the error message
+    System.out.println(error_msg);
+     // print the error message
+     if(kind!=-798)
     System.out.println(e);
   }
+  if(kind!=-798){
   Token t;
   do {
     t = getNextToken();
   } while (t.kind != kind);
+}
 }

@@ -23,7 +23,7 @@ function max=maxarray(a[]) {
 		     a[i]=i;
 		     i=i+1;
           }
- 		  max=maxarray(a);
+ 		  max=maxarray(b);
  }
 
 }

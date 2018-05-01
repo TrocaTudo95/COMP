@@ -54,5 +54,15 @@ class ASTCall extends SimpleNode {
   }
   public String toString() { return yal2jvmTreeConstants.jjtNodeName[id] +" "+ this.name ; }
 
+
+  public void semanticAnalysis(SymbolTable st)throws ParseException{
+
+        SemanticAnalyzer.validateFunction(st,this);
+
+
+
+
+  }
+
 }
 /* JavaCC - OriginalChecksum=c32fe0b0d9431b83835ebe20e8e6e067 (do not edit this line) */

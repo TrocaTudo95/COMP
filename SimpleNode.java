@@ -150,6 +150,22 @@ class SimpleNode implements Node {
     }
     return st;
   }
+
+  public void semanticAnalysis(SymbolTable st)throws ParseException{
+
+    if (children != null) {
+      for (int i = 0; i < children.length; ++i) {
+        SimpleNode n = (SimpleNode)children[i];
+        if (n != null) {
+          if(n.getClass().getName()=="ASTCall")
+          ((ASTCall)n).semanticAnalysis(st);
+          else
+          n.semanticAnalysis(st);
+        }
+      }
+    }
+
+  }
 }
 
 

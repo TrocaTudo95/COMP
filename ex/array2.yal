@@ -26,6 +26,5 @@ module array2
 	}
 
 	sum=sum_array(a);
- 	io.println("sum of array elements = ",sum);
  	}
 }

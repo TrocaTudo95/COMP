@@ -9,7 +9,7 @@ return
 .method public static main([Ljava/lang/String;)V
 .limit locals 
 .limit stack 
-invokestatic max_array/maxarray(I)INT
+invokestatic max_array/maxarray()INT
 return
 .end method
 .method static public <clinit>()V
