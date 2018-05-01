@@ -44,17 +44,15 @@ class ASTTerm extends SimpleNode {
       }
 
         if(this.element_value != -1){
-          s.write("iconst_" + this.element_value);
+          s.write("iconst_" + this.element_value + "\n");
         }
 
         if(children != null) {
           for (int i = 0; i < children.length; ++i) {
-            if(children[i].getClass().getName() == "ASTVarlist"){
             SimpleNode n = (SimpleNode)children[i];
             if (n != null) {
-              n.process(s,st,this.name);
+              n.process(s,st,funcName);
             }
-          }
         }
       }
 

@@ -41,7 +41,13 @@ class ASTCall extends SimpleNode {
 
       s.write(")");
       if(as != null){
-      s.write(as.getReturnType());
+        if(as.getReturnType() == "VOID"){
+            s.write("V");
+          }else if(as.getReturnType() == "ARRAY"){
+            s.write("[I");
+          }else if(as.getReturnType() == "INT"){
+            s.write("I");
+          }
     }else{
         s.write("V");
     }
