@@ -75,6 +75,10 @@ import java.util.ArrayList;
       this.st.mainTable.put(var,info);
     }
 
+    public int getLine(){
+      return this.symbol_line;
+    }
+
     public void print(){
       System.out.println("Name:"+this.str);
       System.out.println("Data_Type:"+this.data_type);

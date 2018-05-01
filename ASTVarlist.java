@@ -14,6 +14,7 @@ class ASTVarlist extends SimpleNode {
   }
 
   public void process(BufferedWriter s,SymbolTable st,String funcName){
+      this.func_name=funcName;
       if (children != null) {
         for (int i = 0; i < children.length; ++i) {
           SimpleNode n = (SimpleNode)children[i];

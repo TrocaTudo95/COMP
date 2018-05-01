@@ -1,15 +1,7 @@
 import java.util.ArrayList;
 
 public class SemanticAnalyzer {
-    //
-    // public static boolean checkVarExists(SymbolTable t, String name){
-    //
-    //     if(! t.containsSymbol( name )){
-    //         System.out.println("Semantic error - The variable "+name+ " was not declared;");
-    //         return false;
-    //     }
-    //     return true;
-    // }
+
 
     public static boolean checkVarArray(SymbolTable t, String name, String func_name){
         if( ! t.getTypeVariable(func_name, name).equals("ARRAY")){
@@ -29,6 +21,23 @@ public class SemanticAnalyzer {
         }
         return true;
     }
+
+
+    public static boolean checkVarExists(SymbolTable t, String name, String func_name,int line){
+      int result;
+         result=t.checkVarExists( name,func_name,line);
+         if(result==0){
+            System.out.println("Semantic error - The variable "+name+ " was not declared;");
+            return false;
+        }
+        if(result==2){
+           System.out.println("Semantic error - The variable "+name+ " was not declared before being used;");
+           return false;
+       }
+        return true;
+    }
+
+
     //
     //
     // public static boolean checkVarScalar(SymbolTable t, String name){
@@ -40,66 +49,70 @@ public class SemanticAnalyzer {
     // }
     //
     //
-    //
-    // /*
-    //  * Validates a function call
-    //  */
-    // public static boolean validateFunction(SymbolTable t, SimpleNode nd){
-    //
-    //     ASTCall call = (ASTCall)nd;
-    //     String call_name = call.getName();
-    //
-    //     ArrayList<String> names = t.mainTable.get(call_name).getParameters();
-    //
-    //     if(names==null){
-    //         System.out.println("Semantic error - The function "+call_name+" does not exist");
-    //         return false;
-    //     }
-    //     else{
-    //         /* check the number of parameters */
-    //         int nArgs=0;
-    //         if( nd.children!=null ){
-    //             SimpleNode ndd = (SimpleNode)nd.children[0];
-    //             nArgs = ndd.children.length-1;
-    //         }
-    //         if(nArgs != names.size()){
-    //             System.out.println("Semantic error - number of arguments");
-    //             return false;
-    //         }
-    //         else if(nd.children!=null ) {
-    //             SimpleNode ndd = (SimpleNode)nd.children[0];
-    //
-    //             for(int i = 0; i < nArgs; i++){
-    //
-    //                 boolean res=false;
-    //
-    //                 SimpleNode test = (SimpleNode) ndd.children[i];
-    //
-    //                 if( test instanceof ASTArgument ){
-    //
-    //                     if(! (checkVarExists(t, test.getName()) && checkVarInitialized(t, test.getName())) ) {
-    //                         return false;
-    //                     }
-    //
-    //                     String type = t.getTypeOfSymbol(test.getName());
-    //                     res =  names.get(i).equals(type);
-    //
-    //                 }
-    //
-    //                 else if(test instanceof ASTArgumentInteger){
-    //                     res = names.get(i).equals("Scalar");
-    //                 }
-    //
-    //                 if(!res){
-    //                     System.out.println("Semantic Error - Arguments do not match!");
-    //                     return false;
-    //                 }
-    //             }
-    //         }
-    //         return true;
-    //     }
-    // }
-    //
+
+    /*
+     * Validates a function call
+     */
+    public static boolean validateFunction(SymbolTable t, SimpleNode nd){
+
+
+        String call_name = nd.getName();
+        ASTArgumentList call;
+        //if(nd.jjtGetNumChildren()==0)
+
+         call = (ASTArgumentList)nd.jjtGetChild(0);
+
+
+
+        ArrayList<String> names = t.mainTable.get(call_name).getParameters();
+        ArrayList<String> types=  t.mainTable.get(call_name).getTypes();
+
+        if(names==null){
+            System.out.println("Semantic error - The function "+call_name+" does not exist");
+            return false;
+        }
+        else{
+            /* check the number of parameters */
+            int nArgs=0;
+            if( call.jjtGetNumChildren()!=0 ){
+
+                nArgs = call.jjtGetNumChildren();
+            }
+            if(nArgs != names.size()){
+                System.out.println("Semantic error - number of arguments in function "+call_name);
+                return false;
+            }
+            else if(call.jjtGetNumChildren()!=0) {
+
+
+                for(int i = 0; i < nArgs; i++){
+
+                    boolean res=false;
+
+                    SimpleNode test = (SimpleNode)call.jjtGetChild(i);
+
+                    if( test instanceof ASTArgument ){
+                        //check if variable exists
+                        if(! checkVarExists(t, test.getName(), test.getFuncName(),test.getToken().beginLine )) {
+                            return false;
+                        }
+
+                        String type = t.getTypeVariable(test.getFuncName(),test.getName());
+                        res =  types.get(i).equals(type);
+
+                    }
+
+
+                    if(!res){
+                        System.out.println("Semantic Error - Argument "+test.getName()+" do not match with the "+ i+"º argument of the function"+call_name);
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+    }
+
     //
 
 
