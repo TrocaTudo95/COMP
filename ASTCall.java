@@ -20,6 +20,7 @@ class ASTCall extends SimpleNode {
 
 
   public void process(BufferedWriter s,SymbolTable st,String funcName){
+      this.func_name=funcName;
     try{
       if(this.FuncModule != null){
         s.write("invokestatic " + this.FuncModule + "/" + this.name + "(");
@@ -51,6 +52,7 @@ class ASTCall extends SimpleNode {
       System.out.println("Exception ");
     }
   }
+  public String toString() { return yal2jvmTreeConstants.jjtNodeName[id] +" "+ this.name ; }
 
 }
 /* JavaCC - OriginalChecksum=c32fe0b0d9431b83835ebe20e8e6e067 (do not edit this line) */

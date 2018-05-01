@@ -15,6 +15,7 @@ class SimpleNode implements Node {
   protected Token firstToken;
   protected Token lastToken;
   protected String name;
+  protected String func_name;
 
   public void setModule(String module){
     this.Module = module;
@@ -27,6 +28,15 @@ class SimpleNode implements Node {
   public SimpleNode(yal2jvm p, int i) {
     this(i);
     parser = p;
+  }
+
+
+  public Token getToken(){
+    return this.firstToken;
+  }
+
+  public String getFuncName(){
+    return this.func_name;
   }
 
   public void jjtOpen() {

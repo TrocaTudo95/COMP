@@ -27,6 +27,7 @@ class ASTArgument extends SimpleNode {
   }
 
   public void process(BufferedWriter s,SymbolTable st,String funcName){
+    this.func_name=funcName;
     try{
       if(this.name != null){
         if(st.getTypeVariable(funcName,this.name) == "INT"){
