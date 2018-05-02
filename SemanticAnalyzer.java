@@ -89,7 +89,7 @@ static int  i_err=-798;
         ArrayList<String> types=  t.mainTable.get(call_name).getTypes();
 
         if(names==null){
-          err="Semantic error - The function "+call_name+" does not exist";
+          err="Semantic error - The function "+call_name+" does not exist on line "+call.getToken().beginLine;
           yal2jvm.error_skipto(i_err,err);
             //System.out.println("Semantic error - The function "+call_name+" does not exist");
             return false;
@@ -102,7 +102,7 @@ static int  i_err=-798;
                 nArgs = call.jjtGetNumChildren();
             }
             if(nArgs != names.size()){
-              err="Semantic error - number of arguments in function "+call_name;
+              err="Semantic error - number of arguments in function "+call_name +"on line "+call.getToken().beginLine;
                 yal2jvm.error_skipto(i_err,err);
                 return false;
             }
@@ -159,6 +159,7 @@ static int  i_err=-798;
      * Checks if a comparison is valid
      */
     public static boolean comparison(SymbolTable t, SimpleNode nd)throws ParseException{
+      String err;
         if(nd.jjtGetNumChildren()==1 )
           return false;
         ASTAccessElement var = (ASTAccessElement) nd.jjtGetChild(0).jjtGetChild(0);
@@ -167,93 +168,45 @@ static int  i_err=-798;
         if(var!=null){
           if(checkVarExists(t, var.getName(), var.getFuncName(),var.getToken().beginLine )){
             if(!checkIfInt(t,var.getName(), var.getFuncName(),var)){
-              System.out.println("PUTAA");
+              err="Semantic Error- the var "+var.getName() +" cannot be matched to a INT type in line "+var.getToken().beginLine;
+              yal2jvm.error_skipto(i_err,err);
         }
       }
 }
+
+        if(rhs!=null){
+          if(rhs.jjtGetChild(0).getClass().getName()=="ASTArraySize"){
+
+          }
+            else if(rhs.jjtGetChild(0).getClass().getName()=="ASTTerm"){
+              if(rhs.jjtGetChild(0).jjtGetChild(0).getClass().getName()=="ASTAccessElement"){
+                var=(ASTAccessElement)rhs.jjtGetChild(0).jjtGetChild(0);
+                if(var!=null){
+                  if(checkVarExists(t, var.getName(), var.getFuncName(),var.getToken().beginLine )){
+                    if(!checkIfInt(t,var.getName(), var.getFuncName(),var)){
+                      err="Semantic Error- the var "+var.getName() +" cannot be matched to a INT type in line "+var.getToken().beginLine;
+                      yal2jvm.error_skipto(i_err,err);
+                }
+              }
+        }
+
+              }
+              else if(rhs.jjtGetChild(0).jjtGetChild(0).getClass().getName()=="ASTCall"){
+                if(t.mainTable.get(((SimpleNode)rhs.jjtGetChild(0).jjtGetChild(0)).getName()).getReturnType()=="VOID"){
+                err="Semantic Error- the fucntion "+((SimpleNode)rhs.jjtGetChild(0).jjtGetChild(0)).getName() +" is void on line"+((SimpleNode)rhs.jjtGetChild(0).jjtGetChild(0)).getToken().beginLine;
+                yal2jvm.error_skipto(i_err,err);
+              }
+              }
+
+
+          }
+
+
+            }
     return false;
 }
 
 
 
-    /*
-     *  Checks the assignment of a scalar
-     */
-    public String nonIntegerAssignment(Node node, SymbolTable t)throws ParseException{
 
-        SimpleNode nn = (SimpleNode)node;
-        String name = nn.getName();
-        String func_name = nn.getFuncName();
-        int line = nn.getToken().beginLine;
-
-        if(nn.children==null && checkVarExists(t, name, func_name, line) && checkVarInitialized(t,name, func_name)){   //a=N
-
-            if(t.getTypeVariable(func_name, name).equals("ARRAY")){
-                return "Array";
-            }
-            else if( checkVarScalar(t, name, func_name) && checkVarInitialized(t,name, func_name)){
-                return "Scalar";
-            }
-        }
-
-        else if(nn.children!=null){
-
-            SimpleNode nd = (SimpleNode)nn.children[0];
-            name = nd.getName();
-            func_name = nd.getFuncName();
-            line = nd.getToken().beginLine;
-
-            if(nd instanceof ASTArrayAccess ){  //a=N[x]
-
-                if(! ( checkVarExists(t, name, func_name, line) && checkVarInitialized(t, name, func_name) &&checkVarArray(t, name, func_name))) return null;
-
-                nd = (SimpleNode)nd.children[0];
-                name = nd.getName();
-                func_name = nd.getFuncName();
-                line = nd.getToken().beginLine;
-
-                if(nd instanceof ASTIndex ){  //a=N[b]
-
-                    if( checkVarExists(t, name, func_name, line) && checkVarScalar(t, name, func_name)&& checkVarInitialized(t,name, func_name)){
-                        return "Scalar";
-                    }
-                    else {
-                        return null;
-                    }
-                }
-
-                else if(nd instanceof ASTArraySize){   //a=N[0]
-                    return "Scalar";
-                }
-            }
-
-            else if(nd instanceof ASTScalarAccess ){ //a=N.size
-
-                if(! ( checkVarExists(t, name, func_name, line) && checkVarArray(t, name, func_name))) return null;
-                return "Scalar";
-            }
-
-            else if(nd instanceof ASTFunction){   //a=N.b()
-                return "Scalar";
-            }
-
-            else if(nd instanceof ASTCall){  //a=N()
-
-                try{
-                  if(validateFunction(t, nd)){
-                      String type = t.getRetType(nd.getName());
-                      if(type.equals("void")){
-                          System.out.println("Semantic error - Assigning a variable to a void function");
-                          return null;
-                      }
-                      return type;
-                  }
-                }
-                catch(Exception e){
-                  return null;
-                }
-            }
-        }
-        return null;
-    }
 }
