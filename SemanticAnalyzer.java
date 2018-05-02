@@ -207,6 +207,55 @@ static int  i_err=-798;
 }
 
 
+public static boolean assignment(SymbolTable t, SimpleNode nd)throws ParseException{
+  String err;
+    if(nd.jjtGetNumChildren()==1 )
+      return false;
+    ASTAccessElement var = (ASTAccessElement) nd.jjtGetChild(0).jjtGetChild(0);
+    ASTRhs rhs = (ASTRhs) nd.jjtGetChild(1);
+    //check var
+    if(var!=null){
+      if(checkVarExists(t, var.getName(), var.getFuncName(),var.getToken().beginLine )){
+        if(!checkIfInt(t,var.getName(), var.getFuncName(),var)){
+          err="Semantic Error- the var "+var.getName() +" cannot be matched to a INT type in line "+var.getToken().beginLine;
+          yal2jvm.error_skipto(i_err,err);
+    }
+  }
+}
+
+    if(rhs!=null){
+      if(rhs.jjtGetChild(0).getClass().getName()=="ASTArraySize"){
+
+      }
+        else if(rhs.jjtGetChild(0).getClass().getName()=="ASTTerm"){
+          if(rhs.jjtGetChild(0).jjtGetChild(0).getClass().getName()=="ASTAccessElement"){
+            var=(ASTAccessElement)rhs.jjtGetChild(0).jjtGetChild(0);
+            if(var!=null){
+              if(checkVarExists(t, var.getName(), var.getFuncName(),var.getToken().beginLine )){
+                if(!checkIfInt(t,var.getName(), var.getFuncName(),var)){
+                  err="Semantic Error- the var "+var.getName() +" cannot be matched to a INT type in line "+var.getToken().beginLine;
+                  yal2jvm.error_skipto(i_err,err);
+            }
+          }
+    }
+
+          }
+          else if(rhs.jjtGetChild(0).jjtGetChild(0).getClass().getName()=="ASTCall"){
+            if(t.mainTable.get(((SimpleNode)rhs.jjtGetChild(0).jjtGetChild(0)).getName()).getReturnType()=="VOID"){
+            err="Semantic Error- the fucntion "+((SimpleNode)rhs.jjtGetChild(0).jjtGetChild(0)).getName() +" is void on line"+((SimpleNode)rhs.jjtGetChild(0).jjtGetChild(0)).getToken().beginLine;
+            yal2jvm.error_skipto(i_err,err);
+          }
+          }
+
+
+      }
+
+
+        }
+return false;
+}
+
+
 
 
 }

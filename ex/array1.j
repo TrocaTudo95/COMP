@@ -3,14 +3,7 @@
 .method public static print_array(I)V
 .limit locals 5
 .limit stack 5
-iload_1
-astore_1
-
-iconst_0
-istore_2
-
-
-astore_1
+istore_1
 
 return
 .end method

@@ -6,14 +6,10 @@ module array1
   function print_array(N)
   {
 
-   a=[N];
+   a=P;
 
 
-   i=0;
-   while(i < P)
-   {
-   	a[i] = i;
-	}
+
 
 
 	}
