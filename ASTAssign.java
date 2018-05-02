@@ -13,6 +13,24 @@ class ASTAssign extends SimpleNode {
     super(p, id);
   }
 
+  public boolean isArray(){
+    if(children != null) {
+      for (int i = 0; i < children.length; ++i) {
+        System.out.println("PUTTAAA "+children[i].getClass().getName());
+      if(children[i].getClass().getName() == "ASTRhs"){
+        ASTRhs n = (ASTRhs)children[i];
+        for(int j=0;j<n.jjtGetNumChildren();j++){
+          if(n.jjtGetChild(j).getClass().getName()=="ASTArraySize")
+          return true;
+        }
+        return false;
+      }
+      return false;
+  }
+}
+return false;
+}
+
 
   public void lookForLocals(String func_name, SymbolTable st){
     if(children != null) {

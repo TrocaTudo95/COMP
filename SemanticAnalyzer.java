@@ -66,7 +66,8 @@ public class SemanticAnalyzer {
          String err;
          int i_err=-798;
 
-
+         if(t.mainTable.get(call_name)==null)
+          return true;
 
         ArrayList<String> names = t.mainTable.get(call_name).getParameters();
         ArrayList<String> types=  t.mainTable.get(call_name).getTypes();
