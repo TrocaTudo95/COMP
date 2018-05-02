@@ -22,8 +22,10 @@ class ASTAccessElement extends SimpleNode {
         if (n != null) {
           if(!st.existVar(func_name,this.name)){
             AbstractSymbol as;
-            if(this.parent.jjtGetParent().jjtGetParent().getClass().getName()=="ASTAssign"){
-              if(((ASTAssign)this.parent.jjtGetParent()).isArray())
+            if(this.parent.jjtGetParent().getClass().getName()=="ASTAssign") {
+
+              ASTAssign ass=(ASTAssign)this.parent.jjtGetParent();
+              if(ass.isArray())
                as=new AbstractSymbol(this.name,"ARRAY",null,0,null,null,firstToken.beginLine);
               else
               as=new AbstractSymbol(this.name,"INT",null,0,null,null,firstToken.beginLine);

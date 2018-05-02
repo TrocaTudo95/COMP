@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class SemanticAnalyzer {
 
-
+static int  i_err=-798;
     public static boolean checkVarArray(SymbolTable t, String name, String func_name){
         if( ! t.getTypeVariable(func_name, name).equals("ARRAY")){
             System.out.println("Semantic error - The variable "+name+ " is not an array");
@@ -61,10 +61,11 @@ public class SemanticAnalyzer {
 
          call = (ASTArgumentList)nd.jjtGetChild(0);
          String err;
-         int i_err=-798;
 
-         if(t.mainTable.get(call_name)==null)
-          return true;
+
+         if(t.mainTable.get(call_name)==null){
+            return true;
+          }
 
         ArrayList<String> names = t.mainTable.get(call_name).getParameters();
         ArrayList<String> types=  t.mainTable.get(call_name).getTypes();
@@ -98,16 +99,27 @@ public class SemanticAnalyzer {
 
                     if( test instanceof ASTArgument ){
                         //check if variable exists
+                        if(test.getName()!=null){
                         if(! checkVarExists(t, test.getName(), test.getFuncName(),test.getToken().beginLine )) {
                             return false;
                         }
 
-                        String type = t.getTypeVariable(test.getFuncName(),test.getName());
-                        err="the type is: "+ type+" and it should be: "+types.get(i);
-                          yal2jvm.error_skipto(i_err,err);
-                        res =  types.get(i).equals(type);
+                        //check the type of each variable
+                          String type = t.getTypeVariable(test.getFuncName(),test.getName());
 
+
+                        //err="the type is: "+ type+" and it should be: "+types.get(i);
+                          //yal2jvm.error_skipto(i_err,err);
+                        res =  types.get(i).equals(type);
+                      }
+                      else{
+                        if(((ASTArgument)test).getInt()!=-2){
+                          types.get(i).equals("INT");
+                          res=true;
+                        }
+                      }
                     }
+
 
 
                     if(!res){

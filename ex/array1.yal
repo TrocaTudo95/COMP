@@ -26,7 +26,7 @@ module array1
 
 	function main()
 	{
-	 print_array(10); // the same as array1.print_array(10);
+	 print_array(a); // the same as array1.print_array(10);
 	}
 
 }

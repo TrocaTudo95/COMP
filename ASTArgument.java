@@ -10,6 +10,7 @@ class ASTArgument extends SimpleNode {
   private String type;
   public ASTArgument(int id) {
     super(id);
+    this.int_arg=-2;
   }
 
   public ASTArgument(yal2jvm p, int id) {
@@ -24,6 +25,9 @@ class ASTArgument extends SimpleNode {
 
   public void setType(String type){
     this.type = type;
+  }
+  public int getInt(){
+    return this.int_arg;
   }
 
   public void process2(BufferedWriter s,SymbolTable st,String funcName){

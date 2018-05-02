@@ -5,27 +5,29 @@
 .limit stack 5
 iload_1
 arraylength
-istore_1
+astore_1
 iconst_0
-istore_2
-istore_2
 istore_1
+istore_1
+astore_1
 iconst_1
 iadd
-istore_2
+istore_1
 iconst_0
-istore_2
-istore_2
+istore_1
+istore_1
 invokestatic io/print([Ljava/lang/String;)V
 iconst_1
 iadd
-istore_2
+istore_1
 return
 .end method
 .method public static main([Ljava/lang/String;)V
 .limit locals 5
 .limit stack 5
-invokestatic array1/print_array(I)V
+arraylength
+astore_1
+invokestatic array1/print_array([I)V
 return
 .end method
 .method static public <clinit>()V
