@@ -34,18 +34,22 @@ class ASTTerm extends SimpleNode {
     this.func_name=funcName;
     try{
 
-      if(this.signal != null){
-
-        if(this.signal.equals("+")){
-            s.write("iadd\n");
-          }
-          else if(this.signal.equals("-")){
-            s.write("isub\n");
-          }
-      }
+      // if(this.signal != null){
+      //
+      //   if(this.signal.equals("+")){
+      //       s.write("iadd\n");
+      //     }
+      //     else if(this.signal.equals("-")){
+      //       s.write("isub\n");
+      //     }
+      // }
 
         if(this.element_value != -1){
-          s.write("iconst_" + this.element_value + "\n");
+          if(this.element_value <= 5){
+            s.write("iconst_" + this.element_value + "\n");
+          }else{
+            s.write("bitpush " + this.element_value + "\n");
+          }
         }
 
         if(children != null) {

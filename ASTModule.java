@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public
 class ASTModule extends SimpleNode {
+  protected static ArrayList<String> arr = new ArrayList<String>();
+  protected static ArrayList<String> in = new ArrayList<String>();
   private static SymbolTable main_table;
 
   public ASTModule(int id) {
@@ -13,6 +15,21 @@ class ASTModule extends SimpleNode {
     this.main_table=new SymbolTable(this.name);
 
   }
+
+  public static ArrayList<String> getLoadA(){
+    return arr;
+  }
+  public static ArrayList<String> getLoadI(){
+    return in;
+  }
+  public static void setStoreA(String a){
+    arr.add(a);
+  }
+  public static void setStoreI(String i){
+    in.add(i);
+  }
+
+
   public String toString() { return yal2jvmTreeConstants.jjtNodeName[id] +" "+ this.name; }
 
   public ASTModule(yal2jvm p, int id) {

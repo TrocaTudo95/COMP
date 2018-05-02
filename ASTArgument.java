@@ -26,9 +26,57 @@ class ASTArgument extends SimpleNode {
     this.type = type;
   }
 
+  public void process2(BufferedWriter s,SymbolTable st,String funcName){
+
+    try{
+
+            if(this.type == "ID"){
+                if(st.getTypeVariable(funcName,this.name) == "INT"){
+                  if(ASTModule.getLoadI().contains(this.name)){
+                    if(ASTModule.getLoadI().indexOf(this.name) <= 3){
+                      s.write("iload_");
+                      s.write(ASTModule.getLoadI().indexOf(this.name)+ "\n");
+                    }else{
+                      s.write("iload ");
+                      s.write(ASTModule.getLoadI().indexOf(this.name)+ "\n");
+                    }
+                  }else{
+                    ASTModule.setStoreI(this.name);
+                    if(ASTModule.getLoadI().indexOf(this.name) <= 3){
+                      s.write("iload_");
+                      s.write(ASTModule.getLoadI().indexOf(this.name)+ "\n");
+                    }else{
+                      s.write("iload ");
+                      s.write(ASTModule.getLoadI().indexOf(this.name)+ "\n");
+                    }
+                  }
+
+                }
+
+                //if(array)
+            }
+            if(this.type == "I"){
+              if(this.int_arg <= 5){
+                s.write("iconst_" + this.int_arg + "\n");
+              }else{
+                s.write("bitpush " + this.int_arg + "\n");
+              }
+            }
+            if(this.type == "S"){
+              s.write("ldc " + this.str_arg+"\n");
+            }
+        }
+        catch (IOException e)
+        {
+          System.out.println("Exception ");
+        }
+
+  }
+
   public void process(BufferedWriter s,SymbolTable st,String funcName){
     this.func_name=funcName;
     try{
+
       if(this.name != null){
         if(st.getTypeVariable(funcName,this.name) == "INT"){
           s.write("I");
@@ -42,6 +90,8 @@ class ASTArgument extends SimpleNode {
       else if(this.type == "S"){
         s.write("[Ljava/lang/String;");
       }
+
+
     }
     catch (IOException e)
     {
