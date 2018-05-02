@@ -116,7 +116,11 @@ public String getVarType(String func_name, String var){
    }
 }
 
+public String getRetType(String var){
 
+  AbstractSymbol as= this.mainTable.get(var);
+  return as.getReturnType();
+}
 
 
 }
