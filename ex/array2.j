@@ -22,17 +22,17 @@ iconst_16
 istore_3
 iload_1
 arraylength
-istore_4
+astore_1
 iconst_0
-istore 1
-istore 1
+istore_1
+istore_1
 iconst_1
-istore 4
+astore_1
 iconst_1
 iadd
-istore 1
-invokestatic array2/sum_array(I)I
-istore 2
+istore_1
+invokestatic array2/sum_array([I)I
+istore_2
 invokestatic io/println([Ljava/lang/String;I)V
 return
 .end method

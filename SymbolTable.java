@@ -99,7 +99,6 @@ public String getVarType(String func_name, String var){
      return 2;
    }
    else{
-     System.out.println(var+" "+func_name);
      as = this.mainTable.get(func_name);
      if(as.returnsInParameters(var) != null){
        return 1;

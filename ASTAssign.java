@@ -14,10 +14,9 @@ class ASTAssign extends SimpleNode {
   }
 
   public boolean isArray(){
-    if(children != null) {
-      for (int i = 0; i < children.length; ++i) {
-        System.out.println("PUTTAAA "+children[i].getClass().getName());
-      if(children[i].getClass().getName() == "ASTRhs"){
+    if(this.children != null) {
+      for (int i = 0; i < this.children.length; i++) {
+      if(this.children[i].getClass().getName() == "ASTRhs"){
         ASTRhs n = (ASTRhs)children[i];
         for(int j=0;j<n.jjtGetNumChildren();j++){
           if(n.jjtGetChild(j).getClass().getName()=="ASTArraySize")
@@ -25,7 +24,6 @@ class ASTAssign extends SimpleNode {
         }
         return false;
       }
-      return false;
   }
 }
 return false;
