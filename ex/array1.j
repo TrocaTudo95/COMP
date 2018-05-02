@@ -25,9 +25,7 @@ return
 .method public static main([Ljava/lang/String;)V
 .limit locals 5
 .limit stack 5
-arraylength
-astore_1
-invokestatic array1/print_array([I)V
+invokestatic array1/print_array(I)V
 return
 .end method
 .method static public <clinit>()V

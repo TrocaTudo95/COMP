@@ -22,5 +22,9 @@ public String toString() {
   else
   return yal2jvmTreeConstants.jjtNodeName[id] + " " + this.name ;
 }
+
+public void semanticAnalysis(SymbolTable st)throws ParseException{
+  SemanticAnalyzer.comparison(st,this);
+}
 }
 /* JavaCC - OriginalChecksum=ff3171bcbe6a3ba94811ed3933aebc1f (do not edit this line) */

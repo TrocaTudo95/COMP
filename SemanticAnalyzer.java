@@ -23,15 +23,18 @@ static int  i_err=-798;
     }
 
 
-    public static boolean checkVarExists(SymbolTable t, String name, String func_name,int line){
+    public static boolean checkVarExists(SymbolTable t, String name, String func_name,int line)throws ParseException{
       int result;
+      String err;
          result=t.checkVarExists( name,func_name,line);
          if(result==0){
-            System.out.println("Semantic error - The variable "+name+ " was not declared;");
+          err="Semantic error - The variable "+name+ "used on line "+line+" was not declared;";
+          yal2jvm.error_skipto(i_err,err);
             return false;
         }
         if(result==2){
-           System.out.println("Semantic error - The variable "+name+ " was not declared before being used;");
+           err="Semantic error - The variable "+name+ " was not declared before being used on line "+line;
+           yal2jvm.error_skipto(i_err,err);
            return false;
        }
         return true;
@@ -45,6 +48,21 @@ static int  i_err=-798;
             return false;
         }
         return true;
+    }
+
+    public static boolean checkIfInt(SymbolTable t, String name, String func_name,SimpleNode nd){
+      if(t.getTypeVariable(func_name,name).equals("INT")){
+        return true;
+      }
+      else{
+        if(nd.jjtGetChild(0).getClass().getName()=="ASTArrayAccess"){
+            if(nd.jjtGetChild(0).jjtGetChild(0).getClass().getName()=="ASTIndex")
+            return true;
+
+        }
+
+      }
+      return false;
     }
 
 
@@ -140,54 +158,28 @@ static int  i_err=-798;
     /*
      * Checks if a comparison is valid
      */
-    public boolean comparison(SymbolTable t, Node[] children){
-        SimpleNode n1 = (SimpleNode) children[0];
-        String name = n1.getName();
-        String func_name = n1.getFuncName();
-        int line = n1.getToken().beginLine;
-        SimpleNode rhs = (SimpleNode) children[1];
-        boolean ret = false;
-        switch(n1.getClass().getName()){
-            case "ASTArrayAccess":
-                ret = checkVarExists(t, name, func_name,line) && checkVarArray(t,name, func_name);
-
-                SimpleNode nd = (SimpleNode)n1.children[0];
-                if(nd instanceof ASTIndex){
-                    checkVarExists(t, nd.getName(), nd.getFuncName(), nd.getToken().beginLine);
-                }
-                break;
-
-            case "ASTScalarAccess":
-                ret = checkVarExists(t, name, func_name, line) && checkVarArray(t,name,func_name);
-                break;
-
-            case "ASTSimpleAccess":
-                ret = checkVarExists(t, name, func_name, line) && checkVarScalar(t,name, func_name) && checkVarInitialized(t,name, func_name);
-                break;
+    public static boolean comparison(SymbolTable t, SimpleNode nd)throws ParseException{
+        if(nd.jjtGetNumChildren()==1 )
+          return false;
+        ASTAccessElement var = (ASTAccessElement) nd.jjtGetChild(0).jjtGetChild(0);
+        ASTRhs rhs = (ASTRhs) nd.jjtGetChild(1);
+        //check var
+        if(var!=null){
+          if(checkVarExists(t, var.getName(), var.getFuncName(),var.getToken().beginLine )){
+            if(!checkIfInt(t,var.getName(), var.getFuncName(),var)){
+              System.out.println("PUTAA");
         }
-        /* validate assignment */
-        SimpleNode aux = (SimpleNode)rhs.children[0];
-        if(aux.children == null){
-            ret = checkVarScalar(t,aux.getName(), aux.getFuncName()) && checkVarInitialized(t,aux.getName(), aux.getFuncName());
-        }
-        else{
-            //TODO add the other options a < b.size a < b[3] a < b.call()
-        }
-        return ret;
-    }
-
-
-    public void compStructureAssignment(){
-
-    }
-
+      }
+}
+    return false;
+}
 
 
 
     /*
      *  Checks the assignment of a scalar
      */
-    public String nonIntegerAssignment(Node node, SymbolTable t){
+    public String nonIntegerAssignment(Node node, SymbolTable t)throws ParseException{
 
         SimpleNode nn = (SimpleNode)node;
         String name = nn.getName();
