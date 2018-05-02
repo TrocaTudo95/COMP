@@ -5,8 +5,6 @@ import java.util.*;
 
 public
 class ASTRhs extends SimpleNode {
-  protected static ArrayList<String> load_a = new ArrayList<String>();
-  protected static ArrayList<String> load_i = new ArrayList<String>();
   private String operation;
 
   public ASTRhs(int id) {
@@ -15,19 +13,6 @@ class ASTRhs extends SimpleNode {
 
   public ASTRhs(yal2jvm p, int id) {
     super(p, id);
-  }
-
-  public ArrayList<String> getLoadA(){
-    return this.load_a;
-  }
-  public ArrayList<String> getLoadI(){
-    return this.load_i;
-  }
-  public void setLoadA(String a){
-    this.load_a.add(a);
-  }
-  public void setLoadI(String i){
-    this.load_i.add(i);
   }
 
   public void setOperation(String operation){

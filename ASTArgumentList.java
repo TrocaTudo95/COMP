@@ -24,5 +24,17 @@ class ASTArgumentList extends SimpleNode {
         }
       }
     }
+
+    public void process2(BufferedWriter s,SymbolTable st,String funcName){
+        this.func_name=funcName;
+        if(children != null) {
+          for (int i = 0; i < children.length; ++i) {
+            SimpleNode n = (SimpleNode)children[i];
+            if (n != null) {
+              ((ASTArgument)n).process2(s,st,funcName);
+            }
+          }
+        }
+      }
   }
 /* JavaCC - OriginalChecksum=227b01c4beab7b51ee27fd1741abfc1a (do not edit this line) */

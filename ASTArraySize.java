@@ -26,42 +26,43 @@ class ASTArraySize extends SimpleNode {
           s.write("bitpush " + this.value + "\n");
           s.write("newarray int \n");
         }else if(this.type == "ID"){
-          if(st.getTypeVariable(funcName, this.name) == "INT"){
-            if(((ASTRhs)this.parent).getLoadI().size() <= 3)
-            s.write("iload_");
-            else
-            s.write("iload ");
+          if(this.parent.jjtGetParent().getClass().getName() == "ASTAssign"){
+            if(st.getTypeVariable(funcName, this.name) == "INT"){
+              if(ASTModule.getLoadI().size() <= 3)
+              s.write("iload_");
+              else
+              s.write("iload ");
 
-            if(((ASTRhs)this.parent).getLoadI().contains(this.name)){
-              s.write((((ASTRhs)this.parent).getLoadI().indexOf(this.name)+1) + "\n");
-            }else{
-              ((ASTRhs)this.parent).setLoadI(this.name);
-              s.write(((ASTRhs)this.parent).getLoadI().size() + "\n");
+              if(ASTModule.getLoadI().contains(this.name)){
+                s.write((ASTModule.getLoadI().indexOf(this.name)+1) + "\n");
+              }else{
+                ASTModule.setStoreI(this.name);
+                s.write((ASTModule.getLoadI().indexOf(this.name)+1) + "\n");
+              }
             }
-          }
-          if(st.getTypeVariable(funcName, this.name) == "ARRAY"){
-            if(((ASTRhs)this.parent).getLoadA().size() <= 3)
-            s.write("aload_");
-            else
-            s.write("aload ");
+            if(st.getTypeVariable(funcName, this.name) == "ARRAY"){
+              if(ASTModule.getLoadA().size() <= 3)
+                s.write("aload_");
+                else
+                s.write("aload ");
 
-            if(((ASTRhs)this.parent).getLoadA().contains(this.name)){
-              s.write((((ASTRhs)this.parent).getLoadA().indexOf(this.name)+1) + "\n");
-            }else{
-              ((ASTRhs)this.parent).setLoadA(this.name);
-              s.write(((ASTRhs)this.parent).getLoadA().size() + "\n");
-            }
-          }
+                if(ASTModule.getLoadA().contains(this.name)){
+                  s.write((ASTModule.getLoadA().indexOf(this.name)+1) + "\n");
+                }else{
+                  ASTModule.setStoreA(this.name);
+                  s.write((ASTModule.getLoadA().indexOf(this.name)+1) + "\n");
+                }
+                if (children != null) {
+                  for (int i = 0; i < children.length; ++i) {
+                    SimpleNode n = (SimpleNode)children[i];
+                    if (n != null) {
+                      n.process(s,st,funcName);
+                    }
+                  }
+                }
 
-      if (children != null) {
-        for (int i = 0; i < children.length; ++i) {
-          SimpleNode n = (SimpleNode)children[i];
-          if (n != null) {
-            n.process(s,st,funcName);
-          }
+              }
         }
-      }
-
     }
   }
   }catch (IOException e)
