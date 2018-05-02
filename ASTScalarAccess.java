@@ -5,6 +5,7 @@ import java.util.*;
 
 public
 class ASTScalarAccess extends SimpleNode {
+  protected String t = "F";
   public ASTScalarAccess(int id) {
     super(id);
   }
@@ -13,11 +14,16 @@ class ASTScalarAccess extends SimpleNode {
     super(p, id);
   }
 
+  public void setSize(String t){
+    this.t=t;
+  }
+
   public void process(BufferedWriter s,SymbolTable st,String funcName){
     this.func_name=funcName;
     try{
-
+      if(this.t == "T"){
       s.write("arraylength\n");
+    }
 
     }catch (IOException e)
         {

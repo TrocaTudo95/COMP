@@ -302,7 +302,7 @@ void ArrayAccess() : {}
 
 void ScalarAccess() : {}
 {
- ( "." <SIZE> )?
+ ( "." <SIZE>{jjtThis.setSize("T");} )?
 }
 
 void Index() : {Token t;}

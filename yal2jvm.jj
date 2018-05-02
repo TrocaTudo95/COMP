@@ -893,7 +893,7 @@ void ScalarAccess() : {/*@bgen(jjtree) ScalarAccess */
 {/*@bgen(jjtree) ScalarAccess */
  try {
 /*@egen*/
- ( "." <SIZE> )?/*@bgen(jjtree)*/
+ ( "." <SIZE>{jjtn000.setSize("T");} )?/*@bgen(jjtree)*/
  } finally {
    if (jjtc000) {
      jjtree.closeNodeScope(jjtn000, true);
