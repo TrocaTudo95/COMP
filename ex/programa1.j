@@ -8,22 +8,32 @@
 .limit stack 5
 iconst_0
 istore_1
+
+aload_arraylength
 iconst_1
 isub
 istore_2
-istore_1
+
+
+aload_
 iconst_1
 iadd
 istore_1
+
+aload_
 invokestatic library1/max()V
+
 invokestatic library1/min()V
+
 return
 .end method
 .method public static main([Ljava/lang/String;)V
 .limit locals 5
 .limit stack 5
 invokestatic programa1/det([I)V
+ldc "max: "
 invokestatic io/println([Ljava/lang/String;)V
+ldc "min: "
 invokestatic io/println([Ljava/lang/String;)V
 return
 .end method

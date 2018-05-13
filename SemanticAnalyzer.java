@@ -222,7 +222,8 @@ public static boolean assignment(SymbolTable t, SimpleNode nd)throws ParseExcept
     }
   }
 }
-
+if(rhs==null)
+return true;
     if(rhs!=null){
       if(rhs.jjtGetChild(0).getClass().getName()=="ASTArraySize"){
 

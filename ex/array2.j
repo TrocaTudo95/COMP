@@ -5,34 +5,45 @@
 .limit stack 5
 iconst_0
 istore_1
+
 iconst_0
 istore_2
-istore_1
-iadd
+
+
+aload_iadd
 istore_2
+
 iconst_1
 iadd
 istore_1
+
 return
 .end method
 .method public static main([Ljava/lang/String;)V
 .limit locals 5
 .limit stack 5
-iconst_16
+bitpush 16
 istore_3
-iload_1
-arraylength
+
+iload_3
 astore_1
+
 iconst_0
 istore_1
-istore_1
+
+
 iconst_1
 astore_1
+
 iconst_1
 iadd
 istore_1
+
 invokestatic array2/sum_array([I)I
 istore_2
+
+ldc "sum of array elements = "
+iload_1
 invokestatic io/println([Ljava/lang/String;I)V
 return
 .end method

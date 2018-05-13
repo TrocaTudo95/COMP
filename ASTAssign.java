@@ -74,7 +74,7 @@ return false;
   }
 
   public void semanticAnalysis(SymbolTable st)throws ParseException{
-    SemanticAnalyzer.assignment(st,this);
+   SemanticAnalyzer.assignment(st,this);
   }
 
 }
