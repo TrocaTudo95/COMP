@@ -92,7 +92,7 @@ class ASTArgument extends SimpleNode {
         s.write("I");
       }
       else if(this.type == "S"){
-        s.write("[Ljava/lang/String;");
+        s.write("Ljava/lang/String;");
       }
 
 
