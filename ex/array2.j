@@ -1,54 +1,81 @@
 .class public array2
 .super java/lang/Object
+
 .method public static sum_array([I)I
-.limit locals 5
-.limit stack 5
+.limit locals 3
+.limit stack 3
 iconst_0
 istore_1
 
 iconst_0
 istore_2
 
+loop0:
 
-aload_iadd
-istore_2
+iload_1
+aload_0
+arraylength
+if_icmpge loop0_end
 
-iconst_1
+iload_2
+aload_0
+iload_1
+iaload
 iadd
-istore_1
+istore_2
 
-return
+iinc 1 1
+goto loop0
+
+loop0_end:
+
+iload_2
+ireturn
 .end method
+
 .method public static main([Ljava/lang/String;)V
-.limit locals 5
-.limit stack 5
-bitpush 16
+.limit locals 4
+.limit stack 3
+bipush 16
+istore_0
+
+iload_0
+newarray int
+astore_1
+
+iconst_0
+istore_2
+
+loop2:
+
+iload_2
+iload_0
+if_icmpge loop2_end
+
+aload_1
+iload_2
+iconst_1
+iastore
+iinc 2 1
+goto loop2
+
+loop2_end:
+
+aload_1
+invokestatic array2/sum_array([I)I
+
 istore_3
 
-iload_3
-astore_1
-
-iconst_0
-istore_1
-
-
-iconst_1
-astore_1
-
-iconst_1
-iadd
-istore_1
-
-invokestatic array2/sum_array([I)I
-istore_2
-
 ldc "sum of array elements = "
-iload_1
-invokestatic io/println([Ljava/lang/String;I)V
+iload_3
+invokestatic io/println(Ljava/lang/String;I)V
+
 return
 .end method
-.method static public <clinit>()V
+
+
+.method static public <clinit>()V 
 .limit stack 0
 .limit locals 0
-return
-.end method
+return 
+.end method 
