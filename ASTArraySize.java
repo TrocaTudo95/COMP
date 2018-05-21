@@ -23,7 +23,7 @@ class ASTArraySize extends SimpleNode {
     try{
       if(this.parent.getClass().getName() != "ASTDeclaration"){
         if(this.type == "I"){
-          s.write("bitpush " + this.value + "\n");
+          s.write("bipush " + this.value + "\n");
           s.write("newarray int \n");
         }else if(this.type == "ID"){
           if(this.parent.jjtGetParent().getClass().getName() == "ASTAssign"){

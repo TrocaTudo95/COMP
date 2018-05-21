@@ -48,7 +48,7 @@ class ASTTerm extends SimpleNode {
           if(this.element_value <= 5){
             s.write("iconst_" + this.element_value + "\n");
           }else{
-            s.write("bitpush " + this.element_value + "\n");
+            s.write("bipush " + this.element_value + "\n");
           }
         }
 
