@@ -229,7 +229,7 @@ void Exprtest() : {Token t;}
   try{
   <LPAR> Lhs() t=<RELA_OP>{jjtThis.setOperation(t.image);} Rhs() <RPAR>
 }catch(ParseException e){
-  String msg="Error in Exprtest";
+  String msg="Error in Exprtest with {> | < | <= | >= | == | !=}";
   error_skipto(RPAR,msg);
 }
 }
