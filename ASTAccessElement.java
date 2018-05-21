@@ -72,10 +72,10 @@ class ASTAccessElement extends SimpleNode {
             s.write("istore ");
 
             if(ASTModule.getLoadI().contains(this.name)){
-              s.write(ASTModule.getLoadI().indexOf(this.name)+1 + "\n");
+              s.write(ASTModule.getLoadI().indexOf(this.name) + "\n");
             }else{
               ASTModule.setStoreI(this.name);
-              s.write(ASTModule.getLoadI().size() + "\n");
+              s.write(ASTModule.getLoadI().indexOf(this.name) + "\n");
             }
           }
         if(st.getTypeVariable(funcName, this.name) == "ARRAY"){
@@ -86,10 +86,10 @@ class ASTAccessElement extends SimpleNode {
               s.write("astore ");
 
               if(ASTModule.getLoadA().contains(this.name)){
-                s.write(ASTModule.getLoadA().indexOf(this.name)+1 + "\n");
+                s.write(ASTModule.getLoadA().indexOf(this.name) + "\n");
               }else{
                 ASTModule.setStoreA(this.name);
-                s.write(ASTModule.getLoadA().size() + "\n");
+                s.write(ASTModule.getLoadA().indexOf(this.name) + "\n");
               }
             }
           }
@@ -104,7 +104,10 @@ class ASTAccessElement extends SimpleNode {
               s.write("aload ");
 
               if(ASTModule.getLoadA().contains(this.name)){
-                s.write((ASTModule.getLoadA().indexOf(this.name)+1) + "\n");
+                s.write(ASTModule.getLoadA().indexOf(this.name) + "\n");
+              }else{
+                ASTModule.setStoreA(this.name);
+                s.write(ASTModule.getLoadA().indexOf(this.name) + "\n");
               }
               if (children != null) {
                 for (int i = 0; i < children.length; ++i) {
@@ -114,6 +117,19 @@ class ASTAccessElement extends SimpleNode {
                   }
                 }
               }
+
+            }else if(st.getTypeVariable(funcName, this.name) == "INT"){
+              if(ASTModule.getLoadI().size() <= 3)
+                s.write("iload_");
+                  else
+                s.write("iload ");
+
+                if(ASTModule.getLoadI().contains(this.name)){
+                  s.write(ASTModule.getLoadI().indexOf(this.name) + "\n");
+                }else{
+                  ASTModule.setStoreI(this.name);
+                  s.write(ASTModule.getLoadI().indexOf(this.name) + "\n");
+                }
 
             }
         }

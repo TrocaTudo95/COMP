@@ -592,7 +592,7 @@ void Exprtest() : {/*@bgen(jjtree) Exprtest */
   try{
   <LPAR> Lhs() t=<RELA_OP>{jjtn000.setOperation(t.image);} Rhs() <RPAR>
 }catch(ParseException e){
-  String msg="Error in Exprtest";
+  String msg="Error in Exprtest with {> | < | <= | >= | == | !=}";
   error_skipto(RPAR,msg);
 }/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
@@ -935,13 +935,7 @@ try {
 }
 
 JAVACODE
-public  void error_skipto(int kind,String error_msg) {/*@bgen(jjtree) error_skipto */
-ASTerror_skipto jjtn000 = new ASTerror_skipto(JJTERROR_SKIPTO);
-boolean jjtc000 = true;
-jjtree.openNodeScope(jjtn000);
-jjtn000.jjtSetFirstToken(getToken(1));
-try {
-/*@egen*/
+public void error_skipto(int kind,String error_msg)      {
   ParseException e = generateParseException();  // generate the exception object.
   error_counter++;
   if(error_counter <= 10){
@@ -955,12 +949,5 @@ try {
   do {
     t = getNextToken();
   } while (t.kind != kind);
-}/*@bgen(jjtree)*/
-} finally {
-  if (jjtc000) {
-    jjtree.closeNodeScope(jjtn000, true);
-    jjtn000.jjtSetLastToken(getToken(0));
-  }
 }
-/*@egen*/
 }

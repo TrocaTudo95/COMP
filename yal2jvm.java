@@ -739,7 +739,7 @@ jjtn000.setOperation(t.image);
         Rhs();
         jj_consume_token(RPAR);
       } catch (ParseException e) {
-String msg="Error in Exprtest";
+String msg="Error in Exprtest with {> | < | <= | >= | == | !=}";
   error_skipto(RPAR,msg);
       }
     } catch (Throwable jjte000) {
