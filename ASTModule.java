@@ -29,6 +29,12 @@ class ASTModule extends SimpleNode {
     in.add(i);
   }
 
+  public static void resetA(){
+    arr.clear();
+  }
+  public static void resetI(){
+    in.clear();
+  }
 
   public String toString() { return yal2jvmTreeConstants.jjtNodeName[id] +" "+ this.name; }
 

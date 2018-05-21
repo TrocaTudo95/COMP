@@ -1139,12 +1139,7 @@ if (jjtc000) {
     }
   }
 
-  static public void error_skipto(int kind,String error_msg) throws ParseException {/*@bgen(jjtree) error_skipto */
-ASTerror_skipto jjtn000 = new ASTerror_skipto(JJTERROR_SKIPTO);
-boolean jjtc000 = true;
-jjtree.openNodeScope(jjtn000);
-jjtn000.jjtSetFirstToken(getToken(1));
-try {ParseException e = generateParseException();  // generate the exception object.
+  static public void error_skipto(int kind,String error_msg) throws ParseException {ParseException e = generateParseException();  // generate the exception object.
   error_counter++;
   if(error_counter <= 10){
     System.out.println(error_msg);
@@ -1157,12 +1152,6 @@ try {ParseException e = generateParseException();  // generate the exception obj
   do {
     t = getNextToken();
   } while (t.kind != kind);
-}/*@bgen(jjtree)*/
-} finally {
-  if (jjtc000) {
-    jjtree.closeNodeScope(jjtn000, true);
-    jjtn000.jjtSetLastToken(getToken(0));
-  }
 }
   }
 

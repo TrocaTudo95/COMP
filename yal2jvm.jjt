@@ -311,7 +311,7 @@ void Index() : {Token t;}
 }
 
 JAVACODE
-public #void error_skipto(int kind,String error_msg) {
+public void error_skipto(int kind,String error_msg)#void {
   ParseException e = generateParseException();  // generate the exception object.
   error_counter++;
   if(error_counter <= 10){

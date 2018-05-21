@@ -23,7 +23,7 @@ public interface yal2jvmTreeConstants
   public int JJTARRAYACCESS = 19;
   public int JJTSCALARACCESS = 20;
   public int JJTINDEX = 21;
-  public int JJTERROR_SKIPTO = 22;
+  public int JJTVOID = 22;
 
 
   public String[] jjtNodeName = {
@@ -49,7 +49,7 @@ public interface yal2jvmTreeConstants
     "ArrayAccess",
     "ScalarAccess",
     "Index",
-    "error_skipto",
+    "void",
   };
 }
-/* JavaCC - OriginalChecksum=3489b299b724035b1d03b8317ba4bd7a (do not edit this line) */
+/* JavaCC - OriginalChecksum=4e08c355cc807658bf0e276d94262e65 (do not edit this line) */
