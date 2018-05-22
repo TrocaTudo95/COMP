@@ -53,7 +53,7 @@ BufferedReader  br;
      root.dump("");
      SymbolTable st=root.getSymbolTable();
      generator(args[0],root,st);
-     root.semanticAnalysis(st);
+     //root.semanticAnalysis(st);
 
 
 
@@ -229,7 +229,7 @@ void Exprtest() : {Token t;}
   try{
   <LPAR> Lhs() t=<RELA_OP>{jjtThis.setOperation(t.image);} Rhs() <RPAR>
 }catch(ParseException e){
-  String msg="Error in Exprtest with {> | < | <= | >= | == | !=}";
+  String msg="Operand should be one of the following: > | < | <= | >= | == | != ";
   error_skipto(RPAR,msg);
 }
 }
@@ -252,7 +252,7 @@ void While() : {}
   }
 }
 
-void If() : {}
+void If() : {Token t;}
 {
   try{
       <IF> Exprtest() <LCHAVETA>
@@ -266,7 +266,7 @@ void If() : {}
     error_skipto(RCHAVETA,msg);
   }
   (try{
-     <ELSE> <LCHAVETA>Stmtlst() <RCHAVETA>
+     <ELSE>{jjtThis.setElse("true");} <LCHAVETA>Stmtlst() <RCHAVETA>
   }catch(ParseException e){
     String msg="Error in else statement!\n";
     error_skipto(RCHAVETA,msg);
@@ -292,7 +292,7 @@ void Argument() : {Token t;}
 
 void AccessElement() : {Token t;}
   {
-    t=<ID> {jjtThis.setName(t.image);}(ArrayAccess() | ScalarAccess())
+    t=<ID> {jjtThis.setName(t.image);}(ArrayAccess(){jjtThis.setType("ARRAY");} | ScalarAccess())
   }
 
 void ArrayAccess() : {}

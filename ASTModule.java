@@ -6,8 +6,7 @@ import java.util.ArrayList;
 
 public
 class ASTModule extends SimpleNode {
-  protected static ArrayList<String> arr = new ArrayList<String>();
-  protected static ArrayList<String> in = new ArrayList<String>();
+  protected static ArrayList<String> stack = new ArrayList<String>();
   private static SymbolTable main_table;
 
   public ASTModule(int id) {
@@ -16,24 +15,14 @@ class ASTModule extends SimpleNode {
 
   }
 
-  public static ArrayList<String> getLoadA(){
-    return arr;
+  public static ArrayList<String> getStack(){
+    return stack;
   }
-  public static ArrayList<String> getLoadI(){
-    return in;
+  public static void addToStack(String a){
+    stack.add(a);
   }
-  public static void setStoreA(String a){
-    arr.add(a);
-  }
-  public static void setStoreI(String i){
-    in.add(i);
-  }
-
-  public static void resetA(){
-    arr.clear();
-  }
-  public static void resetI(){
-    in.clear();
+  public static void resetStack(){
+    stack.clear();
   }
 
   public String toString() { return yal2jvmTreeConstants.jjtNodeName[id] +" "+ this.name; }

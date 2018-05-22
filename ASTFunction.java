@@ -98,8 +98,7 @@ class ASTFunction extends SimpleNode {
     }
   }
 
-    ((ASTModule)this.parent).resetA();
-    ((ASTModule)this.parent).resetI();
+    ((ASTModule)this.parent).resetStack();
 
     s.write("return\n");
     s.write(".end method\n");

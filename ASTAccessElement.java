@@ -5,12 +5,17 @@ import java.util.*;
 
 public
 class ASTAccessElement extends SimpleNode {
+  protected String type;
   public ASTAccessElement(int id) {
     super(id);
   }
 
   public ASTAccessElement(yal2jvm p, int id) {
     super(p, id);
+  }
+
+  public void setType(String a){
+    this.type=a;
   }
   public String toString() { return yal2jvmTreeConstants.jjtNodeName[id] +" "+ this.name; }
 
@@ -54,6 +59,7 @@ class ASTAccessElement extends SimpleNode {
   public void process(BufferedWriter s,SymbolTable st,String funcName){
     this.func_name=funcName;
     try{
+    //lhs store
     if(this.parent.getClass().getName() == "ASTLhs" && this.parent.jjtGetParent().getClass().getName() == "ASTAssign"){
       if(st.getVarType(funcName, this.name) == "GLOBAL" || st.getVarType(funcName, this.name) == "PARAMETER"){
         if(st.getTypeVariable(funcName, this.name) == "INT"){
@@ -64,50 +70,50 @@ class ASTAccessElement extends SimpleNode {
         }
       }
       if(st.getVarType(funcName, this.name) == "LOCAL"){
-
-        if(st.getTypeVariable(funcName, this.name) == "INT"){
-          if(ASTModule.getLoadI().size() <= 3)
+        if(st.getTypeVariable(funcName, this.name) == "INT" || this.type != "ARRAY"){
+          if(ASTModule.getStack().size() <= 3)
             s.write("istore_");
           else
             s.write("istore ");
 
-            if(ASTModule.getLoadI().contains(this.name)){
-              s.write(ASTModule.getLoadI().indexOf(this.name) + "\n");
+            if(ASTModule.getStack().contains(this.name)){
+              s.write(ASTModule.getStack().indexOf(this.name) + "\n");
             }else{
-              ASTModule.setStoreI(this.name);
-              s.write(ASTModule.getLoadI().indexOf(this.name) + "\n");
+              ASTModule.addToStack(this.name);
+              s.write(ASTModule.getStack().indexOf(this.name) + "\n");
             }
           }
-        if(st.getTypeVariable(funcName, this.name) == "ARRAY"){
+        if(st.getTypeVariable(funcName, this.name) == "ARRAY" || this.type == "ARRAY"){
 
-            if(ASTModule.getLoadA().size() <= 3)
+            if(ASTModule.getStack().size() <= 3)
               s.write("astore_");
             else
               s.write("astore ");
 
-              if(ASTModule.getLoadA().contains(this.name)){
-                s.write(ASTModule.getLoadA().indexOf(this.name) + "\n");
+              if(ASTModule.getStack().contains(this.name)){
+                s.write(ASTModule.getStack().indexOf(this.name) + "\n");
               }else{
-                ASTModule.setStoreA(this.name);
-                s.write(ASTModule.getLoadA().indexOf(this.name) + "\n");
+                ASTModule.addToStack(this.name);
+                s.write(ASTModule.getStack().indexOf(this.name) + "\n");
               }
             }
           }
+          s.write("\n");
         }
 
-        //rhs
-        if(this.parent.getClass().getName() == "ASTTerm" && this.parent.jjtGetParent().jjtGetParent().getClass().getName() == "ASTAssign"){
+        //lhs load
+        if(this.parent.getClass().getName() == "ASTLhs" && this.parent.jjtGetParent().getClass().getName() == "ASTExprtest"){
           if(st.getTypeVariable(funcName, this.name) == "ARRAY"){
-            if(ASTModule.getLoadA().size() <= 3)
+            if(ASTModule.getStack().size() <= 3)
               s.write("aload_");
                 else
               s.write("aload ");
 
-              if(ASTModule.getLoadA().contains(this.name)){
-                s.write(ASTModule.getLoadA().indexOf(this.name) + "\n");
+              if(ASTModule.getStack().contains(this.name)){
+                s.write(ASTModule.getStack().indexOf(this.name) + "\n");
               }else{
-                ASTModule.setStoreA(this.name);
-                s.write(ASTModule.getLoadA().indexOf(this.name) + "\n");
+                ASTModule.addToStack(this.name);
+                s.write(ASTModule.getStack().indexOf(this.name) + "\n");
               }
               if (children != null) {
                 for (int i = 0; i < children.length; ++i) {
@@ -119,16 +125,94 @@ class ASTAccessElement extends SimpleNode {
               }
 
             }else if(st.getTypeVariable(funcName, this.name) == "INT"){
-              if(ASTModule.getLoadI().size() <= 3)
+              if(ASTModule.getStack().size() <= 3)
                 s.write("iload_");
                   else
                 s.write("iload ");
 
-                if(ASTModule.getLoadI().contains(this.name)){
-                  s.write(ASTModule.getLoadI().indexOf(this.name) + "\n");
+                if(ASTModule.getStack().contains(this.name)){
+                  s.write(ASTModule.getStack().indexOf(this.name) + "\n");
                 }else{
-                  ASTModule.setStoreI(this.name);
-                  s.write(ASTModule.getLoadI().indexOf(this.name) + "\n");
+                  ASTModule.addToStack(this.name);
+                  s.write(ASTModule.getStack().indexOf(this.name) + "\n");
+                }
+
+            }
+        }
+
+        if(this.parent.getClass().getName() == "ASTTerm" && this.parent.jjtGetParent().jjtGetParent().getClass().getName() == "ASTExprtest"){
+          if(st.getTypeVariable(funcName, this.name) == "ARRAY"){
+            if(ASTModule.getStack().size() <= 3)
+              s.write("aload_");
+                else
+              s.write("aload ");
+
+              if(ASTModule.getStack().contains(this.name)){
+                s.write(ASTModule.getStack().indexOf(this.name) + "\n");
+              }else{
+                ASTModule.addToStack(this.name);
+                s.write(ASTModule.getStack().indexOf(this.name) + "\n");
+              }
+              if (children != null) {
+                for (int i = 0; i < children.length; ++i) {
+                  SimpleNode n = (SimpleNode)children[i];
+                  if (n != null) {
+                    n.process(s,st,funcName);
+                  }
+                }
+              }
+
+            }else if(st.getTypeVariable(funcName, this.name) == "INT"){
+              if(ASTModule.getStack().size() <= 3)
+                s.write("iload_");
+                  else
+                s.write("iload ");
+
+                if(ASTModule.getStack().contains(this.name)){
+                  s.write(ASTModule.getStack().indexOf(this.name) + "\n");
+                }else{
+                  ASTModule.addToStack(this.name);
+                  s.write(ASTModule.getStack().indexOf(this.name) + "\n");
+                }
+
+            }
+        }
+
+
+        //Rhs
+        if(this.parent.getClass().getName() == "ASTTerm" && this.parent.jjtGetParent().jjtGetParent().getClass().getName() == "ASTAssign"){
+          if(st.getTypeVariable(funcName, this.name) == "ARRAY"){
+            if(ASTModule.getStack().size() <= 3)
+              s.write("aload_");
+                else
+              s.write("aload ");
+
+              if(ASTModule.getStack().contains(this.name)){
+                s.write(ASTModule.getStack().indexOf(this.name) + "\n");
+              }else{
+                ASTModule.addToStack(this.name);
+                s.write(ASTModule.getStack().indexOf(this.name) + "\n");
+              }
+              if (children != null) {
+                for (int i = 0; i < children.length; ++i) {
+                  SimpleNode n = (SimpleNode)children[i];
+                  if (n != null) {
+                    n.process(s,st,funcName);
+                  }
+                }
+              }
+
+            }else if(st.getTypeVariable(funcName, this.name) == "INT"){
+              if(ASTModule.getStack().size() <= 3)
+                s.write("iload_");
+                  else
+                s.write("iload ");
+
+                if(ASTModule.getStack().contains(this.name)){
+                  s.write(ASTModule.getStack().indexOf(this.name) + "\n");
+                }else{
+                  ASTModule.addToStack(this.name);
+                  s.write(ASTModule.getStack().indexOf(this.name) + "\n");
                 }
 
             }

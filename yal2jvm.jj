@@ -57,7 +57,7 @@ BufferedReader  br;
      root.dump("");
      SymbolTable st=root.getSymbolTable();
      generator(args[0],root,st);
-     root.semanticAnalysis(st);
+     //root.semanticAnalysis(st);
 
 
 
@@ -592,7 +592,7 @@ void Exprtest() : {/*@bgen(jjtree) Exprtest */
   try{
   <LPAR> Lhs() t=<RELA_OP>{jjtn000.setOperation(t.image);} Rhs() <RPAR>
 }catch(ParseException e){
-  String msg="Error in Exprtest with {> | < | <= | >= | == | !=}";
+  String msg="Operand should be one of the following: > | < | <= | >= | == | != ";
   error_skipto(RPAR,msg);
 }/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
@@ -665,11 +665,11 @@ void While() : {/*@bgen(jjtree) While */
 }
 
 void If() : {/*@bgen(jjtree) If */
-  ASTIf jjtn000 = new ASTIf(JJTIF);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-  jjtn000.jjtSetFirstToken(getToken(1));
-/*@egen*/}
+             ASTIf jjtn000 = new ASTIf(JJTIF);
+             boolean jjtc000 = true;
+             jjtree.openNodeScope(jjtn000);
+             jjtn000.jjtSetFirstToken(getToken(1));
+/*@egen*/Token t;}
 {/*@bgen(jjtree) If */
   try {
 /*@egen*/
@@ -685,7 +685,7 @@ void If() : {/*@bgen(jjtree) If */
     error_skipto(RCHAVETA,msg);
   }
   (try{
-     <ELSE> <LCHAVETA>Stmtlst() <RCHAVETA>
+     <ELSE>{jjtn000.setElse("true");} <LCHAVETA>Stmtlst() <RCHAVETA>
   }catch(ParseException e){
     String msg="Error in else statement!\n";
     error_skipto(RCHAVETA,msg);

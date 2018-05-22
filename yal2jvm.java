@@ -47,7 +47,7 @@ BufferedReader  br;
      root.dump("");
      SymbolTable st=root.getSymbolTable();
      generator(args[0],root,st);
-     root.semanticAnalysis(st);
+     //root.semanticAnalysis(st);
 
 
 
@@ -739,7 +739,7 @@ jjtn000.setOperation(t.image);
         Rhs();
         jj_consume_token(RPAR);
       } catch (ParseException e) {
-String msg="Error in Exprtest with {> | < | <= | >= | == | !=}";
+String msg="Operand should be one of the following: > | < | <= | >= | == | != ";
   error_skipto(RPAR,msg);
       }
     } catch (Throwable jjte000) {
@@ -808,10 +808,10 @@ if (jjtc000) {
   }
 
   static final public void If() throws ParseException {/*@bgen(jjtree) If */
-  ASTIf jjtn000 = new ASTIf(JJTIF);
-  boolean jjtc000 = true;
-  jjtree.openNodeScope(jjtn000);
-  jjtn000.jjtSetFirstToken(getToken(1));
+             ASTIf jjtn000 = new ASTIf(JJTIF);
+             boolean jjtc000 = true;
+             jjtree.openNodeScope(jjtn000);
+             jjtn000.jjtSetFirstToken(getToken(1));Token t;
     try {
       try {
         jj_consume_token(IF);
@@ -832,6 +832,7 @@ String msg="Error in if action!\u005cn";
       case ELSE:{
         try {
           jj_consume_token(ELSE);
+jjtn000.setElse("true");
           jj_consume_token(LCHAVETA);
           Stmtlst();
           jj_consume_token(RCHAVETA);

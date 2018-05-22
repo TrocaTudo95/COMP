@@ -36,22 +36,22 @@ class ASTArgument extends SimpleNode {
 
             if(this.type == "ID"){
                 if(st.getTypeVariable(funcName,this.name) == "INT"){
-                  if(ASTModule.getLoadI().contains(this.name)){
-                    if(ASTModule.getLoadI().indexOf(this.name) <= 3){
+                  if(ASTModule.getStack().contains(this.name)){
+                    if(ASTModule.getStack().indexOf(this.name) <= 3){
                       s.write("iload_");
-                      s.write(ASTModule.getLoadI().indexOf(this.name)+ "\n");
+                      s.write(ASTModule.getStack().indexOf(this.name)+ "\n");
                     }else{
                       s.write("iload ");
-                      s.write(ASTModule.getLoadI().indexOf(this.name)+ "\n");
+                      s.write(ASTModule.getStack().indexOf(this.name)+ "\n");
                     }
                   }else{
-                    ASTModule.setStoreI(this.name);
-                    if(ASTModule.getLoadI().indexOf(this.name) <= 3){
+                    ASTModule.addToStack(this.name);
+                    if(ASTModule.getStack().indexOf(this.name) <= 3){
                       s.write("iload_");
-                      s.write(ASTModule.getLoadI().indexOf(this.name)+ "\n");
+                      s.write(ASTModule.getStack().indexOf(this.name)+ "\n");
                     }else{
                       s.write("iload ");
-                      s.write(ASTModule.getLoadI().indexOf(this.name)+ "\n");
+                      s.write(ASTModule.getStack().indexOf(this.name)+ "\n");
                     }
                   }
 

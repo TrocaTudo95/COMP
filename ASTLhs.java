@@ -28,7 +28,6 @@ class ASTLhs extends SimpleNode {
 
   public void process(BufferedWriter s,SymbolTable st,String funcName){
   this.func_name=funcName;
-  try{
       if (children != null) {
         for (int i = 0; i < children.length; ++i) {
           SimpleNode n = (SimpleNode)children[i];
@@ -37,12 +36,6 @@ class ASTLhs extends SimpleNode {
           }
         }
     }
-    s.write("\n");
-}catch(IOException e)
-  {
-    System.out.println("Exception ");
-
-  }
 
   }
 }
