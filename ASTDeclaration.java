@@ -80,6 +80,8 @@ class ASTDeclaration extends SimpleNode {
         SimpleNode n = (SimpleNode)children[i];
         if(n instanceof ASTArraySize){
           data_type="ARRAY";
+        }else{
+          data_type="INT";
         }
         if(n instanceof ASTElement){
           name=n.getName();

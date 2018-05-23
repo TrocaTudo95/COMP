@@ -1020,6 +1020,10 @@ jjtn000.setName(t.image);
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case 31:{
         ArrayAccess();
+jjtree.closeNodeScope(jjtn000, true);
+                                                      jjtc000 = false;
+                                                      jjtn000.jjtSetLastToken(getToken(0));
+jjtn000.setType("ARRAY");
         break;
         }
       default:
@@ -1311,12 +1315,6 @@ if (jjtc000) {
     return false;
   }
 
-  static private boolean jj_3R_17()
- {
-    if (jj_3R_21()) return true;
-    return false;
-  }
-
   static private boolean jj_3_1()
  {
     if (jj_3R_6()) return true;
@@ -1379,6 +1377,12 @@ if (jjtc000) {
   static private boolean jj_3R_15()
  {
     if (jj_3R_19()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_17()
+ {
+    if (jj_3R_21()) return true;
     return false;
   }
 

@@ -827,7 +827,13 @@ void AccessElement() : {/*@bgen(jjtree) AccessElement */
   {/*@bgen(jjtree) AccessElement */
     try {
 /*@egen*/
-    t=<ID> {jjtn000.setName(t.image);}(ArrayAccess() | ScalarAccess())/*@bgen(jjtree)*/
+    t=<ID> {jjtn000.setName(t.image);}(ArrayAccess()/*@bgen(jjtree)*/
+                                                    {
+                                                      jjtree.closeNodeScope(jjtn000, true);
+                                                      jjtc000 = false;
+                                                      jjtn000.jjtSetLastToken(getToken(0));
+                                                    }
+/*@egen*/{jjtn000.setType("ARRAY");} | ScalarAccess())/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
