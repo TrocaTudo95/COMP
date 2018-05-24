@@ -5,6 +5,7 @@ import java.util.*;
 
 public
 class ASTAssign extends SimpleNode {
+  protected String array;
   public ASTAssign(int id) {
     super(id);
   }
@@ -109,6 +110,45 @@ try{
             }
         }
       }else{
+        //Se o lhs for array é primeiro impresso o lhs
+        if (children != null) {
+          for (int i = 0; i < children.length; ++i) {
+            if(children[i].getClass().getName() == "ASTLhs"){
+              for(int j=0; j < children[i].jjtGetNumChildren(); j++){
+                if(((ASTAccessElement)children[i].jjtGetChild(j)).getType() == "ARRAY"){
+                  this.array="TRUE";
+                }
+              }
+            }
+          }
+        }
+      if(this.array == "TRUE"){
+        //Lhs
+        if (children != null) {
+          for (int i = 0; i < children.length; ++i) {
+            if(children[i].getClass().getName() == "ASTLhs"){
+            ASTLhs n = (ASTLhs)children[i];
+            if (n != null) {
+              n.process(s,st,funcName);
+              }
+            }
+          }
+        }
+        //Rhs
+          if (children != null) {
+            for (int i = 0; i < children.length; ++i) {
+              if(children[i].getClass().getName() == "ASTRhs"){
+              ASTRhs n = (ASTRhs)children[i];
+              if (n != null) {
+                n.process(s,st,funcName);
+              }
+            }
+          }
+        }
+
+        s.write("iastore\n\n");
+
+      }else{
         //Rhs
           if (children != null) {
             for (int i = 0; i < children.length; ++i) {
@@ -128,14 +168,14 @@ try{
             ASTLhs n = (ASTLhs)children[i];
             if (n != null) {
               n.process(s,st,funcName);
+              s.write("\n");
               }
             }
           }
         }
-
       }
-
-}
+      }
+    }
   catch (IOException e)
   {
     System.out.println("Exception ");

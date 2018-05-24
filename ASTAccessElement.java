@@ -83,7 +83,6 @@ class ASTAccessElement extends SimpleNode {
               }
             }
           }
-          s.write("iastore\n");
 
         }
       }
@@ -132,13 +131,11 @@ class ASTAccessElement extends SimpleNode {
               }
             }
 
-            s.write("iastore\n");
           }
 
         }
 
       }
-      s.write("\n");
     }
 
         //lhs(Exprtest)
