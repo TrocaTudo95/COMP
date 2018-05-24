@@ -5,7 +5,7 @@ import java.util.*;
 
 public
 class ASTIndex extends SimpleNode {
-  private int index;
+  private int index = -1;
   public ASTIndex(int id) {
     super(id);
   }
@@ -24,7 +24,12 @@ class ASTIndex extends SimpleNode {
 
   public void process(BufferedWriter s,SymbolTable st,String funcName){
     try{
-
+      if(this.index != -1){
+        if(this.index <= 5)
+          s.write("iconst_" + this.index + "\n");
+            else
+          s.write("bipush " + this.index + "\n");
+      }else{
       if(ASTModule.getStack().contains(this.name)){
         if(ASTModule.getStack().indexOf(this.name) <= 3)
           s.write("iload_");
@@ -39,7 +44,7 @@ class ASTIndex extends SimpleNode {
           s.write("iload ");
         s.write(ASTModule.getStack().indexOf(this.name) + "\n");
       }
-
+    }
     }catch (IOException e)
       {
         System.out.println("Exception ");
