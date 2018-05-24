@@ -472,7 +472,7 @@ void Rhs() : {/*@bgen(jjtree) Rhs */
 {/*@bgen(jjtree) Rhs */
   try {
 /*@egen*/
-  ( Term() ( ( t=<ARITH_OP> | t=<BITWISE_OP> | t=<ADDSUB_OP> ){jjtn000.setOperation(t.image);} Term() )? )| "[" ArraySize() "]"/*@bgen(jjtree)*/
+  ( Term() ( ( t=<ARITH_OP> | t=<BITWISE_OP> | t=<ADDSUB_OP> ){jjtn000.setOperation(t.image);} Term(){jjtn000.setType("ND");} )? )| "[" ArraySize() "]"/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -556,7 +556,7 @@ void Term() : {/*@bgen(jjtree) Term */
                                                                     jjtc000 = false;
                                                                     jjtn000.jjtSetLastToken(getToken(0));
                                                                   }
-/*@egen*/{jjtn000.setElementValue(t1.image);} | LOOKAHEAD(3)Call() | AccessElement())/*@bgen(jjtree)*/
+/*@egen*/{jjtn000.setElementValue(t1.image);jjtn000.setType("INT");} | LOOKAHEAD(3)Call() | AccessElement())/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);

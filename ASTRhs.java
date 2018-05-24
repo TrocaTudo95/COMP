@@ -6,7 +6,7 @@ import java.util.*;
 public
 class ASTRhs extends SimpleNode {
   private String operation;
-
+  protected String type;
   public ASTRhs(int id) {
     super(id);
   }
@@ -17,7 +17,19 @@ class ASTRhs extends SimpleNode {
 
   public void setOperation(String operation){
   this.operation=operation;
-}
+  }
+
+  public String getOperation(){
+    return this.operation;
+  }
+
+  public void setType(String type){
+    this.type = type;
+  }
+
+  public String getType(){
+    return this.type;
+  }
 
 public void process(BufferedWriter s,SymbolTable st,String funcName){
 this.func_name=funcName;

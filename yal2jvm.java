@@ -569,6 +569,7 @@ if (jjtc000) {
           }
 jjtn000.setOperation(t.image);
           Term();
+jjtn000.setType("ND");
           break;
           }
         default:
@@ -683,7 +684,7 @@ jjtn000.setSignal(t2.image);
 jjtree.closeNodeScope(jjtn000, true);
                                                                     jjtc000 = false;
                                                                     jjtn000.jjtSetLastToken(getToken(0));
-jjtn000.setElementValue(t1.image);
+jjtn000.setElementValue(t1.image);jjtn000.setType("INT");
         break;
         }
       default:
@@ -1189,6 +1190,12 @@ if (jjtc000) {
     return false;
   }
 
+  static private boolean jj_3R_24()
+ {
+    if (jj_3R_12()) return true;
+    return false;
+  }
+
   static private boolean jj_3R_23()
  {
     if (jj_scan_token(INTEGER)) return true;
@@ -1204,12 +1211,6 @@ if (jjtc000) {
   static private boolean jj_3R_22()
  {
     if (jj_scan_token(ADDSUB_OP)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_14()
- {
-    if (jj_scan_token(31)) return true;
     return false;
   }
 
@@ -1291,6 +1292,12 @@ if (jjtc000) {
     return false;
   }
 
+  static private boolean jj_3_2()
+ {
+    if (jj_3R_7()) return true;
+    return false;
+  }
+
   static private boolean jj_3R_26()
  {
     if (jj_scan_token(STRING)) return true;
@@ -1306,12 +1313,6 @@ if (jjtc000) {
   static private boolean jj_3R_31()
  {
     if (jj_scan_token(INTEGER)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_24()
- {
-    if (jj_3R_12()) return true;
     return false;
   }
 
@@ -1337,6 +1338,12 @@ if (jjtc000) {
     jj_scanpos = xsp;
     if (jj_3R_17()) return true;
     }
+    return false;
+  }
+
+  static private boolean jj_3R_14()
+ {
+    if (jj_scan_token(31)) return true;
     return false;
   }
 
@@ -1383,12 +1390,6 @@ if (jjtc000) {
   static private boolean jj_3R_17()
  {
     if (jj_3R_21()) return true;
-    return false;
-  }
-
-  static private boolean jj_3_2()
- {
-    if (jj_3R_7()) return true;
     return false;
   }
 

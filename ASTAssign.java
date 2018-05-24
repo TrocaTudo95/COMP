@@ -46,32 +46,102 @@ return false;
 
   public void process(BufferedWriter s,SymbolTable st,String funcName){
     this.func_name=funcName;
-    //Rhs
-      if (children != null) {
-        for (int i = 0; i < children.length; ++i) {
-          if(children[i].getClass().getName() == "ASTRhs"){
-          ASTRhs n = (ASTRhs)children[i];
-          if (n != null) {
-            n.process(s,st,funcName);
-          }
-        }
-      }
-    }
-
-    //Lhs
+    String rhsV = "dir";
+    String lhsV = "esq";
+try{
     if (children != null) {
       for (int i = 0; i < children.length; ++i) {
-        if(children[i].getClass().getName() == "ASTLhs"){
-        ASTLhs n = (ASTLhs)children[i];
-        if (n != null) {
-          n.process(s,st,funcName);
+        if(children[i].getClass().getName() == "ASTRhs"){
+          if(((ASTRhs)children[i]).getType() == "ND"){
+            for(int n=0;n < children[i].jjtGetNumChildren();n++){
+              if(children[i].jjtGetChild(n).getClass().getName() == "ASTTerm"){
+                for(int k=0;k < children[i].jjtGetChild(n).jjtGetNumChildren();k++){
+                  if(children[i].jjtGetChild(n).jjtGetChild(k).getClass().getName() == "ASTAccessElement"){
+                    rhsV = ((ASTAccessElement)children[i].jjtGetChild(n).jjtGetChild(k)).getName();
+                  }
+                }
+              }
+            }
           }
         }
       }
     }
 
+  if (children != null) {
+    for (int i = 0; i < children.length; ++i) {
+      if(children[i].getClass().getName() == "ASTLhs"){
+        for(int n=0;n < children[i].jjtGetNumChildren();n++){
+          if(children[i].jjtGetChild(n).getClass().getName() == "ASTAccessElement"){
+                lhsV = ((ASTAccessElement)children[i].jjtGetChild(n)).getName();
+              }
+            }
+          }
+        }
+      }
 
+      if(rhsV.equals(lhsV)){
+        for(int j=0; j < ASTModule.getStack().size();j++){
+            if(ASTModule.getStack().contains(rhsV)){
+                if (children != null) {
+                  for (int i = 0; i < children.length; ++i) {
+                    if(children[i].getClass().getName() == "ASTRhs"){
+                      if(((ASTRhs)children[i]).getType() == "ND"){
+                        for(int n=0;n < children[i].jjtGetNumChildren();n++){
+                          if(children[i].jjtGetChild(n).getClass().getName() == "ASTTerm"){
+                            if(((ASTTerm)children[i].jjtGetChild(n)).getType() == "INT" && ((ASTTerm)children[i].jjtGetChild(n)).getValue() < 1000000 && ((ASTTerm)children[i].jjtGetChild(n)).getValue() > 0){
+                              if(((ASTRhs)children[i]).getOperation().equals("-")){
+                                  s.write("iinc " + ASTModule.getStack().indexOf(rhsV) + " -" + ((ASTTerm)children[i].jjtGetChild(n)).getValue()+"\n\n");
+                                  rhsV="dir";
+                                  lhsV="esq";
+                              }else{
+                              s.write("iinc " + ASTModule.getStack().indexOf(rhsV) + " " + ((ASTTerm)children[i].jjtGetChild(n)).getValue()+"\n\n");
+                              rhsV="dir";
+                              lhsV="esq";
+                            }
+                          }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+
+            }
+        }
+      }else{
+        //Rhs
+          if (children != null) {
+            for (int i = 0; i < children.length; ++i) {
+              if(children[i].getClass().getName() == "ASTRhs"){
+              ASTRhs n = (ASTRhs)children[i];
+              if (n != null) {
+                n.process(s,st,funcName);
+              }
+            }
+          }
+        }
+
+        //Lhs
+        if (children != null) {
+          for (int i = 0; i < children.length; ++i) {
+            if(children[i].getClass().getName() == "ASTLhs"){
+            ASTLhs n = (ASTLhs)children[i];
+            if (n != null) {
+              n.process(s,st,funcName);
+              }
+            }
+          }
+        }
+
+      }
+
+}
+  catch (IOException e)
+  {
+    System.out.println("Exception ");
   }
+
+}
 
   public void semanticAnalysis(SymbolTable st)throws ParseException{
    SemanticAnalyzer.assignment(st,this);

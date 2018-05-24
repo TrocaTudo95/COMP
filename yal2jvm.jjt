@@ -211,7 +211,7 @@ void Lhs() : {}
 
 void Rhs() : {Token t;}
 {
-  ( Term() ( ( t=<ARITH_OP> | t=<BITWISE_OP> | t=<ADDSUB_OP> ){jjtThis.setOperation(t.image);} Term() )? )| "[" ArraySize() "]"
+  ( Term() ( ( t=<ARITH_OP> | t=<BITWISE_OP> | t=<ADDSUB_OP> ){jjtThis.setOperation(t.image);} Term(){jjtThis.setType("ND");} )? )| "[" ArraySize() "]"
 }
 
 void ArraySize() : {Token t;}
@@ -221,7 +221,7 @@ void ArraySize() : {Token t;}
 
 void Term() : {Token t1,t2;}
 {
-  ( t2=<ADDSUB_OP>{jjtThis.setSignal(t2.image);} )? ( t1=<INTEGER>{jjtThis.setElementValue(t1.image);} | LOOKAHEAD(3)Call() | AccessElement())
+  ( t2=<ADDSUB_OP>{jjtThis.setSignal(t2.image);} )? ( t1=<INTEGER>{jjtThis.setElementValue(t1.image);jjtThis.setType("INT");} | LOOKAHEAD(3)Call() | AccessElement())
 }
 
 void Exprtest() : {Token t;}

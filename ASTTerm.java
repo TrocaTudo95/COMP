@@ -7,6 +7,7 @@ public
 class ASTTerm extends SimpleNode {
   private int element_value = -1;
   private String signal;
+  protected String type;
   public ASTTerm(int id) {
     super(id);
   }
@@ -17,6 +18,22 @@ class ASTTerm extends SimpleNode {
 
   public void setSignal(String signal){
     this.signal=signal;
+  }
+
+  public String getSignal(){
+    return this.signal;
+  }
+
+  public int getValue(){
+    return this.element_value;
+  }
+
+  public void setType(String type){
+    this.type=type;
+  }
+
+  public String getType(){
+    return this.type;
   }
 
   public void setElementValue(String value){

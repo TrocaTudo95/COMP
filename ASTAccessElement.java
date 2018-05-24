@@ -17,6 +17,9 @@ class ASTAccessElement extends SimpleNode {
   public void setType(String a){
     this.type=a;
   }
+  public String getType(){
+    return this.type;
+  }
   public String toString() { return yal2jvmTreeConstants.jjtNodeName[id] +" "+ this.name; }
 
   public void lookForLocals(String func_name, SymbolTable st){

@@ -16,6 +16,9 @@ class ASTElement extends SimpleNode {
   }
 
   public void process(BufferedWriter s, SymbolTable st,String funcName){
+
+    ASTModule.addToStack(this.name);
+    
     try{
       if(this.parent.getClass().getName() == "ASTDeclaration"){
         s.write(this.name);
