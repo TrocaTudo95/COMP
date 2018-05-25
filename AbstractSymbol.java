@@ -73,6 +73,7 @@ import java.util.ArrayList;
 
     public void addVar(String var,AbstractSymbol info){
       this.st.mainTable.put(var,info);
+    //  System.out.println("The size is now "+this.st.mainTable.size());
     }
 
     public int getLine(){
@@ -86,7 +87,9 @@ import java.util.ArrayList;
       System.out.println("Initial_value:"+this.initial_value);
       System.out.println("Parameters_type:"+this.parameters_type);
       System.out.println("Parameters_name:"+this.parameters_name);
+      System.out.println("Number_of_locals:"+this.st.mainTable.size());
       System.out.println("line:"+this.symbol_line+ "\n\n");
+
     }
 
     public String returnsInParameters(String var){

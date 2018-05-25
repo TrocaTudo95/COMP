@@ -30,6 +30,7 @@ class SymbolTable {
 
 public void addLocalVar(String func_name, String var, AbstractSymbol info){
   AbstractSymbol as= this.mainTable.get(func_name);
+  System.out.println("added "+var +" to func "+func_name);
   as.addVar(var,info);
 }
 
@@ -119,6 +120,10 @@ public String getRetType(String var){
 
   AbstractSymbol as= this.mainTable.get(var);
   return as.getReturnType();
+}
+
+public int size(){
+  return this.mainTable.size();
 }
 
 

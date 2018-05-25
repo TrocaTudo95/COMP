@@ -140,13 +140,13 @@ class SimpleNode implements Node {
             //get the table for the function
                 nt = ((ASTFunction)n).getSymbol();
                 st.addSymbol(nt.getString(),nt);
-                //nt.print();
                 ((ASTFunction)n).functionTable(st);
+                nt.print();
             }
             else if(n instanceof ASTDeclaration){
                nt = ((ASTDeclaration)n).getSymbol();
                st.addSymbol(nt.getString(),nt);
-               //nt.print();
+               nt.print();
             }
     }
     return st;

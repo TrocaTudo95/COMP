@@ -41,7 +41,7 @@ class ASTAccessElement extends SimpleNode {
            else
             as=new AbstractSymbol(this.name,"INT",null,0,null,null,firstToken.beginLine);
             st.addLocalVar(func_name,this.name,as);
-            //as.print();
+            as.print();
           }
         }
       }
