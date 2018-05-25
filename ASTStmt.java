@@ -23,6 +23,18 @@ class ASTStmt extends SimpleNode {
 
         }
       }
+      else if(children[i].getClass().getName() == "ASTWhile"){
+        ASTWhile n = (ASTWhile)children[i];
+        if (n != null) {
+          n.lookForLocals(func_name,st);
+        }
+      }
+  else if(children[i].getClass().getName() == "ASTIf"){
+  ASTIf n = (ASTIf)children[i];
+  if (n != null) {
+    n.lookForLocals(func_name,st);
+  }
+}
     }
   }
   }

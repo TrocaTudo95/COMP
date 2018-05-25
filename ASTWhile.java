@@ -51,5 +51,18 @@ class ASTWhile extends SimpleNode {
 
   }
 
+  public void lookForLocals(String func_name, SymbolTable st){
+    if(children != null) {
+      for (int i = 0; i < children.length; ++i) {
+        if(children[i].getClass().getName() == "ASTStmtlst"){
+        ASTStmtlst n = (ASTStmtlst)children[i];
+        if (n != null) {
+          n.lookForLocals(func_name,st);
+        }
+      }
+    }
+  }
+  }
+
 }
 /* JavaCC - OriginalChecksum=6c1040b493c4b0c1271927efbf8f3a6f (do not edit this line) */

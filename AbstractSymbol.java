@@ -100,4 +100,8 @@ import java.util.ArrayList;
       return null;
     }
 
+    public int getNumberLocals(){
+      return this.parameters_type.size()+this.st.mainTable.size();
+    }
+
 }

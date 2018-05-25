@@ -19,7 +19,7 @@ class SymbolTable {
     public boolean existVar(String name, String var){
        if( ! this.mainTable.containsKey(var) ){
          AbstractSymbol as= this.mainTable.get(name);
-         if(as==null)
+         if(as!=null)
          if(as.containsInParameters(var)){
           return true;
          }
@@ -30,7 +30,7 @@ class SymbolTable {
 
 public void addLocalVar(String func_name, String var, AbstractSymbol info){
   AbstractSymbol as= this.mainTable.get(func_name);
-  System.out.println("added "+var +" to func "+func_name);
+  if(as!=null)
   as.addVar(var,info);
 }
 
@@ -122,8 +122,13 @@ public String getRetType(String var){
   return as.getReturnType();
 }
 
-public int size(){
-  return this.mainTable.size();
+
+public int getFuncLocalsNumber(String func_name){
+  AbstractSymbol as= mainTable.get(func_name);
+  if(as!=null){
+    return as.getNumberLocals();
+  }
+  return 0;
 }
 
 

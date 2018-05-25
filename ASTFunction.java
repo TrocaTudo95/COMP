@@ -120,6 +120,7 @@ class ASTFunction extends SimpleNode {
           n.lookForLocals(this.name,st);
         }
       }
+
     }
   }
 

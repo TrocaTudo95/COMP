@@ -67,6 +67,19 @@ try{
 
   }
 
+  public void lookForLocals(String func_name, SymbolTable st){
+    if(children != null) {
+      for (int i = 0; i < children.length; ++i) {
+        if(children[i].getClass().getName() == "ASTStmtlst"){
+        ASTStmtlst n = (ASTStmtlst)children[i];
+        if (n != null) {
+          n.lookForLocals(func_name,st);
+        }
+      }
+    }
+  }
+  }
+
 
 }
 /* JavaCC - OriginalChecksum=4b3e4c231e0afc3d61129e3c066655a0 (do not edit this line) */
