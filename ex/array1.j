@@ -32,9 +32,11 @@ if_icmpge loop1_end
 aload_1
 iload_2
 iaload
+istore_3
 
 ldc "a: "
-invokestatic io/print(Ljava/lang/String;)V
+iload_3
+invokestatic io/print(Ljava/lang/String;I)V
 iinc 2 1
 
 goto loop1

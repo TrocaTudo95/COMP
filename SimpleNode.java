@@ -141,12 +141,12 @@ class SimpleNode implements Node {
                 nt = ((ASTFunction)n).getSymbol();
                 st.addSymbol(nt.getString(),nt);
                 ((ASTFunction)n).functionTable(st);
-                nt.print();
+                //nt.print();
             }
             else if(n instanceof ASTDeclaration){
                nt = ((ASTDeclaration)n).getSymbol();
                st.addSymbol(nt.getString(),nt);
-               nt.print();
+              // nt.print();
             }
     }
     return st;
