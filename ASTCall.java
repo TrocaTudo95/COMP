@@ -78,9 +78,8 @@ class ASTCall extends SimpleNode {
         SemanticAnalyzer.validateFunction(st,this);
 
 
-
-
   }
+  
 
 }
 /* JavaCC - OriginalChecksum=c32fe0b0d9431b83835ebe20e8e6e067 (do not edit this line) */

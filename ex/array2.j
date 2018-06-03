@@ -1,8 +1,8 @@
 .class public array2
 .super java/lang/Object
 .method public static sum_array([I)I
-.limit locals 5
-.limit stack 5
+.limit locals 3
+.limit stack 3
 iconst_0
 istore_1
 
@@ -28,8 +28,8 @@ loop0_end:
 return
 .end method
 .method public static main([Ljava/lang/String;)V
-.limit locals 5
-.limit stack 5
+.limit locals 4
+.limit stack 4
 bipush 16
 istore_0
 

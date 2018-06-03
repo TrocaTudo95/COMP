@@ -183,9 +183,9 @@ try{
 
 }
 
-  public void semanticAnalysis(SymbolTable st)throws ParseException{
-   SemanticAnalyzer.assignment(st,this);
-  }
+  // public void semanticAnalysis(SymbolTable st)throws ParseException{
+  //  SemanticAnalyzer.assignment(st,this);
+  // }
 
 }
 /* JavaCC - OriginalChecksum=b822ef442d50fb2875ef08544f450a7d (do not edit this line) */

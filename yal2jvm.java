@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class yal2jvm/*@bgen(jjtree)*/implements yal2jvmTreeConstants, yal2jvmConstants {/*@bgen(jjtree)*/
-  protected static JJTyal2jvmState jjtree = new JJTyal2jvmState();private static int error_counter = 0;
+  protected static JJTyal2jvmState jjtree = new JJTyal2jvmState();public static int error_counter = 0;
 
 
   public static void generator(String fileName,SimpleNode root, SymbolTable st){
@@ -46,7 +46,7 @@ BufferedReader  br;
      root.dump("");
      SymbolTable st=root.getSymbolTable();
      generator(args[0],root,st);
-     //root.semanticAnalysis(st);
+     root.semanticAnalysis(st);
 
 
 

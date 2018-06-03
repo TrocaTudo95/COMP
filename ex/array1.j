@@ -1,8 +1,8 @@
 .class public array1
 .super java/lang/Object
 .method public static print_array(I)V
-.limit locals 5
-.limit stack 5
+.limit locals 4
+.limit stack 4
 iload_1
 aload_1
 
@@ -44,10 +44,13 @@ loop1_end:
 return
 .end method
 .method public static main([Ljava/lang/String;)V
-.limit locals 5
-.limit stack 5
-bipush 10
+.limit locals 1
+.limit stack 1
+iload_0
 invokestatic array1/print_array(I)V
+bipush 10
+istore_0
+
 return
 .end method
 .method static public <clinit>()V

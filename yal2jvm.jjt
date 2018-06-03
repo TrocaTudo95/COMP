@@ -11,7 +11,7 @@ import java.io.*;
 import java.util.*;
 
 public class yal2jvm {
-  private static int error_counter = 0;
+  public static int error_counter = 0;
 
 
   public static void generator(String fileName,SimpleNode root, SymbolTable st){
@@ -53,7 +53,7 @@ BufferedReader  br;
      root.dump("");
      SymbolTable st=root.getSymbolTable();
      generator(args[0],root,st);
-     //root.semanticAnalysis(st);
+     root.semanticAnalysis(st);
 
 
 

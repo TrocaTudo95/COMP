@@ -15,7 +15,7 @@ public class yal2jvm/*@bgen(jjtree)*/implements yal2jvmTreeConstants/*@egen*/ {/
   protected static JJTyal2jvmState jjtree = new JJTyal2jvmState();
 
 /*@egen*/
-  private static int error_counter = 0;
+  public static int error_counter = 0;
 
 
   public static void generator(String fileName,SimpleNode root, SymbolTable st){
@@ -57,7 +57,7 @@ BufferedReader  br;
      root.dump("");
      SymbolTable st=root.getSymbolTable();
      generator(args[0],root,st);
-     //root.semanticAnalysis(st);
+     root.semanticAnalysis(st);
 
 
 

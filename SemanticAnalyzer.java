@@ -28,13 +28,15 @@ static int  i_err=-798;
       String err;
          result=t.checkVarExists( name,func_name,line);
          if(result==0){
-          err="Semantic error - The variable "+name+ "used on line "+line+" was not declared;";
-          yal2jvm.error_skipto(i_err,err);
+          err="Semantic error - The variable "+name+ " used on line "+line+" was not declared;";
+          System.out.println(err);
+          yal2jvm.error_counter++;
             return false;
         }
         if(result==2){
            err="Semantic error - The variable "+name+ " was not declared before being used on line "+line;
-           yal2jvm.error_skipto(i_err,err);
+           System.out.println(err);
+           yal2jvm.error_counter++;
            return false;
        }
         return true;
@@ -151,8 +153,6 @@ static int  i_err=-798;
             return true;
         }
     }
-
-
 
 
     /*
