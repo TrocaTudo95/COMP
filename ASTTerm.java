@@ -61,12 +61,13 @@ class ASTTerm extends SimpleNode {
       //     }
       // }
 
-        if(this.element_value != -1){
+        if(this.element_value != -99){
           if(this.element_value <= 5){
             s.write("iconst_" + this.element_value + "\n");
           }else{
             s.write("bipush " + this.element_value + "\n");
           }
+          ASTModule.addToStack(Integer.toString(this.element_value));
         }
 
         if(children != null) {
