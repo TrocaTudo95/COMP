@@ -51,10 +51,13 @@ BufferedReader  br;
 
      SimpleNode root = parser.Module();
      root.dump("");
+     ////////////////SEMANTIC ANALYSIS/////////////
      SymbolTable st=root.getSymbolTable();
-     //generator(args[0],root,st);
      ((ASTModule) root).preprareSemantic();
      root.semanticAnalysis(st);
+     ////CODE GENERATION//////////////////////
+     if(error_counter==0)
+     generator(args[0],root,st);
 
 
 
