@@ -179,19 +179,20 @@ public class SemanticAnalyzer {
           if(rhs.jjtGetChild(0).getClass().getName()=="ASTTerm" && ((ASTTerm)rhs.jjtGetChild(0)).getValue()!=-99){
             return true;
           }
-          if(rhs.jjtGetChild(0).getClass().getName()=="ASTArraySize"){
-
+          if(rhs.jjtGetChild(0).getClass().getName()=="ASTScalarAccess"){
+            return true;
           }
             else if(rhs.jjtGetChild(0).getClass().getName()=="ASTTerm"){
               if(rhs.jjtGetChild(0).jjtGetChild(0).getClass().getName()=="ASTAccessElement"){
                 var=(ASTAccessElement)rhs.jjtGetChild(0).jjtGetChild(0);
                 if(var!=null){
                   if(checkVarExists(t, var.getName(), var.getFuncName(),var.getToken().beginLine )){
-                     if(var.jjtGetChild(0).getClass().getName().equals("ASTScalarAccess")){
+                     if(var.jjtGetChild(0).getClass().getName().equals("ASTScalarAccess") && ((ASTScalarAccess)var.jjtGetChild(0)).getSize().equals("T"))
+                     {
                       return true;
                     }
-                      else if(!checkIfInt(t,var.getName(), var.getFuncName(),var)){
-                      err="Semantic Error- the var "+var.getName() +" cannot be matched to a INT type in line "+var.getToken().beginLine;
+                       else if(!checkIfInt(t,var.getName(), var.getFuncName(),var)){
+                      err="Semantic Error- the var "+var.getName() +" cannot be matched to a INT type to be compared in line "+var.getToken().beginLine;
                       System.out.println(err);
                       yal2jvm.error_counter++;
                 }
@@ -239,10 +240,11 @@ public static boolean assignment(SymbolTable t, SimpleNode nd)throws ParseExcept
             var=(ASTAccessElement)rhs.jjtGetChild(0).jjtGetChild(0);
             if(var!=null){
               if(checkVarExists(t, var.getName(), var.getFuncName(),var.getToken().beginLine )){
-                 if(var.jjtGetChild(0).getClass().getName().equals("ASTScalarAccess")){
+                 if(var.jjtGetChild(0).getClass().getName().equals("ASTScalarAccess") && ((ASTScalarAccess)var.jjtGetChild(0)).getSize().equals("T"))
+                 {
                   return true;
                 }
-                  else if(!checkIfInt(t,var.getName(), var.getFuncName(),var)){
+                   else if(!checkIfInt(t,var.getName(), var.getFuncName(),var)){
                   err="Semantic Error- the var "+var.getName() +" cannot be matched to a INT type in line "+var.getToken().beginLine;
                   System.out.println(err);
                   yal2jvm.error_counter++;
