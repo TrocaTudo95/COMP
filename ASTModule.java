@@ -57,5 +57,18 @@ class ASTModule extends SimpleNode {
     }
   }
 
+  public void preprareSemantic(){
+    if (children != null) {
+      for (int i = 0; i < children.length; ++i) {
+        SimpleNode n = (SimpleNode)children[i];
+        if (n != null) {
+          if(n.getClass().getName() == "ASTFunction"){
+            ((ASTFunction)n).preprareSemantic();
+          }
+        }
+      }
+    }
+  }
+
 }
 /* JavaCC - OriginalChecksum=9b9343e04f61c32fe112ea4c8db513ec (do not edit this line) */

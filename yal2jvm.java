@@ -45,7 +45,8 @@ BufferedReader  br;
      SimpleNode root = parser.Module();
      root.dump("");
      SymbolTable st=root.getSymbolTable();
-     generator(args[0],root,st);
+     //generator(args[0],root,st);
+     ((ASTModule) root).preprareSemantic();
      root.semanticAnalysis(st);
 
 
@@ -1159,18 +1160,6 @@ BufferedReader  br;
     finally { jj_save(1, xla); }
   }
 
-  static private boolean jj_3R_7() {
-    if (jj_scan_token(ID)) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_10()) jj_scanpos = xsp;
-    if (jj_scan_token(LPAR)) return true;
-    xsp = jj_scanpos;
-    if (jj_3R_11()) jj_scanpos = xsp;
-    if (jj_scan_token(RPAR)) return true;
-    return false;
-  }
-
   static private boolean jj_3R_24() {
     if (jj_3R_12()) return true;
     return false;
@@ -1344,6 +1333,18 @@ BufferedReader  br;
 
   static private boolean jj_3R_17() {
     if (jj_3R_21()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_7() {
+    if (jj_scan_token(ID)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_10()) jj_scanpos = xsp;
+    if (jj_scan_token(LPAR)) return true;
+    xsp = jj_scanpos;
+    if (jj_3R_11()) jj_scanpos = xsp;
+    if (jj_scan_token(RPAR)) return true;
     return false;
   }
 

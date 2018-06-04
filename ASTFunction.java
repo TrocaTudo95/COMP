@@ -126,5 +126,16 @@ class ASTFunction extends SimpleNode {
 
   }
 
+  public void preprareSemantic(){
+    if (children != null) {
+      for (int i = 0; i < children.length; ++i) {
+        SimpleNode n = (SimpleNode)children[i];
+        if (n != null) {
+        n.preprareSemantic(this.name);
+        }
+      }
+    }
+  }
+
 }
 /* JavaCC - OriginalChecksum=a2652e971e8086c1460c0bacb6e77b08 (do not edit this line) */

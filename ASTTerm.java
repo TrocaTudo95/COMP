@@ -5,7 +5,7 @@ import java.util.*;
 
 public
 class ASTTerm extends SimpleNode {
-  private int element_value = -1;
+  private int element_value = -99;
   private String signal;
   protected String type;
   public ASTTerm(int id) {
