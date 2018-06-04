@@ -184,7 +184,7 @@ try{
 }
 
 public void semanticAnalysis(SymbolTable st)throws ParseException{
-  SemanticAnalyzer.comparison(st,this);
+  SemanticAnalyzer.assignment(st,this);
 }
 
 }

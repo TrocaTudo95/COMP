@@ -75,7 +75,6 @@ public class SemanticAnalyzer {
 
         String call_name = nd.getName();
         ASTArgumentList call;
-        //TODO funcoes nao feitas por mim
         if(nd.jjtGetNumChildren()==0){
           return true;
         }
@@ -129,10 +128,7 @@ public class SemanticAnalyzer {
                         //check the type of each variable
                           String type = t.getTypeVariable(test.getFuncName(),test.getName());
 
-
-                        //err="the type is: "+ type+" and it should be: "+types.get(i);
-                          //yal2jvm.error_skipto(i_err,err);
-                        res =  types.get(i).equals(type);
+                          res =  types.get(i).equals(type);
                       }
                       else{
                         if(((ASTArgument)test).getInt()!=-2){
@@ -225,43 +221,42 @@ public class SemanticAnalyzer {
 
 public static boolean assignment(SymbolTable t, SimpleNode nd)throws ParseException{
   String err;
-    if(nd.jjtGetNumChildren()==1)
+    if(nd.jjtGetNumChildren()==1 ||nd.jjtGetNumChildren()==0)
       return false;
     ASTAccessElement var = (ASTAccessElement) nd.jjtGetChild(0).jjtGetChild(0);
     ASTRhs rhs = (ASTRhs) nd.jjtGetChild(1);
     //check var
-    if(var!=null){
-      if(checkVarExists(t, var.getName(), var.getFuncName(),var.getToken().beginLine )){
-        if(!checkIfInt(t,var.getName(), var.getFuncName(),var)){
-          err="Semantic Error- the var "+var.getName() +" cannot be matched to a INT type in line "+var.getToken().beginLine;
-          System.out.println(err);
-          yal2jvm.error_counter++;
-    }
-  }
-}
-if(rhs==null)
-return true;
-    if(rhs!=null){
-      if(rhs.jjtGetChild(0).getClass().getName()=="ASTArraySize"){
 
+    if(rhs!=null){
+      if(rhs.jjtGetChild(0).getClass().getName()=="ASTTerm" && ((ASTTerm)rhs.jjtGetChild(0)).getValue()!=-99){
+        return true;
+      }
+      else if(rhs.jjtGetChild(0).getClass().getName()=="ASTArraySize"){
+        return true;
       }
         else if(rhs.jjtGetChild(0).getClass().getName()=="ASTTerm"){
           if(rhs.jjtGetChild(0).jjtGetChild(0).getClass().getName()=="ASTAccessElement"){
             var=(ASTAccessElement)rhs.jjtGetChild(0).jjtGetChild(0);
             if(var!=null){
               if(checkVarExists(t, var.getName(), var.getFuncName(),var.getToken().beginLine )){
-                if(!checkIfInt(t,var.getName(), var.getFuncName(),var)){
+                 if(var.jjtGetChild(0).getClass().getName().equals("ASTScalarAccess")){
+                  return true;
+                }
+                  else if(!checkIfInt(t,var.getName(), var.getFuncName(),var)){
                   err="Semantic Error- the var "+var.getName() +" cannot be matched to a INT type in line "+var.getToken().beginLine;
                   System.out.println(err);
                   yal2jvm.error_counter++;
             }
+
           }
     }
 
           }
           else if(rhs.jjtGetChild(0).jjtGetChild(0).getClass().getName()=="ASTCall"){
+            if(t.mainTable.get(((SimpleNode)rhs.jjtGetChild(0).jjtGetChild(0)).getName())==null)
+              return true;
             if(t.mainTable.get(((SimpleNode)rhs.jjtGetChild(0).jjtGetChild(0)).getName()).getReturnType()=="VOID"){
-            err="Semantic Error- the fucntion "+((SimpleNode)rhs.jjtGetChild(0).jjtGetChild(0)).getName() +" is void on line"+((SimpleNode)rhs.jjtGetChild(0).jjtGetChild(0)).getToken().beginLine;
+            err="Semantic Error- the function "+((SimpleNode)rhs.jjtGetChild(0).jjtGetChild(0)).getName() +" is void on line"+((SimpleNode)rhs.jjtGetChild(0).jjtGetChild(0)).getToken().beginLine;
             System.out.println(err);
             yal2jvm.error_counter++;
           }
