@@ -94,7 +94,7 @@ public String getVarType(String func_name, String var){
  public int checkVarExists(String var, String func_name, int line){
    AbstractSymbol as= mainTable.get(var);
    if(as!=null){
-     if(as.getLine()<line){
+     if(as.getLine()<=line){
        return 1;
      }
      else
@@ -107,8 +107,8 @@ public String getVarType(String func_name, String var){
      }else{
        AbstractSymbol at = as.getSymbolTable().mainTable.get(var);
        if(at != null){
-          //  System.out.println("a variavel deiva estar anted de: "+line +"e esta depois de "+as.getLine());
-         if(at.getLine()<line){
+            //System.out.println(" linha variavel: "+at.getLine() + " linha em que é usada: "+line );
+         if(at.getLine()<=line){
            return 1;
          }
          else return 2;

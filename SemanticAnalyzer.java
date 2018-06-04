@@ -31,7 +31,8 @@ public class SemanticAnalyzer {
           yal2jvm.error_counter++;
             return false;
         }
-        if(result==2){
+          else if(result==2){
+            System.out.println("RESULT: "+result);
            err="Semantic error - The variable "+name+ " was not declared before being used on line "+line;
            System.out.println(err);
            yal2jvm.error_counter++;
@@ -168,6 +169,7 @@ public class SemanticAnalyzer {
         ASTRhs rhs = (ASTRhs) nd.jjtGetChild(1);
         //check var
         if(var!=null){
+          //System.out.println("Var name: "+var.getName()+" var function: "+var.getFuncName());
           if(checkVarExists(t, var.getName(), var.getFuncName(),var.getToken().beginLine )){
             if(!checkIfInt(t,var.getName(), var.getFuncName(),var)){
               err="Semantic Error- the var "+var.getName() +" cannot be matched to a INT type in line "+var.getToken().beginLine;
@@ -203,6 +205,8 @@ public class SemanticAnalyzer {
 
               }
               else if(rhs.jjtGetChild(0).jjtGetChild(0).getClass().getName()=="ASTCall"){
+                if(t.mainTable.get(((SimpleNode)rhs.jjtGetChild(0).jjtGetChild(0)).getName())==null)
+                  return true;
                 if(t.mainTable.get(((SimpleNode)rhs.jjtGetChild(0).jjtGetChild(0)).getName()).getReturnType()=="VOID"){
                 err="Semantic Error- the function "+((SimpleNode)rhs.jjtGetChild(0).jjtGetChild(0)).getName() +" is void on line"+((SimpleNode)rhs.jjtGetChild(0).jjtGetChild(0)).getToken().beginLine;
                 System.out.println(err);

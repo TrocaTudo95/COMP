@@ -160,7 +160,9 @@ class SimpleNode implements Node {
         if (n != null) {
           if(n.getClass().getName()=="ASTCall")
           ((ASTCall)n).semanticAnalysis(st);
-          else
+          else  if(n.getClass().getName()=="ASTAssign")
+            ((ASTAssign)n).semanticAnalysis(st);
+            else
         n.semanticAnalysis(st);
         }
       }
