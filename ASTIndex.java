@@ -29,6 +29,7 @@ class ASTIndex extends SimpleNode {
           s.write("iconst_" + this.index + "\n");
             else
           s.write("bipush " + this.index + "\n");
+        ASTModule.addToStack(Integer.toString(this.index));
       }else{
       if(ASTModule.getStack().contains(this.name)){
         if(ASTModule.getStack().indexOf(this.name) <= 3)

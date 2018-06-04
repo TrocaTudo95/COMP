@@ -65,9 +65,12 @@ class ASTArgument extends SimpleNode {
               }else{
                 s.write("bipush " + this.int_arg + "\n");
               }
+
+              ASTModule.addToStack(Integer.toString(this.int_arg));
             }
             if(this.type == "S"){
               s.write("ldc " + this.str_arg+"\n");
+              ASTModule.addToStack(this.str_arg);
             }
         }
         catch (IOException e)
