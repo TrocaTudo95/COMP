@@ -40,7 +40,7 @@ try{
     }else if(this.operation.equals("=<")){
       s.write("if_icmpgt ");
     }else if(this.operation.equals("==")){
-      s.write("if_icmpnq ");
+      s.write("if_icmpne ");
     }else if(this.operation.equals("!=")){
       s.write("if_icmpeq ");
     }

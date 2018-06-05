@@ -25,7 +25,7 @@ class ASTIndex extends SimpleNode {
   public void process(BufferedWriter s,SymbolTable st,String funcName){
     try{
       if(this.index != -1){
-        if(this.index <= 5)
+        if(this.index <= 5 && this.index >= 0)
           s.write("iconst_" + this.index + "\n");
             else
           s.write("bipush " + this.index + "\n");
