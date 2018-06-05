@@ -7,37 +7,37 @@
 .limit locals 5
 .limit stack 5
 iconst_0
-istore 4
+istore 5
 
 aload_3
 arraylength
 iconst_1
 isub
-istore 5
-
-loop0:
-iload 4
-iload 5
-if_icmpge loop0_end 
-aload_3
-iload 4
-iaload
-istore 6
-
-iinc 4 1
-
-aload_3
-iload 4
-iaload
 istore 7
 
-iload 6
+loop0:
+iload 5
 iload 7
+if_icmpge loop0_end 
+aload_3
+iload 5
+iaload
+istore 8
+
+iinc 5 1
+
+aload_3
+iload 5
+iaload
+istore 9
+
+iload 8
+iload 9
 invokestatic library1/max(II)V
 putstatic programa1/mx I 
 
-iload 6
-iload 7
+iload 8
+iload 9
 invokestatic library1/min(II)V
 putstatic programa1/mn I 
 
@@ -46,14 +46,14 @@ loop0_end:
 return
 .end method
 .method public static main([Ljava/lang/String;)V
-.limit locals 5
-.limit stack 5
+.limit locals 0
+.limit stack 0
 invokestatic programa1/det([I)V
 ldc "max: "
-iload_0
+iload_1
 invokestatic io/println(Ljava/lang/String;I)V
 ldc "min: "
-iload_1
+iload_3
 invokestatic io/println(Ljava/lang/String;I)V
 return
 .end method

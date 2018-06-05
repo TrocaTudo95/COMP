@@ -210,8 +210,6 @@ public class SemanticAnalyzer {
                 yal2jvm.error_counter++;
               }
               }
-
-
           }
 
 

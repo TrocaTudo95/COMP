@@ -11,10 +11,13 @@ istore_2
 
 loop0:
 iload_1
+iconst_-99
 aload_0
 arraylength
 if_icmpge loop0_end 
+iconst_-99
 iload_2
+iconst_-99
 aload_0
 iload_1
 iaload
@@ -41,6 +44,7 @@ istore_2
 
 loop1:
 iload_2
+iconst_-99
 iload_0
 if_icmpge loop1_end 
 aload_1
@@ -52,6 +56,7 @@ iinc 2 1
 
 goto loop1
 loop1_end:
+iconst_-99
 invokestatic array2/sum_array([I)I
 istore_3
 

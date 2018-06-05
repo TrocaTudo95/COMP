@@ -7,10 +7,9 @@ module array1
   {
 
    a=[N];
-   b=a[3];
-
-   i=a.size + b;
-   while(i<a.size)
+   i=main();
+   a.size=3;
+   while(i<a)
    {
    	a[i] = i;
 	i=i+1;
