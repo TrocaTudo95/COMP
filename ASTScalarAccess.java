@@ -17,7 +17,9 @@ class ASTScalarAccess extends SimpleNode {
   public void setSize(String t){
     this.t=t;
   }
-
+  public String getSize(){
+    return this.t;
+  }
   public void process(BufferedWriter s,SymbolTable st,String funcName){
     this.func_name=funcName;
     try{

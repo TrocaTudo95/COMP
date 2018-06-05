@@ -6,7 +6,7 @@ module array2
   {
 	i=0;
 	sum=0;
-	while(i < A.size) {
+	while(i < A) {
 		sum=sum+A[i];
 		i=i+1;
 	}
