@@ -24,7 +24,6 @@ class ASTArraySize extends SimpleNode {
       if(this.parent.getClass().getName() != "ASTDeclaration"){
         if(this.type == "I"){
           s.write("bipush " + this.value + "\n");
-          ASTModule.addToStack(Integer.toString(this.value));
           s.write("newarray int \n");
         }else if(this.type == "ID"){
           if(this.parent.jjtGetParent().getClass().getName() == "ASTAssign"){
@@ -65,6 +64,10 @@ class ASTArraySize extends SimpleNode {
               }
         }
     }
+  }else{
+    s.write("bipush " + this.value + "\n");
+    s.write("newarray int \n");
+
   }
   }catch (IOException e)
     {

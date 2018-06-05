@@ -52,6 +52,8 @@ try{
             else if(this.stmtCounter == 1){
               s.write("loop"+ loopCounter +"_next:\n");
             }
+          }else{
+            s.write("loop"+ loopCounter +"_end:\n");
           }
         }
       }

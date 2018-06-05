@@ -67,7 +67,6 @@ class ASTTerm extends SimpleNode {
           }else{
             s.write("bipush " + this.element_value + "\n");
           }
-          ASTModule.addToStack(Integer.toString(this.element_value));
         }
 
         if(children != null) {

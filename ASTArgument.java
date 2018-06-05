@@ -35,6 +35,11 @@ class ASTArgument extends SimpleNode {
     try{
 
             if(this.type == "ID"){
+              if(st.getVarType(funcName, this.name) == "GLOBAL"){
+                if(st.getTypeVariable(funcName, this.name) == "INT"){
+                  s.write("getstatic " + this.Module + "/" + this.name + " I \n");
+                }
+              }if(st.getVarType(funcName, this.name) == "LOCAL" || st.getVarType(funcName, this.name) == "PARAMETER"){
                 if(st.getTypeVariable(funcName,this.name) == "INT"){
                   if(ASTModule.getStack().contains(this.name)){
                     if(ASTModule.getStack().indexOf(this.name) <= 3){
@@ -56,6 +61,7 @@ class ASTArgument extends SimpleNode {
                   }
 
                 }
+              }
 
                 //if(array)
             }
@@ -65,12 +71,9 @@ class ASTArgument extends SimpleNode {
               }else{
                 s.write("bipush " + this.int_arg + "\n");
               }
-
-              ASTModule.addToStack(Integer.toString(this.int_arg));
             }
             if(this.type == "S"){
               s.write("ldc " + this.str_arg+"\n");
-              ASTModule.addToStack(this.str_arg);
             }
         }
         catch (IOException e)
