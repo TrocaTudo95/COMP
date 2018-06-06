@@ -49,8 +49,8 @@ class ASTModule extends SimpleNode {
         }
       }
       s.write(".method static public <clinit>()V\n");
-      s.write(".limit stack 0\n");
-      s.write(".limit locals 0\n");
+      s.write(".limit stack 10\n");
+      s.write(".limit locals 10\n");
       for (int j = 0; j < children.length; ++j) {
         SimpleNode sn = (SimpleNode)children[j];
         if(sn.getClass().getName() == "ASTDeclaration"){
