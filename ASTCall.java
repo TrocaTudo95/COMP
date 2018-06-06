@@ -68,6 +68,9 @@ class ASTCall extends SimpleNode {
             s.write("I");
           }
     }else{
+      if(this.name.equals("min") || this.name.equals("max"))
+        s.write("I");
+        else
         s.write("V");
     }
       s.write("\n");

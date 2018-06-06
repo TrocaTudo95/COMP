@@ -5,7 +5,7 @@
 .field static mn I
 .method public static det([I)V
 .limit locals 5
-.limit stack 5
+.limit stack 10
 iconst_0
 istore_1
 
@@ -33,12 +33,12 @@ istore 4
 
 iload_3
 iload 4
-invokestatic library1/max(II)V
+invokestatic library1/max(II)I
 putstatic programa1/mx I 
 
 iload_3
 iload 4
-invokestatic library1/min(II)V
+invokestatic library1/min(II)I
 putstatic programa1/mn I 
 
 goto loop0
@@ -47,7 +47,7 @@ return
 .end method
 .method public static main([Ljava/lang/String;)V
 .limit locals 1
-.limit stack 0
+.limit stack 10
 getstatic programa1/data [I 
 invokestatic programa1/det([I)V
 ldc "max: "
@@ -58,7 +58,7 @@ getstatic programa1/mn I
 invokestatic io/println(Ljava/lang/String;I)V
 return
 .end method
-.method static public <clinit>()V
+.method public static <clinit>()V
 .limit stack 10
 .limit locals 10
 bipush 100
