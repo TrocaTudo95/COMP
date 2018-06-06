@@ -4,27 +4,24 @@
 .limit locals 3
 .limit stack 3
 iconst_0
-istore_1
-
-iconst_0
 istore_2
 
+iconst_0
+istore 4
+
 loop0:
-iload_1
-iconst_-99
+iload_2
 aload_0
 arraylength
 if_icmpge loop0_end 
-iconst_-99
-iload_2
-iconst_-99
+iload 4
 aload_0
-iload_1
+iload_2
 iaload
 iadd
-istore_2
+istore 4
 
-iinc 1 1
+iinc 2 1
 
 goto loop0
 loop0_end:
@@ -34,34 +31,32 @@ return
 .limit locals 4
 .limit stack 4
 bipush 16
-istore_0
+istore_1
 
-iload_1
-aload_1
+iload_2
+aload_2
 
 iconst_0
-istore_2
+istore 4
 
 loop1:
-iload_2
-iconst_-99
-iload_0
+iload 4
+iload_1
 if_icmpge loop1_end 
-aload_1
-iload_2
+aload_2
+iload 4
 iconst_1
 iastore
 
-iinc 2 1
+iinc 4 1
 
 goto loop1
 loop1_end:
-iconst_-99
 invokestatic array2/sum_array([I)I
-istore_3
+istore 6
 
 ldc "sum of array elements = "
-iload_3
+iload 6
 invokestatic io/println(Ljava/lang/String;I)V
 return
 .end method
