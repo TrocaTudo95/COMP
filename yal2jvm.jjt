@@ -318,8 +318,6 @@ public void error_skipto(int kind,String error_msg)#void {
   if(error_counter <= 10){
     System.out.println(error_msg);
      // print the error message
-     if(kind!=-798)
-    System.out.println(e);
   }
   if(kind!=-798){
   Token t;
