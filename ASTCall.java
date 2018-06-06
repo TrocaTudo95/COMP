@@ -32,13 +32,20 @@ class ASTCall extends SimpleNode {
           }
         }
       }
-
+      if(this.name.equals("main")){
+        s.write("aconst_null\n");
+      }
 
       if(this.FuncModule != null){
         s.write("invokestatic " + this.FuncModule + "/" + this.name + "(");
       }else{
         s.write("invokestatic " + this.Module + "/" + this.name + "(");
       }
+
+      if(this.name.equals("main")){
+        s.write("[Ljava/lang/String;");
+      }
+
       AbstractSymbol as = st.mainTable.get(this.name);
       if(children != null) {
         for (int i = 0; i < children.length; ++i) {
@@ -79,7 +86,7 @@ class ASTCall extends SimpleNode {
 
 
   }
-  
+
 
 }
 /* JavaCC - OriginalChecksum=c32fe0b0d9431b83835ebe20e8e6e067 (do not edit this line) */

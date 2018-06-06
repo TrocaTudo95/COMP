@@ -111,13 +111,6 @@ class ASTAccessElement extends SimpleNode {
                 else
               s.write("aload ");
             s.write(ASTModule.getStack().indexOf(this.name) + "\n");
-          }else{
-            ASTModule.addToStack(this.name);
-            if(ASTModule.getStack().indexOf(this.name) <= 3)
-              s.write("aload_");
-                else
-              s.write("aload ");
-            s.write(ASTModule.getStack().indexOf(this.name) + "\n");
           }
           if(this.type == "ARRAY"){
             if (children != null) {
@@ -172,13 +165,6 @@ class ASTAccessElement extends SimpleNode {
                     else
                   s.write("aload ");
                 s.write(ASTModule.getStack().indexOf(this.name) + "\n");
-              }else{
-                ASTModule.addToStack(this.name);
-                if(ASTModule.getStack().indexOf(this.name) <= 3)
-                  s.write("aload_");
-                    else
-                  s.write("aload ");
-                s.write(ASTModule.getStack().indexOf(this.name) + "\n");
               }
               if (children != null) {
                 for (int i = 0; i < children.length; ++i) {
@@ -192,13 +178,6 @@ class ASTAccessElement extends SimpleNode {
             }
             if(this.type == "ARRAY"){
               if(ASTModule.getStack().contains(this.name)){
-                if(ASTModule.getStack().indexOf(this.name) <= 3)
-                  s.write("aload_");
-                    else
-                  s.write("aload ");
-                s.write(ASTModule.getStack().indexOf(this.name) + "\n");
-              }else{
-                ASTModule.addToStack(this.name);
                 if(ASTModule.getStack().indexOf(this.name) <= 3)
                   s.write("aload_");
                     else
@@ -227,15 +206,7 @@ class ASTAccessElement extends SimpleNode {
                     else
                   s.write("iload ");
                 s.write(ASTModule.getStack().indexOf(this.name) + "\n");
-              }else{
-                ASTModule.addToStack(this.name);
-                if(ASTModule.getStack().indexOf(this.name) <= 3)
-                  s.write("iload_");
-                    else
-                  s.write("iload ");
-                s.write(ASTModule.getStack().indexOf(this.name) + "\n");
               }
-
             }
         }
       }
@@ -275,13 +246,6 @@ class ASTAccessElement extends SimpleNode {
                   else
                 s.write("aload ");
               s.write(ASTModule.getStack().indexOf(this.name) + "\n");
-            }else{
-              ASTModule.addToStack(this.name);
-              if(ASTModule.getStack().indexOf(this.name) <= 3)
-                s.write("aload_");
-                  else
-                s.write("aload ");
-              s.write(ASTModule.getStack().indexOf(this.name) + "\n");
             }
               if (children != null) {
                 for (int i = 0; i < children.length; ++i) {
@@ -294,13 +258,6 @@ class ASTAccessElement extends SimpleNode {
 
             }if(this.type == "ARRAY"){
               if(ASTModule.getStack().contains(this.name)){
-                if(ASTModule.getStack().indexOf(this.name) <= 3)
-                  s.write("aload_");
-                    else
-                  s.write("aload ");
-                s.write(ASTModule.getStack().indexOf(this.name) + "\n");
-              }else{
-                ASTModule.addToStack(this.name);
                 if(ASTModule.getStack().indexOf(this.name) <= 3)
                   s.write("aload_");
                     else
@@ -323,13 +280,6 @@ class ASTAccessElement extends SimpleNode {
             }
             if(st.getTypeVariable(funcName, this.name) == "INT"){
               if(ASTModule.getStack().contains(this.name)){
-                if(ASTModule.getStack().indexOf(this.name) <= 3)
-                  s.write("iload_");
-                    else
-                  s.write("iload ");
-                s.write(ASTModule.getStack().indexOf(this.name) + "\n");
-              }else{
-                ASTModule.addToStack(this.name);
                 if(ASTModule.getStack().indexOf(this.name) <= 3)
                   s.write("iload_");
                     else

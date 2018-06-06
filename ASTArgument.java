@@ -35,6 +35,13 @@ class ASTArgument extends SimpleNode {
     try{
 
             if(this.type == "ID"){
+              if(st.getVarType(funcName, this.name) == "GLOBAL"){
+                if(st.getTypeVariable(funcName, this.name) == "INT"){
+                  s.write("getstatic " + this.Module + "/" + this.name + " I \n");
+                }else if(st.getTypeVariable(funcName, this.name) == "ARRAY"){
+                  s.write("getstatic " + this.Module + "/" + this.name + " [I \n");
+                }
+              }if(st.getVarType(funcName, this.name) == "LOCAL" || st.getVarType(funcName, this.name) == "PARAMETER"){
                 if(st.getTypeVariable(funcName,this.name) == "INT"){
                   if(ASTModule.getStack().contains(this.name)){
                     if(ASTModule.getStack().indexOf(this.name) <= 3){
@@ -44,33 +51,37 @@ class ASTArgument extends SimpleNode {
                       s.write("iload ");
                       s.write(ASTModule.getStack().indexOf(this.name)+ "\n");
                     }
-                  }else{
-                    ASTModule.addToStack(this.name);
+                  }
+                }else if(st.getTypeVariable(funcName,this.name) == "ARRAY"){
+                  if(ASTModule.getStack().contains(this.name)){
                     if(ASTModule.getStack().indexOf(this.name) <= 3){
-                      s.write("iload_");
+                      s.write("aload_");
                       s.write(ASTModule.getStack().indexOf(this.name)+ "\n");
                     }else{
-                      s.write("iload ");
+                      s.write("aload ");
                       s.write(ASTModule.getStack().indexOf(this.name)+ "\n");
                     }
                   }
-
                 }
 
-                //if(array)
-            }
-            if(this.type == "I"){
-              if(this.int_arg <= 5){
-                s.write("iconst_" + this.int_arg + "\n");
-              }else{
-                s.write("bipush " + this.int_arg + "\n");
+                }
               }
 
-              ASTModule.addToStack(Integer.toString(this.int_arg));
+            if(this.type == "I"){
+              if(this.int_arg <= 5 && this.int_arg >= 0){
+                s.write("iconst_" + this.int_arg + "\n");
+              }else if (this.int_arg == -1){
+                s.write("iconst_m1\n");
+              }else if((this.int_arg > 5 && this.int_arg <= 127) || (this.int_arg < -1 && this.int_arg >= -128)){
+                s.write("bipush " + this.int_arg + "\n");
+              }else if((this.int_arg > 127 && this.int_arg <= 32767) || (this.int_arg < -128 && this.int_arg >= -32768)){
+                s.write("sipush " + this.int_arg + "\n");
+              }else if(this.int_arg >= 32768 || this.int_arg <= -32769){
+                s.write("ldc " + this.int_arg+"\n");
+              }
             }
             if(this.type == "S"){
               s.write("ldc " + this.str_arg+"\n");
-              ASTModule.addToStack(this.str_arg);
             }
         }
         catch (IOException e)

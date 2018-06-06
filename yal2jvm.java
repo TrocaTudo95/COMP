@@ -13,9 +13,6 @@ public class yal2jvm/*@bgen(jjtree)*/implements yal2jvmTreeConstants, yal2jvmCon
     BufferedWriter s = new BufferedWriter(new FileWriter(file + ".j"));
     ((ASTModule)root).process(s,st);
     //fim
-    s.write(".method static public <clinit>()V\u005cn");
-    s.write(".limit stack 0\u005cn");
-    s.write(".limit locals 0\u005cn");
     s.write("return\u005cn");
     s.write(".end method\u005cn");
     s.close();
@@ -1138,8 +1135,6 @@ BufferedReader  br;
   if(error_counter <= 10){
     System.out.println(error_msg);
      // print the error message
-     if(kind!=-798)
-    System.out.println(e);
   }
   if(kind!=-798){
   Token t;
@@ -1161,6 +1156,16 @@ BufferedReader  br;
     try { return !jj_3_2(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(1, xla); }
+  }
+
+  static private boolean jj_3R_24() {
+    if (jj_3R_12()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_23() {
+    if (jj_scan_token(INTEGER)) return true;
+    return false;
   }
 
   static private boolean jj_3R_27() {
@@ -1338,16 +1343,6 @@ BufferedReader  br;
     xsp = jj_scanpos;
     if (jj_3R_11()) jj_scanpos = xsp;
     if (jj_scan_token(RPAR)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_24() {
-    if (jj_3R_12()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_23() {
-    if (jj_scan_token(INTEGER)) return true;
     return false;
   }
 

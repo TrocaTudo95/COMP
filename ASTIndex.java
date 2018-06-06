@@ -25,20 +25,19 @@ class ASTIndex extends SimpleNode {
   public void process(BufferedWriter s,SymbolTable st,String funcName){
     try{
       if(this.index != -1){
-        if(this.index <= 5)
+        if(this.index <= 5 && this.index >= 0){
           s.write("iconst_" + this.index + "\n");
-            else
+        }else if (this.index == -1){
+          s.write("iconst_m1\n");
+        }else if((this.index > 5 && this.index <= 127) || (this.index < -1 && this.index >= -128)){
           s.write("bipush " + this.index + "\n");
-        ASTModule.addToStack(Integer.toString(this.index));
+        }else if((this.index > 127 && this.index <= 32767) || (this.index < -128 && this.index >= -32768)){
+          s.write("sipush " + this.index + "\n");
+        }else if(this.index >= 32768 || this.index <= -32769){
+          s.write("ldc " + this.index+"\n");
+        }
       }else{
       if(ASTModule.getStack().contains(this.name)){
-        if(ASTModule.getStack().indexOf(this.name) <= 3)
-          s.write("iload_");
-            else
-          s.write("iload ");
-        s.write(ASTModule.getStack().indexOf(this.name) + "\n");
-      }else{
-        ASTModule.addToStack(this.name);
         if(ASTModule.getStack().indexOf(this.name) <= 3)
           s.write("iload_");
             else

@@ -69,6 +69,10 @@ class ASTFunction extends SimpleNode {
     try{
     s.write(".method public static " + this.name + "(");
 
+    if(this.return_type == "I" || this.return_type == "[I"){
+      ASTModule.addToStack(this.return_name);
+    }
+
     if(this.name.equals("main")){
       s.write("[Ljava/lang/String;");
     }
@@ -84,8 +88,12 @@ class ASTFunction extends SimpleNode {
     }
   }
     s.write(")"+ this.return_type +"\n");
+    if(this.name.equals("main")){
+      s.write(".limit locals " + (st.getFuncLocalsNumber(this.name)+1) + "\n");
+    }else{
     s.write(".limit locals " + st.getFuncLocalsNumber(this.name) + "\n");
-    s.write(".limit stack " + st.getFuncLocalsNumber(this.name) + "\n");
+    }
+    s.write(".limit stack " + st.getFuncLocalsNumber(this.name)+ "\n");
 
     if (children != null) {
       for (int i = 0; i < children.length; ++i) {
@@ -98,10 +106,26 @@ class ASTFunction extends SimpleNode {
     }
   }
 
-    ((ASTModule)this.parent).resetStack();
 
+    if(this.return_type == "V"){
     s.write("return\n");
+  }else if(this.return_type == "I"){
+    if(ASTModule.getStack().indexOf(this.return_name) <= 3)
+      s.write("iload_");
+        else
+      s.write("iload ");
+    s.write(ASTModule.getStack().indexOf(this.return_name) + "\n");
+    s.write("ireturn\n");
+  }else if(this.return_type == "[I"){
+    if(ASTModule.getStack().indexOf(this.return_name) <= 3)
+      s.write("aload_");
+        else
+      s.write("aload ");
+    s.write(ASTModule.getStack().indexOf(this.return_name) + "\n");
+    s.write("areturn\n");
+  }
     s.write(".end method\n");
+    ((ASTModule)this.parent).resetStack();
   }
     catch (IOException e)
     {

@@ -24,9 +24,6 @@ public class yal2jvm/*@bgen(jjtree)*/implements yal2jvmTreeConstants/*@egen*/ {/
     BufferedWriter s = new BufferedWriter(new FileWriter(file + ".j"));
     ((ASTModule)root).process(s,st);
     //fim
-    s.write(".method static public <clinit>()V\n");
-    s.write(".limit stack 0\n");
-    s.write(".limit locals 0\n");
     s.write("return\n");
     s.write(".end method\n");
     s.close();
@@ -951,8 +948,6 @@ public void error_skipto(int kind,String error_msg)      {
   if(error_counter <= 10){
     System.out.println(error_msg);
      // print the error message
-     if(kind!=-798)
-    System.out.println(e);
   }
   if(kind!=-798){
   Token t;

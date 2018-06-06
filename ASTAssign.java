@@ -79,8 +79,7 @@ try{
           }
         }
       }
-
-      if(rhsV.equals(lhsV)){
+if((st.getVarType(funcName, rhsV) == "LOCAL" || st.getVarType(funcName, rhsV) == "PARAMETER") && rhsV.equals(lhsV)){
         for(int j=0; j < ASTModule.getStack().size();j++){
             if(ASTModule.getStack().contains(rhsV)){
                 if (children != null) {

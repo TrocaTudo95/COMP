@@ -8,6 +8,7 @@ class ASTIf extends SimpleNode {
   protected String telse;
   protected int stmtCounter=0;
   protected static int loopCounter = 0;
+  protected int nextCounter = 0;
 
   public ASTIf(int id) {
     super(id);
@@ -48,16 +49,19 @@ try{
               s.write("goto loop" + loopCounter +"_next\n");
               s.write("loop"+ loopCounter +"_end:\n");
               this.stmtCounter++;
+              loopCounter++;
+              this.nextCounter = loopCounter-1;
             }
             else if(this.stmtCounter == 1){
-              s.write("loop"+ loopCounter +"_next:\n");
+              s.write("loop"+ this.nextCounter +"_next:\n");
             }
+          }else{
+            s.write("loop"+ loopCounter +"_end:\n");
           }
         }
       }
     }
 
-    loopCounter++;
 
 
   }catch (IOException e)

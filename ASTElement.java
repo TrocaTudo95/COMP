@@ -17,8 +17,6 @@ class ASTElement extends SimpleNode {
 
   public void process(BufferedWriter s, SymbolTable st,String funcName){
 
-    ASTModule.addToStack(this.name);
-    
     try{
       if(this.parent.getClass().getName() == "ASTDeclaration"){
         s.write(this.name);
@@ -32,6 +30,23 @@ class ASTElement extends SimpleNode {
       }
       else if(this.parent.getClass().getName() == "ASTVarlist"){
         s.write(this.data_type);
+        ASTModule.addToStack(this.name);
+      }
+    }
+    catch (IOException e)
+    {
+      System.out.println("Exception ");
+    }
+  }
+
+  public void process2(BufferedWriter s, SymbolTable st,String funcName){
+
+    try{
+      if(this.parent.getClass().getName() == "ASTDeclaration"){
+        if(((ASTDeclaration)this.parent).getType() == "[I"){
+          s.write("putstatic " + this.Module + "/" + this.name + " [I\n");
+        }
+
       }
     }
     catch (IOException e)

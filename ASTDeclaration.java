@@ -30,17 +30,45 @@ class ASTDeclaration extends SimpleNode {
 
       if (children != null) {
         for (int i = 0; i < children.length; ++i) {
+          if(children[i].getClass().getName() != "ASTArraySize"){
           SimpleNode n = (SimpleNode)children[i];
           if(n != null){
             n.process(s,st,null);
           }
         }
       }
-      s.write("\n");
+    }
+s.write("\n");
+
     }
     catch (IOException e)
     {
       System.out.println("Exception ");
+    }
+
+  }
+
+  public void process2(BufferedWriter s,SymbolTable st){
+
+      if(children != null) {
+        for (int i = 0; i < children.length; ++i) {
+          if(children[i].getClass().getName() == "ASTArraySize"){
+          ASTArraySize n = (ASTArraySize)children[i];
+          if (n != null) {
+            n.process(s,st,null);
+            if (children != null) {
+              for (int k = 0; k < children.length; ++k) {
+                if(children[k].getClass().getName() != "ASTArraySize"){
+                ASTElement j = (ASTElement)children[k];
+                if(j != null){
+                  j.process2(s,st,null);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
 
   }
