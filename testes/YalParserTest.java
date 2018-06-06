@@ -1,9 +1,13 @@
+package testes;
 import static org.junit.Assert.assertEquals;
 
 import java.io.*;
 import java.lang.Runtime;
 
 import org.junit.jupiter.api.Test;
+
+import ParseException;
+import yal2jvm;
 
 
 class YalParserTest {
@@ -90,7 +94,7 @@ class YalParserTest {
     @Test
     void aval2(){
         String  progName = new Object(){}.getClass().getEnclosingMethod().getName();
-       // runYal("ex", progName, new String[]{},  "2\n2\n3", false);
+        runYal("ex", progName, new String[]{},  "2\n2\n3", false);
     }
 
     @Test
