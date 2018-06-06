@@ -1,0 +1,17 @@
+Programa1: java -jar yal2jvm.jar examples/programa1.yal
+Array1: java -jar yal2jvm.jar examples/array1.yal
+Aval1: java -jar yal2jvm.jar examples/aval1.yal
+Aval3: java -jar yal2jvm.jar examples/aval3.yal
+Constant-ranges: java -jar yal2jvm.jar examples/constant-ranges.yal
+
+
+Programa1 permite testar variáveis globais, locais, assigns, arrays, inteiros,strings, calls, whiles, algumas operações.
+
+Array1 permite testar o ince,e mais algumas formas de tratar os arrais.
+
+Aval1: permite testar mais operações, e a chamada a funções através de assigns.
+
+Aval3: permite testar ias com esses, e algumas funções já testadas acima.
+
+Constant-ranges: permite testar o tratamento de contentes, atendendo ao seu tamanho.
+
