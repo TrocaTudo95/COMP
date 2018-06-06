@@ -36,12 +36,6 @@ class ASTModule extends SimpleNode {
     try{
     s.write(".class public " + this.name + "\n");
     s.write(".super java/lang/Object\n");
-  }
-    catch (IOException e)
-    {
-      System.out.println("Exception ");
-
-    }
 
     if (children != null) {
       for (int i = 0; i < children.length; ++i) {
@@ -54,6 +48,22 @@ class ASTModule extends SimpleNode {
           }
         }
       }
+      for (int j = 0; j < children.length; ++j) {
+        SimpleNode sn = (SimpleNode)children[j];
+        if(sn.getClass().getName() == "ASTDeclaration"){
+        for(int f=0 ;f < sn.jjtGetNumChildren(); f++){
+            if(sn.jjtGetChild(f).getClass().getName() == "ASTArraySize"){
+                ((ASTDeclaration)sn).process2(s,st);
+              }
+            }
+          }
+        }
+  }
+}
+    catch (IOException e)
+    {
+      System.out.println("Exception ");
+
     }
   }
 

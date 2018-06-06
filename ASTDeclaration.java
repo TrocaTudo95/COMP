@@ -40,6 +40,16 @@ class ASTDeclaration extends SimpleNode {
     }
 s.write("\n");
 
+    }
+    catch (IOException e)
+    {
+      System.out.println("Exception ");
+    }
+
+  }
+
+  public void process2(BufferedWriter s,SymbolTable st){
+
       if(children != null) {
         for (int i = 0; i < children.length; ++i) {
           if(children[i].getClass().getName() == "ASTArraySize"){
@@ -52,22 +62,13 @@ s.write("\n");
                 ASTElement j = (ASTElement)children[k];
                 if(j != null){
                   j.process2(s,st,null);
+                  }
                 }
-              }
               }
             }
           }
         }
       }
-    }
-
-
-
-
-    }
-    catch (IOException e)
-    {
-      System.out.println("Exception ");
     }
 
   }
