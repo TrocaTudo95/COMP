@@ -86,7 +86,6 @@ class ASTAccessElement extends SimpleNode {
 
         }
       }
-
       if(st.getVarType(funcName, this.name) == "LOCAL" || st.getVarType(funcName, this.name) == "PARAMETER"){
         if(st.getTypeVariable(funcName, this.name) == "INT"){
           if(ASTModule.getStack().contains(this.name)){
@@ -107,9 +106,16 @@ class ASTAccessElement extends SimpleNode {
         if(st.getTypeVariable(funcName, this.name) == "ARRAY"){
           if(ASTModule.getStack().contains(this.name)){
             if(ASTModule.getStack().indexOf(this.name) <= 3)
-              s.write("aload_");
+              s.write("astore_");
                 else
-              s.write("aload ");
+              s.write("astore ");
+            s.write(ASTModule.getStack().indexOf(this.name) + "\n");
+          }else{
+            ASTModule.addToStack(this.name);
+            if(ASTModule.getStack().indexOf(this.name) <= 3)
+              s.write("astore_");
+                else
+              s.write("astore ");
             s.write(ASTModule.getStack().indexOf(this.name) + "\n");
           }
           if(this.type == "ARRAY"){
