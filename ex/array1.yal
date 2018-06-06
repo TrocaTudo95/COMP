@@ -7,16 +7,17 @@ module array1
   {
 
    a=[N];
-   i=main();
-   a.size=3;
-   while(i<a)
+
+
+   i=0;
+   while(i < N)
    {
    	a[i] = i;
 	i=i+1;
 	}
 
 	i=0;
-	while(i < a.size) {
+	while(i < N) {
 		ai=a[i];
 		io.print("a: ",ai);
 		i=i+1;
@@ -26,7 +27,6 @@ module array1
 	function main()
 	{
 	 print_array(10); // the same as array1.print_array(10);
-   a=10;
 	}
 
 }
