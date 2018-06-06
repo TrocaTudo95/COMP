@@ -14,9 +14,6 @@ public class yal2jvm/*@bgen(jjtree)*/implements yal2jvmTreeConstants, yal2jvmCon
     BufferedWriter s = new BufferedWriter(new FileWriter(file + ".j"));
     ((ASTModule)root).process(s,st);
     //fim
-    s.write(".method static public <clinit>()V\u005cn");
-    s.write(".limit stack 0\u005cn");
-    s.write(".limit locals 0\u005cn");
     s.write("return\u005cn");
     s.write(".end method\u005cn");
     s.close();
@@ -1181,6 +1178,18 @@ if (jjtc000) {
     finally { jj_save(1, xla); }
   }
 
+  static private boolean jj_3R_24()
+ {
+    if (jj_3R_12()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_23()
+ {
+    if (jj_scan_token(INTEGER)) return true;
+    return false;
+  }
+
   static private boolean jj_3R_27()
  {
     if (jj_scan_token(INTEGER)) return true;
@@ -1382,18 +1391,6 @@ if (jjtc000) {
     xsp = jj_scanpos;
     if (jj_3R_11()) jj_scanpos = xsp;
     if (jj_scan_token(RPAR)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_24()
- {
-    if (jj_3R_12()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_23()
- {
-    if (jj_scan_token(INTEGER)) return true;
     return false;
   }
 
