@@ -68,8 +68,14 @@ class ASTArgument extends SimpleNode {
             if(this.type == "I"){
               if(this.int_arg <= 5 && this.int_arg >= 0){
                 s.write("iconst_" + this.int_arg + "\n");
-              }else{
+              }else if (this.int_arg == -1){
+                s.write("iconst_m1\n");
+              }else if((this.int_arg > 5 && this.int_arg <= 127) || (this.int_arg < -1 && this.int_arg >= -128)){
                 s.write("bipush " + this.int_arg + "\n");
+              }else if((this.int_arg > 127 && this.int_arg <= 32767) || (this.int_arg < -128 && this.int_arg >= -32768)){
+                s.write("sipush " + this.int_arg + "\n");
+              }else if(this.int_arg >= 32768 || this.int_arg <= -32769){
+                s.write("ldc " + this.int_arg+"\n");
               }
             }
             if(this.type == "S"){

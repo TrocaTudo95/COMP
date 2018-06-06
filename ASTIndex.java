@@ -25,10 +25,17 @@ class ASTIndex extends SimpleNode {
   public void process(BufferedWriter s,SymbolTable st,String funcName){
     try{
       if(this.index != -1){
-        if(this.index <= 5 && this.index >= 0)
+        if(this.index <= 5 && this.index >= 0){
           s.write("iconst_" + this.index + "\n");
-            else
+        }else if (this.index == -1){
+          s.write("iconst_m1\n");
+        }else if((this.index > 5 && this.index <= 127) || (this.index < -1 && this.index >= -128)){
           s.write("bipush " + this.index + "\n");
+        }else if((this.index > 127 && this.index <= 32767) || (this.index < -128 && this.index >= -32768)){
+          s.write("sipush " + this.index + "\n");
+        }else if(this.index >= 32768 || this.index <= -32769){
+          s.write("ldc " + this.index+"\n");
+        }
       }else{
       if(ASTModule.getStack().contains(this.name)){
         if(ASTModule.getStack().indexOf(this.name) <= 3)

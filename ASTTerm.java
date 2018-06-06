@@ -64,8 +64,14 @@ class ASTTerm extends SimpleNode {
         if(this.element_value != -99){
           if(this.element_value <= 5 && this.element_value >= 0){
             s.write("iconst_" + this.element_value + "\n");
-          }else{
+          }else if (this.element_value == -1){
+            s.write("iconst_m1\n");
+          }else if((this.element_value > 5 && this.element_value <= 127) || (this.element_value < -1 && this.element_value >= -128)){
             s.write("bipush " + this.element_value + "\n");
+          }else if((this.element_value > 127 && this.element_value <= 32767) || (this.element_value < -128 && this.element_value >= -32768)){
+            s.write("sipush " + this.element_value + "\n");
+          }else if(this.element_value >= 32768 || this.element_value <= -32769){
+            s.write("ldc " + this.element_value+"\n");
           }
         }
 
