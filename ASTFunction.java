@@ -69,10 +69,6 @@ class ASTFunction extends SimpleNode {
     try{
     s.write(".method public static " + this.name + "(");
 
-    if(this.return_type == "I" || this.return_type == "[I"){
-      ASTModule.addToStack(this.return_name);
-    }
-
     if(this.name.equals("main")){
       s.write("[Ljava/lang/String;");
     }
@@ -90,10 +86,12 @@ class ASTFunction extends SimpleNode {
     s.write(")"+ this.return_type +"\n");
     if(this.name.equals("main")){
       s.write(".limit locals " + (st.getFuncLocalsNumber(this.name)+1) + "\n");
+      s.write(".limit stack " + (st.getFuncLocalsNumber(this.name)+1)+ "\n");
+      ASTModule.addToStack("args");
     }else{
     s.write(".limit locals " + st.getFuncLocalsNumber(this.name) + "\n");
-    }
     s.write(".limit stack " + st.getFuncLocalsNumber(this.name)+ "\n");
+    }
 
     if (children != null) {
       for (int i = 0; i < children.length; ++i) {
