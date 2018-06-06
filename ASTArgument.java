@@ -38,6 +38,8 @@ class ASTArgument extends SimpleNode {
               if(st.getVarType(funcName, this.name) == "GLOBAL"){
                 if(st.getTypeVariable(funcName, this.name) == "INT"){
                   s.write("getstatic " + this.Module + "/" + this.name + " I \n");
+                }else if(st.getTypeVariable(funcName, this.name) == "ARRAY"){
+                  s.write("getstatic " + this.Module + "/" + this.name + " [I \n");
                 }
               }if(st.getVarType(funcName, this.name) == "LOCAL" || st.getVarType(funcName, this.name) == "PARAMETER"){
                 if(st.getTypeVariable(funcName,this.name) == "INT"){
@@ -49,22 +51,22 @@ class ASTArgument extends SimpleNode {
                       s.write("iload ");
                       s.write(ASTModule.getStack().indexOf(this.name)+ "\n");
                     }
-                  }else{
-                    ASTModule.addToStack(this.name);
+                  }
+                }else if(st.getTypeVariable(funcName,this.name) == "ARRAY"){
+                  if(ASTModule.getStack().contains(this.name)){
                     if(ASTModule.getStack().indexOf(this.name) <= 3){
-                      s.write("iload_");
+                      s.write("aload_");
                       s.write(ASTModule.getStack().indexOf(this.name)+ "\n");
                     }else{
-                      s.write("iload ");
+                      s.write("aload ");
                       s.write(ASTModule.getStack().indexOf(this.name)+ "\n");
                     }
                   }
+                }
 
                 }
               }
 
-                //if(array)
-            }
             if(this.type == "I"){
               if(this.int_arg <= 5 && this.int_arg >= 0){
                 s.write("iconst_" + this.int_arg + "\n");

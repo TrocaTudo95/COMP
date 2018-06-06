@@ -43,13 +43,6 @@ class ASTIndex extends SimpleNode {
             else
           s.write("iload ");
         s.write(ASTModule.getStack().indexOf(this.name) + "\n");
-      }else{
-        ASTModule.addToStack(this.name);
-        if(ASTModule.getStack().indexOf(this.name) <= 3)
-          s.write("iload_");
-            else
-          s.write("iload ");
-        s.write(ASTModule.getStack().indexOf(this.name) + "\n");
       }
     }
     }catch (IOException e)
