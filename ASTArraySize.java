@@ -44,11 +44,12 @@ class ASTArraySize extends SimpleNode {
               s.write("iload ");
 
               if(ASTModule.getStack().contains(this.name)){
-                s.write((ASTModule.getStack().indexOf(this.name)+1) + "\n");
+                s.write(ASTModule.getStack().indexOf(this.name) + "\n");
               }else{
                 ASTModule.addToStack(this.name);
-                s.write((ASTModule.getStack().indexOf(this.name)+1) + "\n");
+                s.write(ASTModule.getStack().indexOf(this.name) + "\n");
               }
+              s.write("newarray int \n");
             }
             if(st.getTypeVariable(funcName, this.name) == "ARRAY"){
               if(ASTModule.getStack().size() <= 3)

@@ -103,7 +103,7 @@ class ASTAccessElement extends SimpleNode {
             s.write(ASTModule.getStack().indexOf(this.name) + "\n");
           }
           }
-        if(st.getTypeVariable(funcName, this.name) == "ARRAY"){
+        if(st.getTypeVariable(funcName, this.name) == "ARRAY" && this.type != "ARRAY"){
           if(ASTModule.getStack().contains(this.name)){
             if(ASTModule.getStack().indexOf(this.name) <= 3)
               s.write("astore_");
@@ -118,18 +118,24 @@ class ASTAccessElement extends SimpleNode {
               s.write("astore ");
             s.write(ASTModule.getStack().indexOf(this.name) + "\n");
           }
-          if(this.type == "ARRAY"){
-            if (children != null) {
-              for (int i = 0; i < children.length; ++i) {
-                if(children[i].getClass().getName() == "ASTArrayAccess"){
-                ASTArrayAccess n = (ASTArrayAccess)children[i];
-                if (n != null) {
-                  n.process(s,st,funcName);
-                  }
+
+        }else if(this.type == "ARRAY"){
+          if(ASTModule.getStack().contains(this.name)){
+            if(ASTModule.getStack().indexOf(this.name) <= 3)
+              s.write("aload_");
+                else
+              s.write("aload ");
+            s.write(ASTModule.getStack().indexOf(this.name) + "\n");
+          }
+          if (children != null) {
+            for (int i = 0; i < children.length; ++i) {
+              if(children[i].getClass().getName() == "ASTArrayAccess"){
+              ASTArrayAccess n = (ASTArrayAccess)children[i];
+              if (n != null) {
+                n.process(s,st,funcName);
                 }
               }
             }
-
           }
 
         }
