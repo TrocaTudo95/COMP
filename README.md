@@ -1,4 +1,4 @@
-# PPIN
+# COMP
 
 **PROJECT TITLE:** Compiler of the yal0.4 language to Java Bytecodes
   
@@ -23,13 +23,13 @@
 * javac *.java
 * java yal2jvm < filename >
 
-**DEALING WITH SYNTACTIC ERRORS:** A nossa aplicação é capaz de lidar com diversos erros semânticos, apresentando-os no ecrã. 
+**DEALING WITH SYNTACTIC ERRORS:** A nossa aplicação é capaz de lidar com diversos erros sintacticos, apresentando-os no ecrã. 
 
 **SEMANTIC ANALYSIS:** A análise semântica foi implementada na totalidade: assigns, condições e functions calls.
 
 **INTERMEDIATE REPRESENTATIONS (IRs):** Não se adequa à nossa implemetação
 
-**CODE GENERATION:** O nosso programa gera código corretamente quase para todas as situações. É possível apenas verificar alguns problemas quando se misturam condições IF dentro de ciclos WHILE
+**CODE GENERATION:** O nosso programa gera código corretamente para várias situações. É possível verificar alguns problemas quando se misturam condições IF dentro de ciclos WHILE, bastando para corrigir mudar o nome das labels de um deles para um diferente de "loop" visto que ambos usam esta label.Há tambem alguns erros com a stack,havendo casos em que se tenta fazer pop quando esta já está vazia,havendo assim erros.
 
 **OVERVIEW:** Foi usado JUnit para implementar os testes unitários. Também usamos um artigo de standford como guia para implementar a nossa tabela de símbolos: https://theory.stanford.edu/~aiken/software/cooldist/src/PA5J/SymbolTable.java
 
@@ -51,13 +51,11 @@ SYNTACTIC ERRORS -  Daniel, José, Pedro, Nuno
 
 SEMANTIC ANALYSIS - José, Daniel
 
-INTERMEDIATE REPRESENTATIONS - José
-
 SYMBOL TABLE  -José
 
 CODE GENERATION - Pedro
 
 **PROS:** A nossa aplicação lida com todos os erros semânticos e sintáticos, apresentando sempre a tabela de símbolos
 
-**CONS:** Na geração de código, quando se misturam IFs e WHILEs o resultado é diferente do esperado
+**CONS:** Na geração de código, quando se misturam IFs e WHILEs o resultado é diferente do esperado e por vezes há erros na stack.
 
